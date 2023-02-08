@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.ChatMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.Chat">
+            <id property="chat_id" column="chat_id" jdbcType="INTEGER"/>
+            <result property="sender_user_id" column="sender_user_id" jdbcType="INTEGER"/>
+            <result property="receiver_user_id" column="receiver_user_id" jdbcType="INTEGER"/>
+            <result property="message" column="message" jdbcType="VARCHAR"/>
+            <result property="send_time" column="send_time" jdbcType="TIMESTAMP"/>
+            <result property="receive_status" column="receive_status" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        chat_id,sender_user_id,receiver_user_id,
+        message,send_time,receive_status
+    </sql>
+</mapper>

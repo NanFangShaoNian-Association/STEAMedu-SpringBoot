@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.CourseDetailMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.CourseDetail">
+            <id property="course_detail_id" column="course_detail_id" jdbcType="INTEGER"/>
+            <result property="course_id" column="course_id" jdbcType="INTEGER"/>
+            <result property="picture" column="picture" jdbcType="VARCHAR"/>
+            <result property="display_order" column="display_order" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        course_detail_id,course_id,picture,
+        display_order
+    </sql>
+</mapper>

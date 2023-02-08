@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.ChooseMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.Choose">
+            <id property="choose_id" column="choose_id" jdbcType="INTEGER"/>
+            <result property="choose_number" column="choose_number" jdbcType="INTEGER"/>
+            <result property="user_id" column="user_id" jdbcType="INTEGER"/>
+            <result property="course_id" column="course_id" jdbcType="INTEGER"/>
+            <result property="pay_time" column="pay_time" jdbcType="TIMESTAMP"/>
+            <result property="choose_comit_time" column="choose_comit_time" jdbcType="TIMESTAMP"/>
+            <result property="pay_money" column="pay_money" jdbcType="INTEGER"/>
+            <result property="pay_way" column="pay_way" jdbcType="TINYINT"/>
+            <result property="choose_handle_status" column="choose_handle_status" jdbcType="TINYINT"/>
+            <result property="pay_status" column="pay_status" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        choose_id,choose_number,user_id,
+        course_id,pay_time,choose_comit_time,
+        pay_money,pay_way,choose_handle_status,
+        pay_status
+    </sql>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.AboutMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.About">
+            <id property="about_id" column="about_id" jdbcType="INTEGER"/>
+            <result property="LOGO_path" column="LOGO_path" jdbcType="VARCHAR"/>
+            <result property="software_name" column="software_name" jdbcType="VARCHAR"/>
+            <result property="version" column="version" jdbcType="INTEGER"/>
+            <result property="development_team" column="development_team" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        about_id,LOGO_path,software_name,
+        version,development_team
+    </sql>
+</mapper>

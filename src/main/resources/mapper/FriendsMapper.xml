@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.FriendsMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.Friends">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="friend_user_id" column="friend_user_id" jdbcType="INTEGER"/>
+            <result property="self_user_id" column="self_user_id" jdbcType="INTEGER"/>
+            <result property="remark_name" column="remark_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,friend_user_id,self_user_id,
+        remark_name
+    </sql>
+</mapper>

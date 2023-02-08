@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.ExaminationSubjectMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.ExaminationSubject">
+            <id property="examination_subject_id" column="examination_subject_id" jdbcType="INTEGER"/>
+            <result property="subject_id" column="subject_id" jdbcType="INTEGER"/>
+            <result property="examination_grade" column="examination_grade" jdbcType="INTEGER"/>
+            <result property="task_subject_id" column="task_subject_id" jdbcType="INTEGER"/>
+            <result property="task_id" column="task_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        examination_subject_id,subject_id,examination_grade,
+        task_subject_id,task_id
+    </sql>
+</mapper>

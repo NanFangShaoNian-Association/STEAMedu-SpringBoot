@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.CourseHourMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.CourseHour">
+            <id property="course_hour_id" column="course_hour_id" jdbcType="INTEGER"/>
+            <result property="course_id" column="course_id" jdbcType="INTEGER"/>
+            <result property="course_start_time" column="course_start_time" jdbcType="TIMESTAMP"/>
+            <result property="course_name" column="course_name" jdbcType="VARCHAR"/>
+            <result property="course_room" column="course_room" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        course_hour_id,course_id,course_start_time,
+        course_name,course_room
+    </sql>
+</mapper>

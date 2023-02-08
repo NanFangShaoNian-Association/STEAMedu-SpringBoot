@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.ReportMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.Report">
+            <id property="report_id" column="report_id" jdbcType="INTEGER"/>
+            <result property="user_report_id" column="user_report_id" jdbcType="INTEGER"/>
+            <result property="user_reported_id" column="user_reported_id" jdbcType="INTEGER"/>
+            <result property="report_reason" column="report_reason" jdbcType="VARCHAR"/>
+            <result property="report_status" column="report_status" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        report_id,user_report_id,user_reported_id,
+        report_reason,report_status
+    </sql>
+</mapper>

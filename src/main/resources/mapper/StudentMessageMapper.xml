@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.StudentMessageMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.StudentMessage">
+            <id property="student_message_id" column="student_message_id" jdbcType="INTEGER"/>
+            <result property="user_id" column="user_id" jdbcType="INTEGER"/>
+            <result property="student_message_name" column="student_message_name" jdbcType="VARCHAR"/>
+            <result property="student_sex" column="student_sex" jdbcType="VARCHAR"/>
+            <result property="school" column="school" jdbcType="VARCHAR"/>
+            <result property="phone_number" column="phone_number" jdbcType="CHAR"/>
+            <result property="student_photo" column="student_photo" jdbcType="VARCHAR"/>
+            <result property="grade" column="grade" jdbcType="INTEGER"/>
+            <result property="student_message_status" column="student_message_status" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        student_message_id,user_id,student_message_name,
+        student_sex,school,phone_number,
+        student_photo,grade,student_message_status
+    </sql>
+</mapper>

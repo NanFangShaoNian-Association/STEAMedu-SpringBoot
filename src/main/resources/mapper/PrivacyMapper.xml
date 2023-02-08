@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.PrivacyMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.Privacy">
+            <id property="privacy_id" column="privacy_id" jdbcType="INTEGER"/>
+            <result property="user_id" column="user_id" jdbcType="INTEGER"/>
+            <result property="real_name" column="real_name" jdbcType="VARCHAR"/>
+            <result property="id_number" column="id_number" jdbcType="VARCHAR"/>
+            <result property="sex" column="sex" jdbcType="TINYINT"/>
+            <result property="birthday" column="birthday" jdbcType="TIMESTAMP"/>
+            <result property="personal_province" column="personal_province" jdbcType="VARCHAR"/>
+            <result property="personal_profile" column="personal_profile" jdbcType="VARCHAR"/>
+            <result property="personal_city" column="personal_city" jdbcType="VARCHAR"/>
+            <result property="personal_region" column="personal_region" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        privacy_id,user_id,real_name,
+        id_number,sex,birthday,
+        personal_province,personal_profile,personal_city,
+        personal_region
+    </sql>
+</mapper>

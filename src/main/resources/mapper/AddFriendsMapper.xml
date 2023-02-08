@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.AddFriendsMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.AddFriends">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="request_user_id" column="request_user_id" jdbcType="INTEGER"/>
+            <result property="requested_user_id" column="requested_user_id" jdbcType="INTEGER"/>
+            <result property="addfriends_reason" column="addfriends_reason" jdbcType="VARCHAR"/>
+            <result property="name_remark" column="name_remark" jdbcType="VARCHAR"/>
+            <result property="addfriends_status" column="addfriends_status" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,request_user_id,requested_user_id,
+        addfriends_reason,name_remark,addfriends_status
+    </sql>
+</mapper>

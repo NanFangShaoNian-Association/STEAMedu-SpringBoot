@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.User">
+            <id property="user_id" column="user_id" jdbcType="INTEGER"/>
+            <result property="user_name" column="user_name" jdbcType="VARCHAR"/>
+            <result property="user_role" column="user_role" jdbcType="TINYINT"/>
+            <result property="user_avatar" column="user_avatar" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="phone_number" column="phone_number" jdbcType="CHAR"/>
+            <result property="wx_openID" column="wx_openID" jdbcType="VARCHAR"/>
+            <result property="user_location_region" column="user_location_region" jdbcType="VARCHAR"/>
+            <result property="user_location_city" column="user_location_city" jdbcType="VARCHAR"/>
+            <result property="user_location_province" column="user_location_province" jdbcType="VARCHAR"/>
+            <result property="qq_openID" column="qq_openID" jdbcType="VARCHAR"/>
+            <result property="login_last_time" column="login_last_time" jdbcType="TIMESTAMP"/>
+            <result property="off_line_last_time" column="off_line_last_time" jdbcType="TIMESTAMP"/>
+            <result property="login_last_time_ip" column="login_last_time_ip" jdbcType="VARCHAR"/>
+            <result property="user_regist_time" column="user_regist_time" jdbcType="TIMESTAMP"/>
+            <result property="user_status" column="user_status" jdbcType="TINYINT"/>
+            <result property="wx_unionid" column="wx_unionid" jdbcType="VARCHAR"/>
+            <result property="QQ_unionid" column="QQ_unionid" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id,user_name,user_role,
+        user_avatar,email,phone_number,
+        wx_openID,user_location_region,user_location_city,
+        user_location_province,qq_openID,login_last_time,
+        off_line_last_time,login_last_time_ip,user_regist_time,
+        user_status,wx_unionid,QQ_unionid
+    </sql>
+</mapper>

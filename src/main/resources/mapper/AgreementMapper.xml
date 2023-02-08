@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.AgreementMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.Agreement">
+            <id property="agreement_id" column="agreement_id" jdbcType="INTEGER"/>
+            <result property="agreement_name" column="agreement_name" jdbcType="VARCHAR"/>
+            <result property="agreement_content" column="agreement_content" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        agreement_id,agreement_name,agreement_content
+    </sql>
+</mapper>

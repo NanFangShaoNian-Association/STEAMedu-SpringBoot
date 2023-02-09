@@ -16,34 +16,34 @@ import lombok.Data;
 @Data
 public class CourseHour implements Serializable {
     /**
-     * 课时ID
+     * 课时ID-主键
      */
-    @TableId(value = "course_hour_id", type = IdType.AUTO)
-    private Integer course_hour_id;
+    @TableId(value = "course_hour_id")
+    private Integer courseHourId;
 
     /**
      * 课程ID-课程外键
      */
     @TableField(value = "course_id")
-    private Integer course_id;
+    private Integer courseId;
 
     /**
      * 上课时间-开始时间
      */
     @TableField(value = "course_start_time")
-    private Date course_start_time;
+    private Date courseStartTime;
 
     /**
-     * 课程名
+     * 课时名-其实也是课时的内容
      */
     @TableField(value = "course_name")
-    private String course_name;
+    private String courseName;
 
     /**
-     * 教室号
+     * 上课地点-考虑机构可能存在多个校区，学生要求调换校区上课的情况，默认是课程的上课地点
      */
     @TableField(value = "course_room")
-    private String course_room;
+    private String courseRoom;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

@@ -5,10 +5,10 @@
 <mapper namespace="com.nfsn.mapper.CourseDetailMapper">
 
     <resultMap id="BaseResultMap" type="com.nfsn.model.entity.CourseDetail">
-            <id property="course_detail_id" column="course_detail_id" jdbcType="INTEGER"/>
-            <result property="course_id" column="course_id" jdbcType="INTEGER"/>
+            <id property="courseDetailId" column="course_detail_id" jdbcType="INTEGER"/>
+            <result property="courseId" column="course_id" jdbcType="INTEGER"/>
             <result property="picture" column="picture" jdbcType="VARCHAR"/>
-            <result property="display_order" column="display_order" jdbcType="INTEGER"/>
+            <result property="displayOrder" column="display_order" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">

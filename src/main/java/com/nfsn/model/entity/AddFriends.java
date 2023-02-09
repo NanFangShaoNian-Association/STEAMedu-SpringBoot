@@ -15,40 +15,34 @@ import lombok.Data;
 @Data
 public class AddFriends implements Serializable {
     /**
-     * 好友添加ID
+     * 请求增添的用户ID-主键;用户外键
      */
-    @TableId(value = "id")
-    private Integer id;
+    @TableId(value = "request_user_id")
+    private Integer requestUserId;
 
     /**
-     * 申请人ID-用户外键
-     */
-    @TableField(value = "request_user_id")
-    private Integer request_user_id;
-
-    /**
-     * 对方ID-用户外键
+     * 被请求的用户ID-主键;用户外键
      */
     @TableField(value = "requested_user_id")
-    private Integer requested_user_id;
+    private Integer requestedUserId;
 
     /**
      * 申请理由
      */
     @TableField(value = "addfriends_reason")
-    private String addfriends_reason;
+    private String addfriendsReason;
 
     /**
      * 名称备注
      */
-    @TableField(value = "name_remark")
-    private String name_remark;
+    @TableField(value = "remark_name")
+    private String remarkName;
 
     /**
-     * 好友添加状态码-0:非好友状态;1:好友状态;(默认为0)
+     * 添加状态码-0:未处理;1:已增添为好友;(默认为0)
      */
     @TableField(value = "addfriends_status")
-    private Integer addfriends_status;
+    private Integer addfriendsStatus;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

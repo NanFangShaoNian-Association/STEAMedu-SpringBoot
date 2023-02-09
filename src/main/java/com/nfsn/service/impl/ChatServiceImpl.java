@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
 * @author Tuanzi
 * @description 针对表【chat】的数据库操作Service实现
-* @createDate 2023-02-07 14:24:32
+* @createDate 2023-02-09 16:30:52
 */
 @Service
 public class ChatServiceImpl extends ServiceImpl<ChatMapper, Chat>

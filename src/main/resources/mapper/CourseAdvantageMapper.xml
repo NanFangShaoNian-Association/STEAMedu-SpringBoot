@@ -5,12 +5,11 @@
 <mapper namespace="com.nfsn.mapper.CourseAdvantageMapper">
 
     <resultMap id="BaseResultMap" type="com.nfsn.model.entity.CourseAdvantage">
-            <id property="course_advantage_id" column="course_advantage_id" jdbcType="INTEGER"/>
-            <result property="course_advantage" column="course_advantage" jdbcType="VARCHAR"/>
-            <result property="course_advantage_introduction" column="course_advantage_introduction" jdbcType="VARCHAR"/>
+            <id property="courseAdvantageId" column="course_advantage_id" jdbcType="INTEGER"/>
+            <result property="courseId" column="course_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        course_advantage_id,course_advantage,course_advantage_introduction
+        course_advantage_id,course_id
     </sql>
 </mapper>

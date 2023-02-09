@@ -15,28 +15,22 @@ import lombok.Data;
 @Data
 public class Friends implements Serializable {
     /**
-     * 好友表ID
+     * 朋友ID-主键;用户外键
      */
-    @TableId(value = "id")
-    private Integer id;
+    @TableId(value = "friend_user_id")
+    private Integer friendUserId;
 
     /**
-     * 朋友ID-用户外键
-     */
-    @TableField(value = "friend_user_id")
-    private Integer friend_user_id;
-
-    /**
-     * 自己的ID-用户外键
+     * 自己的ID-主键;用户外键
      */
     @TableField(value = "self_user_id")
-    private Integer self_user_id;
+    private Integer selfUserId;
 
     /**
-     * 备注昵称
+     * 备注昵称-用户名
      */
     @TableField(value = "remark_name")
-    private String remark_name;
+    private String remarkName;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

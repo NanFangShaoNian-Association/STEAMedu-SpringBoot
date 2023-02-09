@@ -15,22 +15,16 @@ import lombok.Data;
 @Data
 public class CourseAdvantage implements Serializable {
     /**
-     * 课程优势ID-主键
+     * 课程优势ID-主键;课程外键
      */
-    @TableId(value = "course_advantage_id", type = IdType.AUTO)
-    private Integer course_advantage_id;
+    @TableId(value = "course_advantage_id")
+    private Integer courseAdvantageId;
 
     /**
-     * 优势
+     * 课程ID-主键;课程外键
      */
-    @TableField(value = "course_advantage")
-    private String course_advantage;
-
-    /**
-     * 优势简介
-     */
-    @TableField(value = "course_advantage_introduction")
-    private String course_advantage_introduction;
+    @TableField(value = "course_id")
+    private Integer courseId;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.SignMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.Sign">
+            <id property="signId" column="sign_id" jdbcType="INTEGER"/>
+            <result property="signSender" column="sign_sender" jdbcType="INTEGER"/>
+            <result property="courseId" column="course_id" jdbcType="INTEGER"/>
+            <result property="signFinallTime" column="sign_finall_time" jdbcType="TIMESTAMP"/>
+            <result property="signInfomation" column="sign_infomation" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        sign_id,sign_sender,course_id,
+        sign_finall_time,sign_infomation
+    </sql>
+</mapper>

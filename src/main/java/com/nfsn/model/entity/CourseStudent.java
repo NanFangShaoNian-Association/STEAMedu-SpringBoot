@@ -17,20 +17,20 @@ public class CourseStudent implements Serializable {
     /**
      * 课程学生ID-主键
      */
-    @TableId(value = "course_student_id", type = IdType.AUTO)
-    private Integer course_student_id;
+    @TableId(value = "course_student_id")
+    private Integer courseStudentId;
 
     /**
      * 学生信息ID-学生信息外键
      */
     @TableField(value = "student_message_id")
-    private Integer student_message_id;
+    private Integer studentMessageId;
 
     /**
      * 课程ID-课程外键
      */
     @TableField(value = "course_id")
-    private Integer course_id;
+    private Integer courseId;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

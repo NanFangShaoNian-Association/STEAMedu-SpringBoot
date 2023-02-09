@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.CouponMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.Coupon">
+            <id property="couponId" column="coupon_id" jdbcType="INTEGER"/>
+            <result property="couponCode" column="coupon_code" jdbcType="VARCHAR"/>
+            <result property="value" column="value" jdbcType="INTEGER"/>
+            <result property="startDate" column="start_date" jdbcType="TIMESTAMP"/>
+            <result property="endDate" column="end_date" jdbcType="TIMESTAMP"/>
+            <result property="minOrderAmount" column="min_order_amount" jdbcType="INTEGER"/>
+            <result property="designatedCourseId" column="designated_course_id" jdbcType="INTEGER"/>
+            <result property="issuerUserId" column="issuer_user_id" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        coupon_id,coupon_code,value,
+        start_date,end_date,min_order_amount,
+        designated_course_id,issuer_user_id,status
+    </sql>
+</mapper>

@@ -5,11 +5,11 @@
 <mapper namespace="com.nfsn.mapper.ReportMapper">
 
     <resultMap id="BaseResultMap" type="com.nfsn.model.entity.Report">
-            <id property="report_id" column="report_id" jdbcType="INTEGER"/>
-            <result property="user_report_id" column="user_report_id" jdbcType="INTEGER"/>
-            <result property="user_reported_id" column="user_reported_id" jdbcType="INTEGER"/>
-            <result property="report_reason" column="report_reason" jdbcType="VARCHAR"/>
-            <result property="report_status" column="report_status" jdbcType="TINYINT"/>
+            <id property="reportId" column="report_id" jdbcType="INTEGER"/>
+            <result property="userReportId" column="user_report_id" jdbcType="INTEGER"/>
+            <result property="userReportedId" column="user_reported_id" jdbcType="INTEGER"/>
+            <result property="reportReason" column="report_reason" jdbcType="VARCHAR"/>
+            <result property="reportStatus" column="report_status" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">

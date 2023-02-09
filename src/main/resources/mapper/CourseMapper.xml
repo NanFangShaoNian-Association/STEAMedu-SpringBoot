@@ -5,30 +5,32 @@
 <mapper namespace="com.nfsn.mapper.CourseMapper">
 
     <resultMap id="BaseResultMap" type="com.nfsn.model.entity.Course">
-            <id property="course_id" column="course_id" jdbcType="INTEGER"/>
-            <result property="course_cover" column="course_cover" jdbcType="VARCHAR"/>
-            <result property="course_distributor" column="course_distributor" jdbcType="INTEGER"/>
-            <result property="course_name" column="course_name" jdbcType="VARCHAR"/>
-            <result property="course_price" column="course_price" jdbcType="INTEGER"/>
-            <result property="course_type" column="course_type" jdbcType="TINYINT"/>
-            <result property="course_position" column="course_position" jdbcType="VARCHAR"/>
-            <result property="course_start_time" column="course_start_time" jdbcType="VARCHAR"/>
-            <result property="course_duration" column="course_duration" jdbcType="INTEGER"/>
-            <result property="course_enrolment" column="course_enrolment" jdbcType="INTEGER"/>
-            <result property="course_section_number" column="course_section_number" jdbcType="INTEGER"/>
-            <result property="course_limited_purchase_volume" column="course_limited_purchase_volume" jdbcType="INTEGER"/>
-            <result property="entering_time" column="entering_time" jdbcType="TIMESTAMP"/>
-            <result property="course_text_introduction" column="course_text_introduction" jdbcType="VARCHAR"/>
-            <result property="course_delete_status" column="course_delete_status" jdbcType="TINYINT"/>
-            <result property="course_final_status" column="course_final_status" jdbcType="TINYINT"/>
+            <id property="courseId" column="course_id" jdbcType="INTEGER"/>
+            <result property="courseCover" column="course_cover" jdbcType="VARCHAR"/>
+            <result property="courseDistributor" column="course_distributor" jdbcType="INTEGER"/>
+            <result property="courseName" column="course_name" jdbcType="VARCHAR"/>
+            <result property="coursePrice" column="course_price" jdbcType="INTEGER"/>
+            <result property="courseType" column="course_type" jdbcType="TINYINT"/>
+            <result property="coursePosition" column="course_position" jdbcType="VARCHAR"/>
+            <result property="longitude" column="longitude" jdbcType="DOUBLE"/>
+            <result property="latitude" column="latitude" jdbcType="DOUBLE"/>
+            <result property="courseStartTime" column="course_start_time" jdbcType="VARCHAR"/>
+            <result property="courseDuration" column="course_duration" jdbcType="INTEGER"/>
+            <result property="courseEnrolment" column="course_enrolment" jdbcType="INTEGER"/>
+            <result property="courseSectionNumber" column="course_section_number" jdbcType="INTEGER"/>
+            <result property="courseLimitedPurchaseVolume" column="course_limited_purchase_volume" jdbcType="INTEGER"/>
+            <result property="enteringTime" column="entering_time" jdbcType="TIMESTAMP"/>
+            <result property="courseTextIntroduction" column="course_text_introduction" jdbcType="VARCHAR"/>
+            <result property="courseDeleteStatus" column="course_delete_status" jdbcType="TINYINT"/>
+            <result property="courseFinalStatus" column="course_final_status" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         course_id,course_cover,course_distributor,
         course_name,course_price,course_type,
-        course_position,course_start_time,course_duration,
-        course_enrolment,course_section_number,course_limited_purchase_volume,
-        entering_time,course_text_introduction,course_delete_status,
-        course_final_status
+        course_position,longitude,latitude,
+        course_start_time,course_duration,course_enrolment,
+        course_section_number,course_limited_purchase_volume,entering_time,
+        course_text_introduction,course_delete_status,course_final_status
     </sql>
 </mapper>

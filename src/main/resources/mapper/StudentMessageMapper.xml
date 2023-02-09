@@ -5,20 +5,22 @@
 <mapper namespace="com.nfsn.mapper.StudentMessageMapper">
 
     <resultMap id="BaseResultMap" type="com.nfsn.model.entity.StudentMessage">
-            <id property="student_message_id" column="student_message_id" jdbcType="INTEGER"/>
-            <result property="user_id" column="user_id" jdbcType="INTEGER"/>
-            <result property="student_message_name" column="student_message_name" jdbcType="VARCHAR"/>
-            <result property="student_sex" column="student_sex" jdbcType="VARCHAR"/>
+            <id property="studentMessageId" column="student_message_id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="studentMessageName" column="student_message_name" jdbcType="VARCHAR"/>
+            <result property="studentSex" column="student_sex" jdbcType="VARCHAR"/>
             <result property="school" column="school" jdbcType="VARCHAR"/>
-            <result property="phone_number" column="phone_number" jdbcType="CHAR"/>
-            <result property="student_photo" column="student_photo" jdbcType="VARCHAR"/>
+            <result property="birthday" column="birthday" jdbcType="TIMESTAMP"/>
+            <result property="phoneNumber" column="phone_number" jdbcType="CHAR"/>
+            <result property="studentPhoto" column="student_photo" jdbcType="VARCHAR"/>
             <result property="grade" column="grade" jdbcType="INTEGER"/>
-            <result property="student_message_status" column="student_message_status" jdbcType="TINYINT"/>
+            <result property="studentMessageStatus" column="student_message_status" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         student_message_id,user_id,student_message_name,
-        student_sex,school,phone_number,
-        student_photo,grade,student_message_status
+        student_sex,school,birthday,
+        phone_number,student_photo,grade,
+        student_message_status
     </sql>
 </mapper>

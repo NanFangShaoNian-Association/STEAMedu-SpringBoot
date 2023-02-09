@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.CourseRatingMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.CourseRating">
+            <id property="courseRatingId" column="course_rating_id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="courseId" column="course_id" jdbcType="INTEGER"/>
+            <result property="rating" column="rating" jdbcType="INTEGER"/>
+            <result property="comment" column="comment" jdbcType="VARCHAR"/>
+            <result property="commentTime" column="comment_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        course_rating_id,user_id,course_id,
+        rating,comment,comment_time
+    </sql>
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.SlideshowMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.Slideshow">
+            <id property="slideshowId" column="slideshow_id" jdbcType="INTEGER"/>
+            <result property="slideshowPicture" column="slideshow_picture" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        slideshow_id,slideshow_picture
+    </sql>
+</mapper>

@@ -18,20 +18,20 @@ public class Chat implements Serializable {
     /**
      * 聊天记录ID-主键
      */
-    @TableId(value = "chat_id", type = IdType.AUTO)
-    private Integer chat_id;
+    @TableId(value = "chat_id")
+    private Integer chatId;
 
     /**
-     * 发送者ID-用户外键
+     * 发送者ID-外键
      */
     @TableField(value = "sender_user_id")
-    private Integer sender_user_id;
+    private Integer senderUserId;
 
     /**
-     * 接受者ID-用户外键
+     * 接受者ID-外键
      */
     @TableField(value = "receiver_user_id")
-    private Integer receiver_user_id;
+    private Integer receiverUserId;
 
     /**
      * 消息内容
@@ -43,13 +43,13 @@ public class Chat implements Serializable {
      * 发送时间
      */
     @TableField(value = "send_time")
-    private Date send_time;
+    private Date sendTime;
 
     /**
-     * 接受状态
+     * 接受状态-0为未接收，1为已接收
      */
     @TableField(value = "receive_status")
-    private Integer receive_status;
+    private Integer receiveStatus;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

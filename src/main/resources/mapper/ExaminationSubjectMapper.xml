@@ -5,15 +5,14 @@
 <mapper namespace="com.nfsn.mapper.ExaminationSubjectMapper">
 
     <resultMap id="BaseResultMap" type="com.nfsn.model.entity.ExaminationSubject">
-            <id property="examination_subject_id" column="examination_subject_id" jdbcType="INTEGER"/>
-            <result property="subject_id" column="subject_id" jdbcType="INTEGER"/>
-            <result property="examination_grade" column="examination_grade" jdbcType="INTEGER"/>
-            <result property="task_subject_id" column="task_subject_id" jdbcType="INTEGER"/>
-            <result property="task_id" column="task_id" jdbcType="INTEGER"/>
+            <id property="examinationSubjectId" column="examination_subject_id" jdbcType="INTEGER"/>
+            <result property="subjectId" column="subject_id" jdbcType="INTEGER"/>
+            <result property="examinationGrade" column="examination_grade" jdbcType="INTEGER"/>
+            <result property="examinationSubjectNumber" column="examination_subject_number" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         examination_subject_id,subject_id,examination_grade,
-        task_subject_id,task_id
+        examination_subject_number
     </sql>
 </mapper>

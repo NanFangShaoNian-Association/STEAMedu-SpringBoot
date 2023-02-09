@@ -5,9 +5,9 @@
 <mapper namespace="com.nfsn.mapper.CourseStudentMapper">
 
     <resultMap id="BaseResultMap" type="com.nfsn.model.entity.CourseStudent">
-            <id property="course_student_id" column="course_student_id" jdbcType="INTEGER"/>
-            <result property="student_message_id" column="student_message_id" jdbcType="INTEGER"/>
-            <result property="course_id" column="course_id" jdbcType="INTEGER"/>
+            <id property="courseStudentId" column="course_student_id" jdbcType="INTEGER"/>
+            <result property="studentMessageId" column="student_message_id" jdbcType="INTEGER"/>
+            <result property="courseId" column="course_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">

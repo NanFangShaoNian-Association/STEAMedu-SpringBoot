@@ -5,11 +5,11 @@
 <mapper namespace="com.nfsn.mapper.CourseHourMapper">
 
     <resultMap id="BaseResultMap" type="com.nfsn.model.entity.CourseHour">
-            <id property="course_hour_id" column="course_hour_id" jdbcType="INTEGER"/>
-            <result property="course_id" column="course_id" jdbcType="INTEGER"/>
-            <result property="course_start_time" column="course_start_time" jdbcType="TIMESTAMP"/>
-            <result property="course_name" column="course_name" jdbcType="VARCHAR"/>
-            <result property="course_room" column="course_room" jdbcType="VARCHAR"/>
+            <id property="courseHourId" column="course_hour_id" jdbcType="INTEGER"/>
+            <result property="courseId" column="course_id" jdbcType="INTEGER"/>
+            <result property="courseStartTime" column="course_start_time" jdbcType="TIMESTAMP"/>
+            <result property="courseName" column="course_name" jdbcType="VARCHAR"/>
+            <result property="courseRoom" column="course_room" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">

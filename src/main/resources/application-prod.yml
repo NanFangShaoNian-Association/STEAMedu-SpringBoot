@@ -25,8 +25,8 @@ alipay:
   appId: 2021000121637995 #需要自己的appID
   privateKey: xxxx #支付的私钥
   publicKey: xxx #支付的私钥
-  notifyUrl: http://localhost:10001
-  returnUrl: http://localhost:10001/alipay
+  notifyUrl: http://localhost:8090
+  returnUrl: http://localhost:8090/alipay
   signType: RSA2
   charset: utf-8
   gatewayUrl: https://openapi.alipaydev.com/gateway.do #此处使用的是沙箱环境的支付宝网关

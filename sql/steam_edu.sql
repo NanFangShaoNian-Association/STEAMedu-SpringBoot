@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 本机MySQL
+ Source Server         : AtnibamAitay
  Source Server Type    : MySQL
  Source Server Version : 80023
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 10/02/2023 17:48:17
+ Date: 12/02/2023 00:22:56
 */
 
 SET NAMES utf8mb4;
@@ -31,6 +31,10 @@ CREATE TABLE `add_friends`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of add_friends
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for advantage
 -- ----------------------------
 DROP TABLE IF EXISTS `advantage`;
@@ -42,6 +46,16 @@ CREATE TABLE `advantage`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of advantage
+-- ----------------------------
+INSERT INTO `advantage` VALUES (1, '专业知识', '课程包含了业内最前沿的专业知识');
+INSERT INTO `advantage` VALUES (2, '实际操作', '课程通过大量实际操作来提高学生实际操作能力');
+INSERT INTO `advantage` VALUES (3, '行业认证', '课程内容符合行业认证标准，有助于学生通过行业认证考试');
+INSERT INTO `advantage` VALUES (4, '实战案例', '课程通过实际案例来提高学生的实际应用能力');
+INSERT INTO `advantage` VALUES (5, '行业专家', '课程由行业专家授课，保证教学质量');
+INSERT INTO `advantage` VALUES (6, '技能提升', '课程可以帮助学生提高实际技能，提高就业竞争力');
+
+-- ----------------------------
 -- Table structure for cart
 -- ----------------------------
 DROP TABLE IF EXISTS `cart`;
@@ -51,6 +65,10 @@ CREATE TABLE `cart`  (
   `course_id` int(0) NOT NULL COMMENT '课程id-课程外键',
   PRIMARY KEY (`cart_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cart
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for chat
@@ -65,6 +83,10 @@ CREATE TABLE `chat`  (
   `receive_status` tinyint(0) NOT NULL DEFAULT 0 COMMENT '接受状态-0为未接收，1为已接收',
   PRIMARY KEY (`chat_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of chat
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for choose
@@ -86,6 +108,10 @@ CREATE TABLE `choose`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of choose
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for coupon
 -- ----------------------------
 DROP TABLE IF EXISTS `coupon`;
@@ -101,6 +127,10 @@ CREATE TABLE `coupon`  (
   `status` tinyint(0) NOT NULL DEFAULT 0 COMMENT '优惠券状态-0为存在，1为不存在',
   PRIMARY KEY (`coupon_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of coupon
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for course
@@ -129,6 +159,15 @@ CREATE TABLE `course`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of course
+-- ----------------------------
+INSERT INTO `course` VALUES (1, 'course_cover_1.jpg', 1, '课程1', 100, 0, '北京市海淀区', 116.397128, 39.916527, '2023-03-01 10:00:00', 120, 50, 10, 100, '2022-12-01 12:00:00', '这是一门很好的课程', 0, 0);
+INSERT INTO `course` VALUES (2, 'course_cover_2.jpg', 1, '课程2', 150, 0, '上海市黄浦区', 121.487899, 31.219203, '2023-03-05 10:00:00', 120, 60, 10, 50, '2022-12-02 12:00:00', '这是一门很热门的课程', 0, 0);
+INSERT INTO `course` VALUES (3, 'course_cover_3.jpg', 1, '课程3', 200, 1, '广州市越秀区', 113.264435, 23.129112, '2023-03-10 10:00:00', 120, 70, 10, 50, '2022-12-03 12:00:00', '', 0, 0);
+INSERT INTO `course` VALUES (4, 'course_cover_4.jpg', 1, '课程4', 250, 1, '深圳市南山区', 113.92943, 22.495101, '2023-03-15 10:00:00', 120, 80, 10, 50, '2022-12-04 12:00:00', '', 0, 0);
+INSERT INTO `course` VALUES (5, 'course_cover_5.jpg', 1, '课程5', 300, 0, '天津市河西区', 117.223372, 39.109563, '2023-03-20 10:00:00', 120, 90, 10, 50, '2022-12-05 12:00:00', '这是一门很难的课程', 0, 0);
+
+-- ----------------------------
 -- Table structure for course_advantage
 -- ----------------------------
 DROP TABLE IF EXISTS `course_advantage`;
@@ -137,6 +176,13 @@ CREATE TABLE `course_advantage`  (
   `course_id` int(0) NOT NULL COMMENT '课程ID-主键;课程外键',
   PRIMARY KEY (`course_advantage_id`, `course_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of course_advantage
+-- ----------------------------
+INSERT INTO `course_advantage` VALUES (1, 1);
+INSERT INTO `course_advantage` VALUES (2, 1);
+INSERT INTO `course_advantage` VALUES (3, 3);
 
 -- ----------------------------
 -- Table structure for course_detail
@@ -151,6 +197,15 @@ CREATE TABLE `course_detail`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of course_detail
+-- ----------------------------
+INSERT INTO `course_detail` VALUES (1, 1, 'image_path_1', 1);
+INSERT INTO `course_detail` VALUES (2, 1, 'image_path_2', 2);
+INSERT INTO `course_detail` VALUES (3, 1, 'image_path_3', 3);
+INSERT INTO `course_detail` VALUES (4, 1, 'image_path_4', 4);
+INSERT INTO `course_detail` VALUES (5, 1, 'image_path_5', 5);
+
+-- ----------------------------
 -- Table structure for course_hour
 -- ----------------------------
 DROP TABLE IF EXISTS `course_hour`;
@@ -162,6 +217,10 @@ CREATE TABLE `course_hour`  (
   `course_room` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '上课地点-考虑机构可能存在多个校区，学生要求调换校区上课的情况，默认是课程的上课地点',
   PRIMARY KEY (`course_hour_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of course_hour
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for course_rating
@@ -178,6 +237,13 @@ CREATE TABLE `course_rating`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of course_rating
+-- ----------------------------
+INSERT INTO `course_rating` VALUES (1, 1, 1, 0, '课程很好，内容丰富，讲得非常清晰！', '2022-12-01 12:00:00');
+INSERT INTO `course_rating` VALUES (2, 2, 1, 1, '课程还行，内容简单易懂，但有些地方不够详细。', '2022-11-22 10:30:00');
+INSERT INTO `course_rating` VALUES (3, 3, 1, 2, '课程不好，内容太简单了，浪费了我的时间。', '2022-11-12 09:00:00');
+
+-- ----------------------------
 -- Table structure for course_student
 -- ----------------------------
 DROP TABLE IF EXISTS `course_student`;
@@ -189,6 +255,10 @@ CREATE TABLE `course_student`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of course_student
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for course_teacher_rel
 -- ----------------------------
 DROP TABLE IF EXISTS `course_teacher_rel`;
@@ -198,6 +268,12 @@ CREATE TABLE `course_teacher_rel`  (
   `teacher_role` int(0) NOT NULL COMMENT '老师在这门课中的角色-0表示授课老师，1表示助教',
   PRIMARY KEY (`course_id`, `teacher_user_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of course_teacher_rel
+-- ----------------------------
+INSERT INTO `course_teacher_rel` VALUES (1, 1, 1);
+INSERT INTO `course_teacher_rel` VALUES (1, 2, 0);
 
 -- ----------------------------
 -- Table structure for examination
@@ -214,6 +290,10 @@ CREATE TABLE `examination`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of examination
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for examination_subject
 -- ----------------------------
 DROP TABLE IF EXISTS `examination_subject`;
@@ -226,6 +306,10 @@ CREATE TABLE `examination_subject`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of examination_subject
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for friends
 -- ----------------------------
 DROP TABLE IF EXISTS `friends`;
@@ -235,6 +319,10 @@ CREATE TABLE `friends`  (
   `remark_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '备注昵称-用户名',
   PRIMARY KEY (`friend_user_id`, `self_user_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of friends
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for leave
@@ -249,6 +337,10 @@ CREATE TABLE `leave`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of leave
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for option
 -- ----------------------------
 DROP TABLE IF EXISTS `option`;
@@ -259,6 +351,10 @@ CREATE TABLE `option`  (
   `option` varchar(5) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '选项序号',
   PRIMARY KEY (`option_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of option
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for report
@@ -274,6 +370,10 @@ CREATE TABLE `report`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of report
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sign
 -- ----------------------------
 DROP TABLE IF EXISTS `sign`;
@@ -285,6 +385,10 @@ CREATE TABLE `sign`  (
   `sign_infomation` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '签到信息-定位签到存储精准定位±范围，二维码签到存储对应校验信息，手势签到和验证码签到存储对应字符即可',
   PRIMARY KEY (`sign_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sign
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sign_record
@@ -299,6 +403,10 @@ CREATE TABLE `sign_record`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of sign_record
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for slideshow
 -- ----------------------------
 DROP TABLE IF EXISTS `slideshow`;
@@ -307,6 +415,10 @@ CREATE TABLE `slideshow`  (
   `slideshow_picture` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '图片-存图片路径',
   PRIMARY KEY (`slideshow_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of slideshow
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for student_message
@@ -327,6 +439,10 @@ CREATE TABLE `student_message`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of student_message
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for subject
 -- ----------------------------
 DROP TABLE IF EXISTS `subject`;
@@ -338,6 +454,10 @@ CREATE TABLE `subject`  (
   `subject_analysis` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '题目解析',
   PRIMARY KEY (`subject_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of subject
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for submit_examination
@@ -352,6 +472,10 @@ CREATE TABLE `submit_examination`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of submit_examination
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for submit_task
 -- ----------------------------
 DROP TABLE IF EXISTS `submit_task`;
@@ -363,6 +487,10 @@ CREATE TABLE `submit_task`  (
   `submit_task_status` tinyint(0) NOT NULL COMMENT '作业提交状态',
   PRIMARY KEY (`submit_task_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of submit_task
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for task
@@ -379,6 +507,10 @@ CREATE TABLE `task`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of task
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for task_subject
 -- ----------------------------
 DROP TABLE IF EXISTS `task_subject`;
@@ -389,6 +521,10 @@ CREATE TABLE `task_subject`  (
   `task_subject_number` int(0) NOT NULL COMMENT '作业题目序号',
   PRIMARY KEY (`task_subject_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of task_subject
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for user
@@ -421,6 +557,14 @@ CREATE TABLE `user`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES (1, '用户1', 3, 'user_avatar_1.jpg', 'user1@example.com', '12345678901', '这是一个学生', '北京市', '海淀区', '中关村', 116.397128, 39.916527, 'wx_openID_1', 'qq_openID_1', '2022-05-10 10:00:00', '2022-05-11 10:00:00', '192.168.0.1', 'wx_unionid_1', 'QQ_unionid_1', '2022-05-10 10:00:00', 0);
+INSERT INTO `user` VALUES (2, '用户2', 2, 'user_avatar_2.jpg', 'user2@example.com', '12345678902', '这是一个老师', '北京市', '朝阳区', '望京', 116.481488, 39.990464, 'wx_openID_2', 'qq_openID_2', '2022-05-11 10:00:00', '2022-05-12 10:00:00', '192.168.0.2', 'wx_unionid_2', 'QQ_unionid_2', '2022-05-11 10:00:00', 0);
+INSERT INTO `user` VALUES (3, '用户3', 1, 'user_avatar_3.jpg', 'user3@example.com', '12345678903', '这是一个机构管理员', '上海市', '浦东新区', '世纪公园', 121.501606, 31.230416, 'wx_openID_3', 'qq_openID_3', '2022-05-12 10:00:00', '2022-05-13 10:00:00', '192.168.0.3', 'wx_unionid_3', 'QQ_unionid_3', '2022-05-12 10:00:00', 0);
+INSERT INTO `user` VALUES (1370230786, 'ns_bmsptmnhgxlsm', 0, 'https://upload-bbs.mihoyo.com/upload/2021/04/26/275717452/3101bce2626a6c808e975e7d4514958e_4697878850710672732.jpg', '', '13302435426', '您还没有简介，请添加简介！', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-02-11 19:50:46', NULL, '127.0.0.1', NULL, NULL, '2023-02-11 19:50:46', 0);
+
+-- ----------------------------
 -- Table structure for user_coupon
 -- ----------------------------
 DROP TABLE IF EXISTS `user_coupon`;
@@ -429,5 +573,9 @@ CREATE TABLE `user_coupon`  (
   `user_id` int(0) NOT NULL COMMENT '用户ID-外键',
   PRIMARY KEY (`coupon_id`, `user_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of user_coupon
+-- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;

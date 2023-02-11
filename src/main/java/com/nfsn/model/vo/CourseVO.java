@@ -1,5 +1,6 @@
 package com.nfsn.model.vo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -55,4 +56,10 @@ public class CourseVO {
      */
     @ApiModelProperty(value = "上课地点")
     private String coursePosition;
+
+    /**
+     * 开课机构ID-外键
+     */
+    @ApiModelProperty(value = "开课机构ID-外键")
+    private Integer courseDistributor;
 }

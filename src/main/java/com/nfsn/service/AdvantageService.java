@@ -1,9 +1,8 @@
 package com.nfsn.service;
 
-import com.nfsn.mapper.AdvantageMapper;
 import com.nfsn.model.entity.Advantage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.nfsn.model.vo.CourseAdvantageVO;
+import com.nfsn.model.vo.AdvantageVO;
 
 import java.util.List;
 
@@ -14,5 +13,5 @@ import java.util.List;
 * @createDate 2023-02-09 16:30:52
 */
 public interface AdvantageService extends IService<Advantage> {
-    List<CourseAdvantageVO> selectByCourseId(Integer courseId);
+    List<AdvantageVO> selectByCourseId(Integer courseId);
 }

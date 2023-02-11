@@ -10,5 +10,5 @@ import com.nfsn.model.vo.CourseVO;
 * @createDate 2023-02-09 16:30:52
 */
 public interface CourseService extends IService<Course> {
-    CourseVO getCourseByCourseId(Integer courseId);
+    CourseVO getCourseInfoById(Integer courseId);
 }

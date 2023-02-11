@@ -2,8 +2,7 @@ package com.nfsn.service;
 
 import com.nfsn.model.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.Date;
+import com.nfsn.model.vo.CourseInstitutionInfoVO;
 
 /**
 * @author Tuanzi
@@ -17,4 +16,6 @@ public interface UserService extends IService<User> {
      * @return 用户信息
      */
     User getUserByPhone(String phone,String ip);
+
+    CourseInstitutionInfoVO getInstitutionByUserId(Integer userId);
 }

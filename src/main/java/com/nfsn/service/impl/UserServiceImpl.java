@@ -3,11 +3,13 @@ package com.nfsn.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nfsn.model.entity.User;
+import com.nfsn.model.vo.CourseInstitutionInfoVO;
 import com.nfsn.service.UserService;
 import com.nfsn.mapper.UserMapper;
 import com.nfsn.utils.RandomUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
 
 /**
@@ -18,6 +20,10 @@ import java.util.Date;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService{
+
+    @Resource
+    private UserMapper userMapper;
+
     /**
      * 根据用户手机号查询用户
      * @param phone 手机号
@@ -67,6 +73,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     private String getDefaultIntroduction(){
         return "您还没有简介，请添加简介！";
+    }
+
+    @Override
+    public CourseInstitutionInfoVO getInstitutionByUserId(Integer userId) {
+        return userMapper.getInstitutionByUserId(userId);
     }
 }
 

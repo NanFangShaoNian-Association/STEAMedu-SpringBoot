@@ -2,6 +2,9 @@ package com.nfsn.service;
 
 import com.nfsn.model.entity.CourseTeacherRel;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.nfsn.model.vo.TeacherInfoVO;
+
+import java.util.List;
 
 /**
 * @author Tuanzi
@@ -9,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-02-09 16:30:53
 */
 public interface CourseTeacherRelService extends IService<CourseTeacherRel> {
-
+    List<TeacherInfoVO> selectTeacherInfoByCourseId(Integer courseId);
 }

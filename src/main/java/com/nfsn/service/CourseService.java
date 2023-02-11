@@ -2,6 +2,7 @@ package com.nfsn.service;
 
 import com.nfsn.model.entity.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.nfsn.model.vo.CourseVO;
 
 /**
 * @author Tuanzi
@@ -9,5 +10,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-02-09 16:30:52
 */
 public interface CourseService extends IService<Course> {
-
+    CourseVO getCourseByCourseId(Integer courseId);
 }

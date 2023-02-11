@@ -1,4 +1,4 @@
-package com.nfsn.model.dto;
+package com.nfsn.model.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
@@ -6,17 +6,16 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * @ClassName: AdvantageRequest
+ * @ClassName: AdvantageVO
  * @Author: atnibamaitay
  * @CreateTime: 2023-02-10 22:10
- * @Description: 课程评价传输实体
+ * @Description: 教师传输实体
  */
 @Data
-@ApiModel("课程评价传输实体")
-public class CourseRatingRequest implements Serializable {
+@ApiModel("教师传输实体")
+public class TeacherInfoVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -32,20 +31,8 @@ public class CourseRatingRequest implements Serializable {
     private String userName;
 
     /**
-     * 打分-0代表好评，1代表一般，2代表差评
+     * 老师在这门课中的角色-0表示授课老师，1表示助教
      */
-    @ApiModelProperty("打分-0代表好评，1代表一般，2代表差评")
-    private Integer rating;
-
-    /**
-     * 评价内容
-     */
-    @ApiModelProperty("评价内容")
-    private String comment;
-
-    /**
-     * 评论时间
-     */
-    @ApiModelProperty("评论时间")
-    private Date commentTime;
+    @ApiModelProperty("老师在这门课中的角色-0表示授课老师，1表示助教")
+    private Integer teacherRole;
 }

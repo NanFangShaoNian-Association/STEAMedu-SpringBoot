@@ -2,7 +2,7 @@ package com.nfsn.mapper;
 
 import com.nfsn.model.entity.Advantage;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.nfsn.model.vo.CourseAdvantageVO;
+import com.nfsn.model.vo.AdvantageVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -20,7 +20,7 @@ public interface AdvantageMapper extends BaseMapper<Advantage> {
             "FROM advantage a " +
             "LEFT JOIN course_advantage ca ON ca.course_advantage_id = a.course_advantage_id " +
             "WHERE ca.course_id = #{courseId}")
-    List<CourseAdvantageVO> selectByCourseId(@Param("courseId") Integer courseId);
+    List<AdvantageVO> selectByCourseId(@Param("courseId") Integer courseId);
 
 }
 

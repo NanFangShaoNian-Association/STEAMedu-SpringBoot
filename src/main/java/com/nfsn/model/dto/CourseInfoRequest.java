@@ -1,7 +1,7 @@
 package com.nfsn.model.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.nfsn.model.entity.Advantage;
+import com.nfsn.model.vo.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -60,7 +60,7 @@ public class CourseInfoRequest implements Serializable {
      * 课程优势
      */
     @ApiModelProperty("课程优势")
-    private List<AdvantageRequest> courseAdvantage;
+    private List<AdvantageVO> courseAdvantage;
 
     /**
      * 上课地点
@@ -72,24 +72,24 @@ public class CourseInfoRequest implements Serializable {
      * 教师
      */
     @ApiModelProperty("教师")
-    private List<TeacherRequest> teacher;
+    private List<TeacherInfoVO> teacher;
 
     /**
      * 课程详细介绍
      */
     @ApiModelProperty("课程详细介绍")
-    private List<CourseDetailRequest> courseDetail;
+    private List<CourseDetailVO> courseDetail;
 
     /**
      * 发布课程的机构
      */
     @ApiModelProperty("发布课程的机构")
-    private InstitutionRequest institution;
+    private CourseInstitutionInfoVO institution;
 
     /**
      * 课程评价
      */
     @ApiModelProperty("课程评价")
-    private List<CourseRatingRequest> courseRating;
+    private List<CourseRatingVO> courseRating;
 
 }

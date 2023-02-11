@@ -2,6 +2,10 @@ package com.nfsn.mapper;
 
 import com.nfsn.model.entity.CourseDetail;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.nfsn.model.vo.CourseDetailVO;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
 * @author Tuanzi
@@ -11,6 +15,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface CourseDetailMapper extends BaseMapper<CourseDetail> {
 
+    @Select("SELECT picture, display_order FROM course_detail WHERE course_id = #{courseId}")
+    List<CourseDetailVO> selectCourseDetailByCourseId(Integer courseId);
 }
 
 

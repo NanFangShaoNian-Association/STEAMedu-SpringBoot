@@ -1,4 +1,4 @@
-package com.nfsn.model.dto;
+package com.nfsn.model.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
@@ -8,14 +8,14 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @ClassName: AdvantageRequest
+ * @ClassName: CourseInstitutionInfoVO
  * @Author: atnibamaitay
  * @CreateTime: 2023-02-10 22:10
- * @Description: 机构传输实体
+ * @Description: 课程机构信息传输实体
  */
 @Data
-@ApiModel("机构传输实体")
-public class InstitutionRequest implements Serializable {
+@ApiModel("课程机构信息传输实体")
+public class CourseInstitutionInfoVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**

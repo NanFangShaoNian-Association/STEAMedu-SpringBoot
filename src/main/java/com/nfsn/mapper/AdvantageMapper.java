@@ -16,9 +16,9 @@ import java.util.List;
 */
 public interface AdvantageMapper extends BaseMapper<Advantage> {
 
-    @Select("SELECT ca.course_advantage, ca.course_advantage_introduction " +
-            "FROM course_advantage ca " +
-            "LEFT JOIN advantage a ON ca.course_advantage_id = a.course_advantage_id " +
+    @Select("SELECT a.course_advantage, a.course_advantage_introduction " +
+            "FROM advantage a " +
+            "LEFT JOIN course_advantage ca ON ca.course_advantage_id = a.course_advantage_id " +
             "WHERE ca.course_id = #{courseId}")
     List<CourseAdvantageVO> selectByCourseId(@Param("courseId") Integer courseId);
 

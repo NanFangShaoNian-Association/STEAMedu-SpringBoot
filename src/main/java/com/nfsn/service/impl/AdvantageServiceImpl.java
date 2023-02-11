@@ -1,10 +1,15 @@
 package com.nfsn.service.impl;
 
+import com.nfsn.mapper.AdvantageMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nfsn.model.entity.Advantage;
 import com.nfsn.service.AdvantageService;
 import com.nfsn.mapper.AdvantageMapper;
 import org.springframework.stereotype.Service;
+import com.nfsn.model.vo.CourseAdvantageVO;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
 * @author Tuanzi
@@ -14,6 +19,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdvantageServiceImpl extends ServiceImpl<AdvantageMapper, Advantage>
     implements AdvantageService{
+
+    @Resource
+    private AdvantageMapper advantageMapper;
+
+    @Override
+    public List<CourseAdvantageVO> selectByCourseId(Integer courseId) {
+        //根据课程ID查出所有课程优势
+        return advantageMapper.selectByCourseId(courseId);
+    }
 
 }
 

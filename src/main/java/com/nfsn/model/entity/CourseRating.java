@@ -46,7 +46,7 @@ public class CourseRating implements Serializable {
     private String comment;
 
     /**
-     * 
+     * 评论时间
      */
     @TableField(value = "comment_time")
     private Date commentTime;

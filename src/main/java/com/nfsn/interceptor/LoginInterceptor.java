@@ -54,7 +54,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 //        ((HandlerMethod) handler).getMethodAnnotation(BasicErrorController.class)!=null;
         //需要登录验证
-        String token = request.getHeader("Authorization");
+        String token = request.getHeader("token");
 
         if (null == token) {
             throw new UserLoginException(ResultCode.USER_TOKEN_IS_BLANK);

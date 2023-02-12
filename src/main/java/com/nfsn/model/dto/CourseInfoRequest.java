@@ -29,31 +29,31 @@ public class CourseInfoRequest implements Serializable {
     /**
      * 价格
      */
-    @TableField(value = "course_price")
+    @ApiModelProperty("价格")
     private Integer coursePrice;
 
     /**
      * 课程名
      */
-    @TableField(value = "course_name")
+    @ApiModelProperty("课程名")
     private String courseName;
 
     /**
      * 课程开始时间
      */
-    @TableField(value = "course_start_time")
+    @ApiModelProperty("课程开始时间")
     private String courseStartTime;
 
     /**
      * 报名人数
      */
-    @TableField(value = "course_enrolment")
+    @ApiModelProperty("报名人数")
     private Integer courseEnrolment;
 
     /**
      * 课时数
      */
-    @TableField(value = "course_section_number")
+    @ApiModelProperty("课时数")
     private Integer courseSectionNumber;
 
     /**
@@ -65,7 +65,7 @@ public class CourseInfoRequest implements Serializable {
     /**
      * 上课地点
      */
-    @TableField(value = "course_position")
+    @ApiModelProperty("上课地点")
     private String coursePosition;
 
     /**

@@ -4,6 +4,8 @@ import com.nfsn.model.dto.CourseInfoRequest;
 import com.nfsn.model.vo.*;
 import com.nfsn.service.*;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,9 @@ import java.util.List;
 @Api("发现模块接口")
 @RestController
 @RequestMapping("/api")
+@ApiImplicitParams({
+        @ApiImplicitParam(name = "token", value = "Access Token", required = true, paramType = "header", dataTypeClass = String.class)
+})
 public class DiscoverController {
     @Resource
     private CourseService courseService;

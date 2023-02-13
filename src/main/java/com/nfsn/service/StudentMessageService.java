@@ -1,7 +1,9 @@
 package com.nfsn.service;
 
+import com.nfsn.model.dto.StudentInfoRequest;
 import com.nfsn.model.entity.StudentMessage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.nfsn.model.vo.StudentInfoVO;
 
 /**
 * @author Tuanzi
@@ -10,4 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface StudentMessageService extends IService<StudentMessage> {
 
+    StudentInfoVO getStudentInfo(Integer studentInfoId);
+
+    void updateStudentInfo(StudentInfoRequest studentInfoRequest);
 }

@@ -1,11 +1,14 @@
 package com.nfsn.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nfsn.model.entity.User;
 import com.nfsn.model.vo.CourseInstitutionInfoVO;
+import com.nfsn.model.vo.PersonalInfoVO;
 import com.nfsn.service.UserService;
 import com.nfsn.mapper.UserMapper;
+import com.nfsn.utils.AccountHolder;
 import com.nfsn.utils.RandomUtils;
 import org.springframework.stereotype.Service;
 
@@ -78,6 +81,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public CourseInstitutionInfoVO getInstitutionByUserId(Integer userId) {
         return userMapper.getInstitutionByUserId(userId);
+    }
+
+    @Override
+    public PersonalInfoVO getUserInfo() {
+        Integer userId = AccountHolder.getUser().getUserId();
+
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>()
+                .eq(User::getUserId, userId)
+                .eq(User::getUserStatus, 0));//获取账号状态正常的数据
+
+        PersonalInfoVO personalInfoVO = BeanUtil.copyProperties(user, PersonalInfoVO.class);
+        return personalInfoVO;
     }
 }
 

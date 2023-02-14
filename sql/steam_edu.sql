@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 12/02/2023 00:22:56
+ Date: 14/02/2023 15:57:32
 */
 
 SET NAMES utf8mb4;
@@ -38,6 +38,7 @@ INSERT INTO `add_friends` VALUES (2, 3, '我喜欢你的音乐，想和你交朋
 INSERT INTO `add_friends` VALUES (3, 1, '我们在同一个城市，想结交一下朋友', '同城人', 0);
 INSERT INTO `add_friends` VALUES (4, 5, '你的旅游照片很漂亮，想和你交个朋友', '旅行爱好者', 0);
 INSERT INTO `add_friends` VALUES (5, 4, '你的生活很有趣，想和你交个朋友', '生活达人', 0);
+
 -- ----------------------------
 -- Table structure for advantage
 -- ----------------------------
@@ -73,11 +74,12 @@ CREATE TABLE `cart`  (
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
-INSERT INTO cart (cart_id, user_id, course_id) VALUES (1, 1001, 5001);
-INSERT INTO cart (cart_id, user_id, course_id) VALUES (2, 1001, 5002);
-INSERT INTO cart (cart_id, user_id, course_id) VALUES (3, 1002, 5001);
-INSERT INTO cart (cart_id, user_id, course_id) VALUES (4, 1002, 5003);
-INSERT INTO cart (cart_id, user_id, course_id) VALUES (5, 1003, 5002);
+INSERT INTO `cart` VALUES (1, 1001, 5001);
+INSERT INTO `cart` VALUES (2, 1001, 5002);
+INSERT INTO `cart` VALUES (3, 1002, 5001);
+INSERT INTO `cart` VALUES (4, 1002, 5003);
+INSERT INTO `cart` VALUES (5, 1003, 5002);
+
 -- ----------------------------
 -- Table structure for chat
 -- ----------------------------
@@ -100,6 +102,7 @@ INSERT INTO `chat` VALUES (2, 1002, 1001, '当然可以！', '2023-02-13 10:05:0
 INSERT INTO `chat` VALUES (3, 1001, 1002, '你喜欢什么类型的音乐？', '2023-02-13 10:10:00', 0);
 INSERT INTO `chat` VALUES (4, 1002, 1001, '我喜欢爵士和蓝调。你呢？', '2023-02-13 10:15:00', 1);
 INSERT INTO `chat` VALUES (5, 1001, 1002, '我喜欢流行音乐和摇滚。', '2023-02-13 10:20:00', 0);
+
 -- ----------------------------
 -- Table structure for choose
 -- ----------------------------
@@ -125,7 +128,8 @@ CREATE TABLE `choose`  (
 INSERT INTO `choose` VALUES (1, 1001, 1, 101, '2022-12-01 10:00:00', '2022-12-01 09:00:00', 1, 100, 0, 1, 1);
 INSERT INTO `choose` VALUES (2, 1002, 2, 102, '2022-12-02 11:00:00', '2022-12-02 10:00:00', 2, 200, 1, 0, 1);
 INSERT INTO `choose` VALUES (3, 1003, 3, 103, '2022-12-03 12:00:00', '2022-12-03 11:00:00', 3, 300, 2, 0, 0);
-INSERT INTO `choose`VALUES (4, 1004, 4, 104, '2022-12-04 13:00:00', '2022-12-04 12:00:00', 4, 400, 0, 0, 2);
+INSERT INTO `choose` VALUES (4, 1004, 4, 104, '2022-12-04 13:00:00', '2022-12-04 12:00:00', 4, 400, 0, 0, 2);
+
 -- ----------------------------
 -- Table structure for coupon
 -- ----------------------------
@@ -149,8 +153,9 @@ CREATE TABLE `coupon`  (
 INSERT INTO `coupon` VALUES (1, 'COUPON1', 50, '2022-12-01 00:00:00', '2023-01-01 00:00:00', 100, 1, 1, 0);
 INSERT INTO `coupon` VALUES (2, 'COUPON2', 30, '2022-11-01 00:00:00', '2023-01-15 00:00:00', 200, 2, 2, 0);
 INSERT INTO `coupon` VALUES (3, 'COUPON3', 20, '2022-10-01 00:00:00', '2023-01-31 00:00:00', 150, 3, 3, 0);
-INSERT INTO `coupon`VALUES (4, 'COUPON4', 40, '2022-12-15 00:00:00', '2023-01-30 00:00:00', 180, 4, 4, 0);
-INSERT INTO `coupon`VALUES (5, 'COUPON5', 10, '2022-12-01 00:00:00', '2023-01-15 00:00:00', 200, 5, 5, 0);
+INSERT INTO `coupon` VALUES (4, 'COUPON4', 40, '2022-12-15 00:00:00', '2023-01-30 00:00:00', 180, 4, 4, 0);
+INSERT INTO `coupon` VALUES (5, 'COUPON5', 10, '2022-12-01 00:00:00', '2023-01-15 00:00:00', 200, 5, 5, 0);
+
 -- ----------------------------
 -- Table structure for course
 -- ----------------------------
@@ -244,6 +249,7 @@ INSERT INTO `course_hour` VALUES (1, 1001, '2023-02-14 09:00:00', '第一课时-
 INSERT INTO `course_hour` VALUES (2, 1001, '2023-02-16 09:00:00', '第二课时-数学进阶', '校区1-教室2');
 INSERT INTO `course_hour` VALUES (3, 1002, '2023-02-17 14:00:00', '第一课时-物理基础', '校区2-教室1');
 INSERT INTO `course_hour` VALUES (4, 1003, '2023-02-20 09:00:00', '第一课时-生物基础', '校区1-教室3');
+
 -- ----------------------------
 -- Table structure for course_rating
 -- ----------------------------
@@ -279,9 +285,10 @@ CREATE TABLE `course_student`  (
 -- ----------------------------
 -- Records of course_student
 -- ----------------------------
-INSERT INTO `course_student`  VALUES (1, 1, 1);
-INSERT INTO `course_student` VALUES  (2, 2, 2);
-INSERT INTO `course_student` VALUES  (3, 3, 3);
+INSERT INTO `course_student` VALUES (1, 1, 1);
+INSERT INTO `course_student` VALUES (2, 2, 2);
+INSERT INTO `course_student` VALUES (3, 3, 3);
+
 -- ----------------------------
 -- Table structure for course_teacher_rel
 -- ----------------------------
@@ -322,6 +329,7 @@ CREATE TABLE `examination`  (
 INSERT INTO `examination` VALUES (1, 1, '数学期末考试', 1, '2022-12-01 10:00:00', '2022-12-02 16:00:00');
 INSERT INTO `examination` VALUES (2, 2, '语文期末考试', 2, '2022-12-01 10:00:00', '2022-12-02 16:00:00');
 INSERT INTO `examination` VALUES (3, 3, '英语期末考试', 3, '2022-12-01 10:00:00', '2022-12-02 16:00:00');
+
 -- ----------------------------
 -- Table structure for examination_subject
 -- ----------------------------
@@ -342,6 +350,7 @@ INSERT INTO `examination_subject` VALUES (2, 1002, 20, 2);
 INSERT INTO `examination_subject` VALUES (3, 1003, 30, 3);
 INSERT INTO `examination_subject` VALUES (4, 1004, 40, 4);
 INSERT INTO `examination_subject` VALUES (5, 1005, 50, 5);
+
 -- ----------------------------
 -- Table structure for friends
 -- ----------------------------
@@ -359,6 +368,7 @@ CREATE TABLE `friends`  (
 INSERT INTO `friends` VALUES (1, 2, '小明');
 INSERT INTO `friends` VALUES (3, 2, '小红');
 INSERT INTO `friends` VALUES (4, 2, '小刚');
+
 -- ----------------------------
 -- Table structure for leave
 -- ----------------------------
@@ -378,6 +388,7 @@ INSERT INTO `leave` VALUES (1, 100, '生病请假', 0);
 INSERT INTO `leave` VALUES (2, 101, '家庭紧急事件请假', 1);
 INSERT INTO `leave` VALUES (3, 102, '其他私人原因请假', 0);
 INSERT INTO `leave` VALUES (4, 103, '旅游请假', 1);
+
 -- ----------------------------
 -- Table structure for option
 -- ----------------------------
@@ -399,6 +410,7 @@ INSERT INTO `option` VALUES (3, 1, 'A bike', 'C');
 INSERT INTO `option` VALUES (4, 2, 'New York', 'A');
 INSERT INTO `option` VALUES (5, 2, 'London', 'B');
 INSERT INTO `option` VALUES (6, 2, 'Paris', 'C');
+
 -- ----------------------------
 -- Table structure for report
 -- ----------------------------
@@ -420,6 +432,7 @@ INSERT INTO `report` VALUES (2, 3, 4, '该用户辱骂他人', 0);
 INSERT INTO `report` VALUES (3, 5, 6, '该用户侵犯了他人隐私', 1);
 INSERT INTO `report` VALUES (4, 7, 8, '该用户发布了违法信息', 0);
 INSERT INTO `report` VALUES (5, 9, 10, '该用户恶意评论', 1);
+
 -- ----------------------------
 -- Table structure for sign
 -- ----------------------------
@@ -441,6 +454,7 @@ INSERT INTO `sign` VALUES (2, 1002, 102, '2022-01-02 12:00:00', 'Location: +-0.5
 INSERT INTO `sign` VALUES (3, 1003, 103, '2022-01-03 12:00:00', 'Location: +-0.5km, QR Code: 111111111');
 INSERT INTO `sign` VALUES (4, 1004, 104, '2022-01-04 12:00:00', 'Location: +-0.5km, QR Code: 222222222');
 INSERT INTO `sign` VALUES (5, 1005, 105, '2022-01-05 12:00:00', 'Location: +-0.5km, QR Code: 333333333');
+
 -- ----------------------------
 -- Table structure for sign_record
 -- ----------------------------
@@ -456,11 +470,12 @@ CREATE TABLE `sign_record`  (
 -- ----------------------------
 -- Records of sign_record
 -- ----------------------------
-INSERT INTO `sign_record` VALUES (1, 1, 0);
-INSERT INTO `sign_record` VALUES (2, 2, 1);
-INSERT INTO `sign_record` VALUES (3, 3, 0);
-INSERT INTO `sign_record` VALUES (4, 4, 1);
-INSERT INTO `sign_record` VALUES (5, 5, 0);
+INSERT INTO `sign_record` VALUES (1, 1, 0, 0);
+INSERT INTO `sign_record` VALUES (2, 2, 1, 1);
+INSERT INTO `sign_record` VALUES (3, 3, 0, 0);
+INSERT INTO `sign_record` VALUES (4, 4, 1, 1);
+INSERT INTO `sign_record` VALUES (5, 5, 0, 0);
+
 -- ----------------------------
 -- Table structure for slideshow
 -- ----------------------------
@@ -479,6 +494,7 @@ INSERT INTO `slideshow` VALUES (2, '/images/slideshow2.jpg');
 INSERT INTO `slideshow` VALUES (3, '/images/slideshow3.jpg');
 INSERT INTO `slideshow` VALUES (4, '/images/slideshow4.jpg');
 INSERT INTO `slideshow` VALUES (5, '/images/slideshow5.jpg');
+
 -- ----------------------------
 -- Table structure for student_message
 -- ----------------------------
@@ -500,10 +516,9 @@ CREATE TABLE `student_message`  (
 -- ----------------------------
 -- Records of student_message
 -- ----------------------------
-INSERT INTO `student_message` VALUES (1, 1, 'Tom', 'Male', 'Beijing No.1 High School', '2000-01-01', '12345678910', 'Tom_1.jpg', 3, 0);
-INSERT INTO `student_message` VALUES (2, 2, 'Jerry', 'Male', 'Shanghai No.2 High School', '2001-02-01', '23456789101', 'Jerry_1.jpg', 4, 0);
-INSERT INTO `student_message` VALUES (3, 3, 'Mary', 'Female', 'Guangzhou No.3 High School', '2002-03-01', '34567891011', 'Mary_1.jpg', 5, 0);
-INSERT INTO `student_message` VALUES (4, 4, 'Anna', 'Female', 'Shenzhen No.4 High School', '2003-04-01', '45678910112', 'Anna_1.jpg', 6, 0);
+INSERT INTO `student_message` VALUES (1, 1, 'Tom', 'Male', 'Beijing No.1 HS', '2000-01-01 00:00:00', '12345678910', 'Tom_1.jpg', 3, 0);
+INSERT INTO `student_message` VALUES (2, 2, 'Jerry', 'Male', 'Shanghai No.2 HS', '2001-02-01 00:00:00', '23456789101', 'Jerry_1.jpg', 4, 0);
+
 -- ----------------------------
 -- Table structure for subject
 -- ----------------------------
@@ -520,9 +535,7 @@ CREATE TABLE `subject`  (
 -- ----------------------------
 -- Records of subject
 -- ----------------------------
-INSERT INTO `subject` VALUES (1, '1 + 1 = ?', '2', 1, '一道简单的数学题，1 + 1等于2。');
-INSERT INTO `subject` VALUES (2, '下面哪个不是Java的保留字？', 'goto', 1, 'goto不是Java的保留字，它是C语言的保留字。');
-INSERT INTO `subject` VALUES (3, '以下代码输出什么？\n print(2 > 1 and 1 > 2)', 'False', 2, 'and运算的前一项为True，但后一项为False，因此整个表达式的值为False。');
+
 -- ----------------------------
 -- Table structure for submit_examination
 -- ----------------------------
@@ -538,11 +551,7 @@ CREATE TABLE `submit_examination`  (
 -- ----------------------------
 -- Records of submit_examination
 -- ----------------------------
-INSERT INTO `submit_examination` VALUES (1, 1001, 'A,B,C,D', 1);
-INSERT INTO `submit_examination` VALUES (2, 1002, 'A,B,C,D', 1);
-INSERT INTO `submit_examination` VALUES (3, 1003, 'A,B,C,D', 0);
-INSERT INTO `submit_examination` VALUES (4, 1004, 'A,B,C,D', 1);
-INSERT INTO `submit_examination` VALUES (5, 1005, 'A,B,C,D', 0);
+
 -- ----------------------------
 -- Table structure for submit_task
 -- ----------------------------
@@ -564,6 +573,7 @@ INSERT INTO `submit_task` VALUES (2, 2, 'Answer 2', 80, 1);
 INSERT INTO `submit_task` VALUES (3, 3, 'Answer 3', 70, 1);
 INSERT INTO `submit_task` VALUES (4, 4, 'Answer 4', 60, 1);
 INSERT INTO `submit_task` VALUES (5, 5, 'Answer 5', 50, 1);
+
 -- ----------------------------
 -- Table structure for task
 -- ----------------------------
@@ -581,10 +591,7 @@ CREATE TABLE `task`  (
 -- ----------------------------
 -- Records of task
 -- ----------------------------
-INSERT INTO `task` VALUES (1, 1, '数学作业1', 2, '2023-02-13 10:00:00', '2023-02-20 23:59:59');
-INSERT INTO `task` VALUES (2, 2, '语文作业1', 4, '2023-02-14 09:00:00', '2023-02-21 22:59:59');
-INSERT INTO `task` VALUES (3, 3, '英语作业1', 6, '2023-02-15 08:00:00', '2023-02-22 21:59:59');
-INSERT INTO `task` VALUES (4, 4, '物理作业1', 8, '2023-02-16 07:00:00', '2023-02-23 20:59:59');
+
 -- ----------------------------
 -- Table structure for task_subject
 -- ----------------------------
@@ -600,11 +607,7 @@ CREATE TABLE `task_subject`  (
 -- ----------------------------
 -- Records of task_subject
 -- ----------------------------
-INSERT INTO `task_subject` VALUES (1, 1, 10, 1);
-INSERT INTO `task_subject` VALUES (2, 2, 15, 2);
-INSERT INTO `task_subject` VALUES (3, 3, 20, 3);
-INSERT INTO `task_subject` VALUES (4, 4, 25, 4);
-INSERT INTO `task_subject` VALUES (5, 5, 30, 5);
+
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
@@ -613,7 +616,7 @@ CREATE TABLE `user`  (
   `user_id` int(0) NOT NULL COMMENT '用户ID-主键',
   `user_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '用户名-默认值(应该是随机生成)',
   `user_role` tinyint(0) NOT NULL DEFAULT 0 COMMENT '用户角色-0:平台管理员;1:机构管理员;2:老师;3:学生;(默认为0)',
-  `user_avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '头像-默认（固定默认头像）',
+  `user_avatar` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '头像-默认（固定默认头像）',
   `email` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '邮箱',
   `phone_number` char(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '手机号-唯一',
   `user_introduction` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户简介',
@@ -638,10 +641,9 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, '用户1', 3, 'user_avatar_1.jpg', 'user1@example.com', '12345678901', '这是一个学生', '北京市', '海淀区', '中关村', 116.397128, 39.916527, 'wx_openID_1', 'qq_openID_1', '2022-05-10 10:00:00', '2022-05-11 10:00:00', '192.168.0.1', 'wx_unionid_1', 'QQ_unionid_1', '2022-05-10 10:00:00', 0);
-INSERT INTO `user` VALUES (2, '用户2', 2, 'user_avatar_2.jpg', 'user2@example.com', '12345678902', '这是一个老师', '北京市', '朝阳区', '望京', 116.481488, 39.990464, 'wx_openID_2', 'qq_openID_2', '2022-05-11 10:00:00', '2022-05-12 10:00:00', '192.168.0.2', 'wx_unionid_2', 'QQ_unionid_2', '2022-05-11 10:00:00', 0);
-INSERT INTO `user` VALUES (3, '用户3', 1, 'user_avatar_3.jpg', 'user3@example.com', '12345678903', '这是一个机构管理员', '上海市', '浦东新区', '世纪公园', 121.501606, 31.230416, 'wx_openID_3', 'qq_openID_3', '2022-05-12 10:00:00', '2022-05-13 10:00:00', '192.168.0.3', 'wx_unionid_3', 'QQ_unionid_3', '2022-05-12 10:00:00', 0);
-INSERT INTO `user` VALUES (1370230786, 'ns_bmsptmnhgxlsm', 0, 'https://upload-bbs.mihoyo.com/upload/2021/04/26/275717452/3101bce2626a6c808e975e7d4514958e_4697878850710672732.jpg', '', '13302435426', '您还没有简介，请添加简介！', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-02-11 19:50:46', NULL, '127.0.0.1', NULL, NULL, '2023-02-11 19:50:46', 0);
+INSERT INTO `user` VALUES (1, '用户1', 3, 'user_avatar_1.jpg', 'user1@example.com', '13325315242', '这是一个学生', '北京市', '海淀区', '中关村', 116.397128, 39.916527, 'wx_openID_1', 'qq_openID_1', '2022-05-10 10:00:00', '2022-05-11 10:00:00', '192.168.0.1', 'wx_unionid_1', 'QQ_unionid_1', '2022-05-10 10:00:00', 0);
+INSERT INTO `user` VALUES (2, '用户2', 2, 'user_avatar_2.jpg', 'user2@example.com', '13325315243', '这是一个老师', '北京市', '朝阳区', '望京', 116.481488, 39.990464, 'wx_openID_2', 'qq_openID_2', '2022-05-11 10:00:00', '2022-05-12 10:00:00', '192.168.0.2', 'wx_unionid_2', 'QQ_unionid_2', '2022-05-11 10:00:00', 0);
+INSERT INTO `user` VALUES (3, '用户3', 1, 'user_avatar_3.jpg', 'user3@example.com', '13325315244', '这是一个机构管理员', '上海市', '浦东新区', '世纪公园', 121.501606, 31.230416, 'wx_openID_3', 'qq_openID_3', '2022-05-12 10:00:00', '2022-05-13 10:00:00', '192.168.0.3', 'wx_unionid_3', 'QQ_unionid_3', '2022-05-12 10:00:00', 0);
 
 -- ----------------------------
 -- Table structure for user_coupon
@@ -660,4 +662,5 @@ INSERT INTO `user_coupon` VALUES (1, 1001);
 INSERT INTO `user_coupon` VALUES (2, 1001);
 INSERT INTO `user_coupon` VALUES (3, 1002);
 INSERT INTO `user_coupon` VALUES (4, 1003);
+
 SET FOREIGN_KEY_CHECKS = 1;

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nfsn.model.entity.User;
 import com.nfsn.model.vo.CourseInstitutionInfoVO;
+import com.nfsn.model.vo.FriendsVO;
 import com.nfsn.model.vo.PersonalInfoVO;
 import com.nfsn.service.UserService;
 import com.nfsn.mapper.UserMapper;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
 * @author Tuanzi
@@ -93,6 +95,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
         PersonalInfoVO personalInfoVO = BeanUtil.copyProperties(user, PersonalInfoVO.class);
         return personalInfoVO;
+    }
+
+    @Override
+    public List<FriendsVO> searchUser(String target) {
+        String phoneNumber = AccountHolder.getUser().getPhoneNumber();
+        Integer userId = AccountHolder.getUser().getUserId();
+
+        //搜索用户（手机号或者STEAM学号-即用户id），排除本人
+        //预编译语句为：SELECT * FROM user WHERE ((phone_number <> ? AND user_id <> ?) AND (phone_number = ? OR user_id = ?))
+        List<User> users = this.list(new LambdaQueryWrapper<User>()
+                .and(userLambdaQueryWrapper -> userLambdaQueryWrapper
+                        .ne(User::getPhoneNumber,phoneNumber)
+                        .ne(User::getUserId,userId))
+                .and(userLambdaQueryWrapper -> userLambdaQueryWrapper
+                        .eq(User::getPhoneNumber, target)
+                        .or()
+                        .eq(User::getUserId, target)));
+
+        List<FriendsVO> friendsVOS = BeanUtil.copyToList(users, FriendsVO.class);
+        return friendsVOS;
     }
 }
 

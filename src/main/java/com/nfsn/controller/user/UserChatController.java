@@ -1,8 +1,10 @@
 package com.nfsn.controller.user;
 
 import cn.hutool.core.convert.Convert;
+import com.nfsn.common.Message;
 import com.nfsn.model.dto.ApplyFriendRequest;
 import com.nfsn.model.vo.FriendsVO;
+import com.nfsn.service.ChatService;
 import com.nfsn.service.FriendsService;
 import com.nfsn.service.UserService;
 import io.swagger.annotations.Api;
@@ -33,10 +35,20 @@ public class UserChatController {
     @Resource
     private FriendsService friendsService;
 
+    @Resource
+    private ChatService chatService;
+
     @GetMapping("/list")
     @ApiOperation("获取好友列表")
     public List<FriendsVO> list(){
         return friendsService.listFriend();
+    }
+
+    @GetMapping("/list/{friendId}/allMessage")
+    @ApiOperation("获取所有信息")
+    public List<Message> listAllMessage(@PathVariable("friendId") String friendId){
+        Integer targetFriendId = Convert.toInt(friendId, null);
+        return chatService.listAllMessage(targetFriendId);
     }
 
     @DeleteMapping("/delete/{friendId}")

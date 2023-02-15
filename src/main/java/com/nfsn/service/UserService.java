@@ -2,6 +2,7 @@ package com.nfsn.service;
 
 import com.nfsn.model.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.nfsn.model.vo.AccountInfoVO;
 import com.nfsn.model.vo.CourseInstitutionInfoVO;
 import com.nfsn.model.vo.FriendsVO;
 import com.nfsn.model.vo.PersonalInfoVO;
@@ -26,4 +27,7 @@ public interface UserService extends IService<User> {
     PersonalInfoVO getUserInfo();
 
     List<FriendsVO> searchUser(String target);
+
+    AccountInfoVO getAccountInfo();
+
 }

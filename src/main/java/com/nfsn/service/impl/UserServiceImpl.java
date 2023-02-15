@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nfsn.model.entity.User;
+import com.nfsn.model.vo.AccountInfoVO;
 import com.nfsn.model.vo.CourseInstitutionInfoVO;
 import com.nfsn.model.vo.FriendsVO;
 import com.nfsn.model.vo.PersonalInfoVO;
@@ -115,6 +116,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
         List<FriendsVO> friendsVOS = BeanUtil.copyToList(users, FriendsVO.class);
         return friendsVOS;
+    }
+
+    @Override
+    public AccountInfoVO getAccountInfo() {
+        Integer userId = AccountHolder.getUser().getUserId();
+
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>()
+                .eq(User::getUserId, userId)
+                .eq(User::getUserStatus, 0));//获取账号状态正常的数据
+
+        AccountInfoVO accountInfoVO = BeanUtil.copyProperties(user, AccountInfoVO.class);
+        accountInfoVO.setPhone(user.getPhoneNumber());
+        return accountInfoVO;
     }
 }
 

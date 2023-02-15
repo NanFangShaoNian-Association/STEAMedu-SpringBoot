@@ -11,11 +11,14 @@ import com.nfsn.model.entity.AddFriends;
 import com.nfsn.model.entity.Friends;
 import com.nfsn.model.entity.User;
 import com.nfsn.model.vo.FriendsVO;
+import com.nfsn.model.vo.NotificationInfoVO;
+import com.nfsn.model.vo.PersonalInfoVO;
 import com.nfsn.service.AddFriendsService;
 import com.nfsn.service.FriendsService;
 import com.nfsn.mapper.FriendsMapper;
 import com.nfsn.service.UserService;
 import com.nfsn.utils.AccountHolder;
+import com.sun.org.apache.bcel.internal.generic.LALOAD;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -73,6 +76,26 @@ public class FriendsServiceImpl extends ServiceImpl<FriendsMapper, Friends>
         addFriends.setAddfriendsStatus(0);//未处理
 
         addFriendsService.save(addFriends);
+    }
+
+    @Override
+    public List<NotificationInfoVO> getNotifications() {
+        Integer userId = AccountHolder.getUser().getUserId();
+
+        //获取被请求用户为当前用户且该请求未被处理的信息
+        List<AddFriends> addFriends = addFriendsService.list(new LambdaQueryWrapper<AddFriends>()
+                .eq(AddFriends::getRequestedUserId, userId)
+                .eq(AddFriends::getAddfriendsStatus, 0));
+
+        List<NotificationInfoVO> notificationInfoVOS = BeanUtil.copyToList(addFriends, NotificationInfoVO.class);
+
+        List<NotificationInfoVO> notificationInfoVOList = notificationInfoVOS.stream().map(notificationInfoVO -> {
+            PersonalInfoVO userInfo = userService.getUserInfo();
+            notificationInfoVO.setUserName(userInfo.getUserName());
+            notificationInfoVO.setUserAvatar(userInfo.getUserAvatar());
+            return notificationInfoVO;
+        }).collect(Collectors.toList());
+        return notificationInfoVOList;
     }
 
     //检查申请是否重复，若重复返回true，否则返回false

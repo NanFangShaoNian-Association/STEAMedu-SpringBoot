@@ -50,7 +50,7 @@ public class LoginVO implements Serializable{
     /**
      * 邮箱
      */
-    @ApiModelProperty(value = "email")
+    @ApiModelProperty("邮箱")
     private String email;
 
     /**

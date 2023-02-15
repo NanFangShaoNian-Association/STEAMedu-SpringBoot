@@ -13,4 +13,6 @@ import java.util.List;
 */
 public interface CourseTeacherRelService extends IService<CourseTeacherRel> {
     List<TeacherInfoVO> selectTeacherInfoByCourseId(Integer courseId);
+
+    TeacherInfoVO getTeacherByCourseId(Integer courseId);
 }

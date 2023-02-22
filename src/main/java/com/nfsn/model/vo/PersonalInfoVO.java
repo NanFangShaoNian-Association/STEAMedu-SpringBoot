@@ -18,6 +18,11 @@ public class PersonalInfoVO  implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * 用户id-默认值(应该是随机生成)
+     */
+    @ApiModelProperty("用户ID")
+    private String userId;
+    /**
      * 用户名-默认值(应该是随机生成)
      */
     @ApiModelProperty("用户名")

@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nfsn.mapper.ChooseMapper;
 import com.nfsn.model.entity.Cart;
 import com.nfsn.model.entity.Choose;
 import com.nfsn.model.entity.Course;
@@ -34,9 +35,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
 
     @Resource
     private CartService cartService;
-
-    @Resource
-    private ChooseService chooseService;
 
     @Resource
     private UserService userService;

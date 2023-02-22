@@ -10,9 +10,7 @@ import com.nfsn.service.StudentMessageService;
 import com.nfsn.service.UserService;
 import io.swagger.annotations.*;
 import jdk.nashorn.internal.ir.ReturnNode;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -57,7 +55,7 @@ public class BaseInfoController {
     }
 
     @ApiOperation("新增、更新学生信息")
-    @GetMapping("/updateStudentInfo")
+    @PostMapping("/updateStudentInfo")
     public void updateStudentInfo(StudentInfoRequest studentInfoRequest) {
         studentMessageService.updateStudentInfo(studentInfoRequest);
     }
@@ -69,7 +67,7 @@ public class BaseInfoController {
     }
 
     @ApiOperation("删除选课单课程，需要删除的id列表")
-    @GetMapping("/deleteCourseInfo")
+    @DeleteMapping("/deleteCourseInfo")
     public void deleteCourseInfo(List<String> ids) {
         courseService.deleteChooseCourseInfo(ids);
     }

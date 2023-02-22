@@ -56,7 +56,7 @@ public class BaseInfoController {
 
     @ApiOperation("新增、更新学生信息")
     @PostMapping("/updateStudentInfo")
-    public void updateStudentInfo(StudentInfoRequest studentInfoRequest) {
+    public void updateStudentInfo(@RequestBody StudentInfoRequest studentInfoRequest) {
         studentMessageService.updateStudentInfo(studentInfoRequest);
     }
 

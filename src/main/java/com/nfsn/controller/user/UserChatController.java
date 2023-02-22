@@ -66,7 +66,7 @@ public class UserChatController {
 
     @PostMapping("/applyFriend")
     @ApiOperation("申请好友")
-    public void applyFriend(ApplyFriendRequest applyFriendRequest){
+    public void applyFriend(@RequestBody ApplyFriendRequest applyFriendRequest){
         friendsService.applyFriend(applyFriendRequest);
     }
 

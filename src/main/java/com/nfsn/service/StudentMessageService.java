@@ -12,7 +12,7 @@ import com.nfsn.model.vo.StudentInfoVO;
 */
 public interface StudentMessageService extends IService<StudentMessage> {
 
-    StudentInfoVO getStudentInfo(Integer studentInfoId);
+    StudentInfoVO getStudentInfo();
 
     void updateStudentInfo(StudentInfoRequest studentInfoRequest);
 }

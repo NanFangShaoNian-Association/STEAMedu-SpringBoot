@@ -23,12 +23,11 @@ public class StudentMessageServiceImpl extends ServiceImpl<StudentMessageMapper,
     implements StudentMessageService{
 
     @Override
-    public StudentInfoVO getStudentInfo(Integer studentInfoId) {
+    public StudentInfoVO getStudentInfo() {
         Integer userId = AccountHolder.getUser().getUserId();
 
         StudentMessage studentMessage = this.getOne(new LambdaQueryWrapper<StudentMessage>()
-                .eq(StudentMessage::getUserId,userId)
-                .eq(StudentMessage::getStudentMessageId, studentInfoId), false);//不抛出异常
+                .eq(StudentMessage::getUserId,userId), false);//不抛出异常
 
         StudentInfoVO studentInfoVO = BeanUtil.copyProperties(studentMessage, StudentInfoVO.class);
         return studentInfoVO;
@@ -38,6 +37,7 @@ public class StudentMessageServiceImpl extends ServiceImpl<StudentMessageMapper,
     public void updateStudentInfo(StudentInfoRequest studentInfoRequest) {
         if (!checkStudentInfo(studentInfoRequest)){
             //todo:抛出学生信息不合法异常
+
             return;
         }
         Integer userId = AccountHolder.getUser().getUserId();
@@ -53,6 +53,7 @@ public class StudentMessageServiceImpl extends ServiceImpl<StudentMessageMapper,
 
     //检查学生信息的合法性，合法返回true，否则返回false
     public boolean checkStudentInfo(StudentInfoRequest studentInfoRequest) {
+
         return true;
     }
 }

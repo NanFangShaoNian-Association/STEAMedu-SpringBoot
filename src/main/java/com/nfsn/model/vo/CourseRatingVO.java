@@ -45,7 +45,7 @@ public class CourseRatingVO {
      * 评论时间
      */
     // TODO:这里需要将时间格式定义为yyyy-mm-dd
-    @JsonFormat(pattern="yyyy-MM-dd ",timezone="GMT+8")
+    @JsonFormat(pattern="yyyy-mm-dd",timezone="GMT+8")
     @ApiModelProperty(value = "评论时间")
     private Date commentTime;
 }

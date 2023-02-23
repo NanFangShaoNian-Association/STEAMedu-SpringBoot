@@ -49,9 +49,8 @@ public class BaseInfoController {
 
     @ApiOperation("获取学生信息")
     @GetMapping("/getStudentInfo")
-    public StudentInfoVO getStudentInfo(String studentId) {
-        Integer studentInfoId = Convert.toInt(studentId, null);
-        return studentMessageService.getStudentInfo(studentInfoId);
+    public StudentInfoVO getStudentInfo() {
+        return studentMessageService.getStudentInfo();
     }
 
     @ApiOperation("新增、更新学生信息")

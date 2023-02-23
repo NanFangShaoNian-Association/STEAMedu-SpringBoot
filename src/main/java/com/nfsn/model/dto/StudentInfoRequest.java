@@ -2,6 +2,7 @@ package com.nfsn.model.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -48,6 +49,7 @@ public class StudentInfoRequest implements Serializable {
      * 生日
      */
     @ApiModelProperty("生日")
+    @JsonFormat(pattern="yyyy年MM月dd日")
     private Date birthday;
 
     /**
@@ -66,5 +68,5 @@ public class StudentInfoRequest implements Serializable {
      * 年级
      */
     @ApiModelProperty("年级")
-    private Integer grade;
+    private String grade;
 }

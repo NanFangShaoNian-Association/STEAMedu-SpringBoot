@@ -67,7 +67,7 @@ public class StudentMessage implements Serializable {
      * 年级
      */
     @TableField(value = "grade")
-    private Integer grade;
+    private String grade;
 
     /**
      * 学生信息状态码

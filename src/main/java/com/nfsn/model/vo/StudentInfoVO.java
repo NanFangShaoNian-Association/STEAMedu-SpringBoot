@@ -64,5 +64,5 @@ public class StudentInfoVO implements Serializable {
      * 年级
      */
     @ApiModelProperty("年级")
-    private Integer grade;
+    private String grade;
 }

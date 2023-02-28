@@ -99,6 +99,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     @Override
+    public PersonalInfoVO getRequestUserInfo(Integer requestUserId) {
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>()
+                .eq(User::getUserId, requestUserId)
+                .eq(User::getUserStatus, 0));//获取账号状态正常的数据
+
+        PersonalInfoVO personalInfoVO = BeanUtil.copyProperties(user, PersonalInfoVO.class);
+        return personalInfoVO;
+    }
+
+    @Override
     public List<FriendsVO> searchUser(String target) {
         String phoneNumber = AccountHolder.getUser().getPhoneNumber();
         Integer userId = AccountHolder.getUser().getUserId();

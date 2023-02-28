@@ -26,6 +26,15 @@ public interface UserService extends IService<User> {
 
     PersonalInfoVO getUserInfo();
 
+    /**
+     * 获取已知对象id的用户信息
+     * @param requestUserId
+     * @return
+     */
+    PersonalInfoVO getRequestUserInfo(Integer requestUserId);
+
+
+
     List<FriendsVO> searchUser(String target);
 
     AccountInfoVO getAccountInfo();

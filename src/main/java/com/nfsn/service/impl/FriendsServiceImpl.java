@@ -83,15 +83,16 @@ public class FriendsServiceImpl extends ServiceImpl<FriendsMapper, Friends>
     public List<NotificationInfoVO> getNotifications() {
         Integer userId = AccountHolder.getUser().getUserId();
 
-        //获取被请求用户为当前用户且该请求未被处理的信息
+        //获取被请求用户为当前用户且该请求未被处理的信息（旧）
+        //获取被请求用户所有请求信息（新）
         List<AddFriends> addFriends = addFriendsService.list(new LambdaQueryWrapper<AddFriends>()
-                .eq(AddFriends::getRequestedUserId, userId)
-                .eq(AddFriends::getAddfriendsStatus, 0));
+                .eq(AddFriends::getRequestedUserId, userId));
 
         List<NotificationInfoVO> notificationInfoVOS = BeanUtil.copyToList(addFriends, NotificationInfoVO.class);
 
         List<NotificationInfoVO> notificationInfoVOList = notificationInfoVOS.stream().map(notificationInfoVO -> {
-            PersonalInfoVO userInfo = userService.getUserInfo();
+            Integer requestUserId = notificationInfoVO.getRequestUserId();
+            PersonalInfoVO userInfo = userService.getRequestUserInfo(requestUserId);
             notificationInfoVO.setUserName(userInfo.getUserName());
             notificationInfoVO.setUserAvatar(userInfo.getUserAvatar());
             return notificationInfoVO;

@@ -70,5 +70,17 @@ public class UserChatController {
         friendsService.applyFriend(applyFriendRequest);
     }
 
+    @PostMapping("/consentFriend/{requestUserId}")
+    @ApiOperation("同意好友")
+    public void consentFriend(@PathVariable("requestUserId") Integer requestUserId){
+        friendsService.consentFriend(requestUserId);
+    }
+
+    @PostMapping("/contactFriend/{requestUserId}")
+    @ApiOperation("拒绝好友")
+    public void contactFriend(@PathVariable("requestUserId") Integer requestUserId){
+        friendsService.contactFriend(requestUserId);
+    }
+
 
 }

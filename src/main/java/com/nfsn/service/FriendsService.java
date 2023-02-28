@@ -23,4 +23,16 @@ public interface FriendsService extends IService<Friends> {
 
     List<NotificationInfoVO> getNotifications();
 
+    /**
+     * 同意好友申请
+     * @param requestUserId
+     */
+    void consentFriend(Integer requestUserId);
+
+    /**
+     * 拒绝好友申请
+     * @param requestUserId
+     */
+    void contactFriend(Integer requestUserId);
+
 }

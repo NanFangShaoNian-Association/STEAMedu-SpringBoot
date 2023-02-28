@@ -18,6 +18,12 @@ public class FriendsVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * 朋友用户id-主键；用户外键
+     */
+    @ApiModelProperty("朋友用户id")
+    private Integer userId;
+
+    /**
      * 用户名-默认值(应该是随机生成)
      */
     @ApiModelProperty("用户名")

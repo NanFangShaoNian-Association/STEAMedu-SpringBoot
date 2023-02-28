@@ -22,6 +22,7 @@ import com.sun.org.apache.bcel.internal.generic.LALOAD;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -97,6 +98,53 @@ public class FriendsServiceImpl extends ServiceImpl<FriendsMapper, Friends>
         }).collect(Collectors.toList());
         return notificationInfoVOList;
     }
+
+    @Override
+    public void consentFriend(Integer requestUserId) {
+        Integer userId = AccountHolder.getUser().getUserId();
+
+        //修改申请好友状态为1（同意）
+        boolean update = addFriendsService.update(new LambdaUpdateWrapper<AddFriends>()
+                .eq(AddFriends::getAddfriendsStatus, 0)
+                .eq(AddFriends::getRequestUserId, requestUserId)
+                .eq(AddFriends::getRequestedUserId, userId)
+                .set(AddFriends::getAddfriendsStatus, 1)
+        );
+
+        if (update){
+            String friendUserName = userService.getById(requestUserId).getUserName();
+            String userName = userService.getById(userId).getUserName();
+            List<Friends> lists = new ArrayList<>();
+
+            Friends friends = new Friends();
+            friends.setFriendUserId(requestUserId);
+            friends.setSelfUserId(userId);
+            friends.setRemarkName(friendUserName);
+
+            Friends friends1 = new Friends();
+            friends1.setFriendUserId(userId);
+            friends1.setSelfUserId(requestUserId);
+            friends1.setRemarkName(userName);
+
+            lists.add(friends);
+            lists.add(friends1);
+
+            this.saveBatch(lists);
+        }
+    }
+
+    @Override
+    public void contactFriend(Integer requestUserId) {
+        Integer userId = AccountHolder.getUser().getUserId();
+
+        //修改申请好友状态为2（拒绝）
+        addFriendsService.update(new LambdaUpdateWrapper<AddFriends>()
+                .eq(AddFriends::getAddfriendsStatus,0)
+                .eq(AddFriends::getRequestUserId,requestUserId)
+                .set(AddFriends::getAddfriendsStatus,2)
+                .eq(AddFriends::getRequestedUserId,userId));
+    }
+
 
     //检查申请是否重复，若重复返回true，否则返回false
     public boolean checkApplyIsRepeated(Integer userId,Integer friendId) {

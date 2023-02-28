@@ -60,7 +60,7 @@ public class UserChatController {
 
     @GetMapping("/search/{target}")
     @ApiOperation("搜索用户（手机号或者STEAM学号）")
-    public List<FriendsVO> searchUser(@PathVariable("target") String target){
+    public FriendsVO searchUser(@PathVariable("target") String target){
         return userService.searchUser(target);
     }
 

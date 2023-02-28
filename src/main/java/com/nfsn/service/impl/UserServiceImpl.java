@@ -109,23 +109,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     @Override
-    public List<FriendsVO> searchUser(String target) {
+    public FriendsVO searchUser(String target) {
         String phoneNumber = AccountHolder.getUser().getPhoneNumber();
         Integer userId = AccountHolder.getUser().getUserId();
 
+
+
         //搜索用户（手机号或者STEAM学号-即用户id），排除本人
         //预编译语句为：SELECT * FROM user WHERE ((phone_number <> ? AND user_id <> ?) AND (phone_number = ? OR user_id = ?))
-        List<User> users = this.list(new LambdaQueryWrapper<User>()
+        User user = this.getOne(new LambdaQueryWrapper<User>()
                 .and(userLambdaQueryWrapper -> userLambdaQueryWrapper
-                        .ne(User::getPhoneNumber,phoneNumber)
-                        .ne(User::getUserId,userId))
+                        .ne(User::getPhoneNumber, phoneNumber)
+                        .ne(User::getUserId, userId))
                 .and(userLambdaQueryWrapper -> userLambdaQueryWrapper
                         .eq(User::getPhoneNumber, target)
                         .or()
                         .eq(User::getUserId, target)));
 
-        List<FriendsVO> friendsVOS = BeanUtil.copyToList(users, FriendsVO.class);
-        return friendsVOS;
+//        List<FriendsVO> friendsVOS = BeanUtil.copyToList(users, FriendsVO.class);
+        FriendsVO friendsVO = BeanUtil.copyProperties(user, FriendsVO.class);
+
+        return friendsVO;
     }
 
     @Override

@@ -15,6 +15,7 @@ import com.nfsn.utils.RandomUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,15 +66,18 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon>
     public List<Coupon> getCouponListInfoById() {
         User user = AccountHolder.getUser();
 
+        List<Coupon> couponList = new ArrayList<>();
+
         //获取用户的优惠券列表
         List<UserCoupon> userCoupons = userCouponService.list(new LambdaQueryWrapper<UserCoupon>()
                 .eq(UserCoupon::getUserId, user.getUserId()));
         List<Integer> couponIds = userCoupons.stream().map(UserCoupon::getCouponId).collect(Collectors.toList());
         if (couponIds.size() == 0){
-            return null;
+
+            return couponList;
         }
         //获取对应优惠卷的详细信息
-        List<Coupon> couponList = this.listByIds(couponIds);
+        couponList = this.listByIds(couponIds);
 
         return couponList;
     }
@@ -81,11 +85,24 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon>
 
     @Override
     public Boolean getCouponInfoById(Integer couponId) {
-        UserCoupon userCoupon = new UserCoupon();
-        userCoupon.setCouponId(couponId);
-        userCoupon.setUserId(AccountHolder.getUser().getUserId());
+        //判断是否存在优惠券
+        Coupon coupon = this.getById(couponId);
+        if (coupon == null){
+            return false;
+        }
 
-        return userCouponService.save(userCoupon);
+        //判断是否已经领取
+        UserCoupon userCouponOne = userCouponService.getOne(new LambdaQueryWrapper<UserCoupon>().eq(UserCoupon::getCouponId, couponId).
+                eq(UserCoupon::getUserId, AccountHolder.getUser().getUserId()));
+        if (userCouponOne ==null){
+            UserCoupon userCoupon = new UserCoupon();
+            userCoupon.setCouponId(couponId);
+            userCoupon.setUserId(AccountHolder.getUser().getUserId());
+
+            return userCouponService.save(userCoupon);
+        }
+        return false;
+
     }
 }
 

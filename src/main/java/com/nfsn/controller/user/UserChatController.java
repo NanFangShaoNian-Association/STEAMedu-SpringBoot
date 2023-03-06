@@ -61,7 +61,8 @@ public class UserChatController {
     @GetMapping("/search/{target}")
     @ApiOperation("搜索用户（手机号或者STEAM学号）")
     public FriendsVO searchUser(@PathVariable("target") String target){
-        return userService.searchUser(target);
+        Long ifFriend = friendsService.ifFriend(target);
+        return userService.searchUser(target,ifFriend);
     }
 
     @PostMapping("/applyFriend")

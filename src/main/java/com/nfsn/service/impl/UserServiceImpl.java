@@ -3,18 +3,22 @@ package com.nfsn.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nfsn.model.entity.Friends;
 import com.nfsn.model.entity.User;
 import com.nfsn.model.vo.AccountInfoVO;
 import com.nfsn.model.vo.CourseInstitutionInfoVO;
 import com.nfsn.model.vo.FriendsVO;
 import com.nfsn.model.vo.PersonalInfoVO;
+import com.nfsn.service.FriendsService;
 import com.nfsn.service.UserService;
 import com.nfsn.mapper.UserMapper;
 import com.nfsn.utils.AccountHolder;
 import com.nfsn.utils.RandomUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +33,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Resource
     private UserMapper userMapper;
+
+
+
 
     /**
      * 根据用户手机号查询用户
@@ -109,11 +116,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     @Override
-    public FriendsVO searchUser(String target) {
+    public FriendsVO searchUser(String target,Long ifFriend) {
         String phoneNumber = AccountHolder.getUser().getPhoneNumber();
         Integer userId = AccountHolder.getUser().getUserId();
-
-
 
         //搜索用户（手机号或者STEAM学号-即用户id），排除本人
         //预编译语句为：SELECT * FROM user WHERE ((phone_number <> ? AND user_id <> ?) AND (phone_number = ? OR user_id = ?))
@@ -129,6 +134,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 //        List<FriendsVO> friendsVOS = BeanUtil.copyToList(users, FriendsVO.class);
         FriendsVO friendsVO = BeanUtil.copyProperties(user, FriendsVO.class);
 
+        if (target.equals(String.valueOf(userId)) || target.equals(phoneNumber)){
+
+            friendsVO.setFriendCode(3);
+        }else if (StringUtils.isEmpty(user)){
+            friendsVO.setFriendCode(0);
+        }else {
+            if (ifFriend>0){
+                friendsVO.setFriendCode(2);
+            }else {
+                friendsVO.setFriendCode(1);
+            }
+        }
         return friendsVO;
     }
 
@@ -143,6 +160,38 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         AccountInfoVO accountInfoVO = BeanUtil.copyProperties(user, AccountInfoVO.class);
         accountInfoVO.setPhone(user.getPhoneNumber());
         return accountInfoVO;
+    }
+
+    /**
+     * 计算年龄（未使用）
+     * @param birth
+     * @return
+     */
+    public int getAge(Date birth) {
+        Calendar cal = Calendar.getInstance();
+        int thisYear = cal.get(Calendar.YEAR);
+        int thisMonth = cal.get(Calendar.MONTH);
+        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+        cal.setTime(birth);
+        int birthYear = cal.get(Calendar.YEAR);
+        int birthMonth = cal.get(Calendar.MONTH);
+        int birthdayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+
+        int age = thisYear - birthYear;
+
+        // 未足月
+        if (thisMonth <= birthMonth) {
+            // 当月
+            if (thisMonth == birthMonth) {
+                // 未足日
+                if (dayOfMonth < birthdayOfMonth) {
+                    age--;
+                }
+            } else {
+                age--;
+            }
+        }
+        return age;
     }
 }
 

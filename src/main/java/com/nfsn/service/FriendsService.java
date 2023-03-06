@@ -35,4 +35,11 @@ public interface FriendsService extends IService<Friends> {
      */
     void contactFriend(Integer requestUserId);
 
+    /**
+     * 判断是否有好友
+     * @param target
+     * @return
+     */
+    Long ifFriend(String target);
+
 }

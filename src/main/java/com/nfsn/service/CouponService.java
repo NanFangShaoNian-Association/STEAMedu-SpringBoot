@@ -1,7 +1,10 @@
 package com.nfsn.service;
 
+import com.nfsn.model.dto.CreateCouponRequest;
 import com.nfsn.model.entity.Coupon;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
 * @author Tuanzi
@@ -9,5 +12,25 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-02-09 16:30:52
 */
 public interface CouponService extends IService<Coupon> {
+
+    /**
+     * 创建优惠卷
+     * @param createCouponRequest
+     * @return 优惠券实体
+     */
+    Coupon createCoupon(CreateCouponRequest createCouponRequest);
+
+    /**
+     * 根据用户id查看课程优惠卷
+     * @return
+     */
+    List<Coupon> getCouponListInfoById();
+
+    /**
+     * 领取优惠券
+     * @param couponId
+     * @return
+     */
+     Boolean getCouponInfoById(Integer couponId);
 
 }

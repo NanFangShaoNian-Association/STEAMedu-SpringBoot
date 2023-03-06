@@ -64,7 +64,7 @@ public class Coupon implements Serializable {
     private Integer issuerUserId;
 
     /**
-     * 优惠券状态-0为存在，1为不存在
+     * 优惠券状态-0为不存在，1为存在，2为已使用
      */
     @TableField(value = "status")
     private Integer status;

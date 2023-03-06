@@ -146,6 +146,23 @@ public class FriendsServiceImpl extends ServiceImpl<FriendsMapper, Friends>
                 .eq(AddFriends::getRequestedUserId,userId));
     }
 
+    @Override
+    public Long ifFriend(String target) {
+        Integer userId = AccountHolder.getUser().getUserId();
+
+        return count(new LambdaQueryWrapper<Friends>().eq(Friends::getSelfUserId,userId).eq(Friends::getFriendUserId,target));
+
+    }
+
+//    @Override
+//    public List<Object> ifFriend(Integer friendUserId, Integer userId) {
+//
+//        return this.listObjs(new LambdaQueryWrapper<Friends>().eq(Friends::getFriendUserId, friendUserId)
+//                .eq(Friends::getSelfUserId, userId));
+//
+//
+//    }
+
 
     //检查申请是否重复，若重复返回true，否则返回false
     public boolean checkApplyIsRepeated(Integer userId,Integer friendId) {

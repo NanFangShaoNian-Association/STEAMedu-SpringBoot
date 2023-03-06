@@ -30,6 +30,12 @@ public class FriendsVO implements Serializable {
     private String userName;
 
     /**
+     * 年龄
+     */
+    @ApiModelProperty("年龄")
+    private Integer age;
+
+    /**
      * 头像-默认（固定默认头像）
      */
     @ApiModelProperty("头像")
@@ -58,4 +64,7 @@ public class FriendsVO implements Serializable {
      */
     @ApiModelProperty("区域")
     private String userLocationRegion;
+
+    @ApiModelProperty("好友判断 0-不存在  1-存在且未加好友  2-已加好友 3-本人不可查")
+    private Integer friendCode;
 }

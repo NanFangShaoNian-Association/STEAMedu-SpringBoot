@@ -35,7 +35,7 @@ public interface UserService extends IService<User> {
 
 
 
-    FriendsVO searchUser(String target);
+    FriendsVO searchUser(String target, Long ifFriend);
 
     AccountInfoVO getAccountInfo();
 

@@ -3,21 +3,19 @@ package com.nfsn.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.nfsn.mapper.ChooseMapper;
-import com.nfsn.model.entity.Cart;
-import com.nfsn.model.entity.Choose;
-import com.nfsn.model.entity.Course;
-import com.nfsn.model.entity.CourseTeacherRel;
-import com.nfsn.model.vo.ChooseCourseInfoVO;
-import com.nfsn.model.vo.CourseVO;
-import com.nfsn.model.vo.TeacherInfoVO;
+import com.nfsn.mapper.CourseTeacherRelMapper;
+import com.nfsn.mapper.UserMapper;
+import com.nfsn.model.entity.*;
+import com.nfsn.model.vo.*;
 import com.nfsn.service.*;
 import com.nfsn.mapper.CourseMapper;
 import com.nfsn.utils.AccountHolder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +39,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
 
     @Resource
     private CourseTeacherRelService courseTeacherRelService;
+
+    @Resource
+    private CourseTeacherRelMapper courseTeacherRelMapper;
+
+    @Resource
+    private UserMapper userMapper;
 
     @Override
     public CourseVO getCourseInfoById(Integer courseId) {
@@ -86,6 +90,62 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         }
         List<Integer> idList = ids.stream().distinct().map(s -> Convert.toInt(s, -1)).collect(Collectors.toList());
         cartService.removeByIds(idList);
+    }
+
+    @Override
+    public List<RecommendedCourseVO> getRecommendedCourseList() {
+        // 获取推荐课程列表
+        List<Course> recommendedCourseList = courseMapper.selectList(
+                new QueryWrapper<Course>()
+                        .eq("course_type", 1) // 1表示推荐
+                        .eq("course_delete_status", 0) // 0表示未删除
+                        .orderByDesc("entering_time") // 按照信息录入时间倒序排序
+                        .last("limit 10") // 取前10条数据
+        );
+
+        // 组装推荐课程列表
+        List<RecommendedCourseVO> recommendedCourseVOList = new ArrayList<>();
+        for (Course course : recommendedCourseList) {
+            RecommendedCourseVO recommendedCourseVO = new RecommendedCourseVO();
+            recommendedCourseVO.setCourseId(course.getCourseId());
+            recommendedCourseVO.setCourseName(course.getCourseName());
+            recommendedCourseVO.setCoursePrice(course.getCoursePrice());
+            recommendedCourseVO.setDistance("10km"); // TODO:暂时这么写，方便前端接接口，后面再修改
+            recommendedCourseVO.setCoursePosition(course.getCoursePosition());
+            recommendedCourseVO.setCourseStartTime(course.getCourseStartTime());
+
+            // 设置老师列表
+            List<TeacherInfoVO> teacherInfoVOList = courseTeacherRelService.selectTeacherInfoByCourseId(course.getCourseId());
+
+            recommendedCourseVO.setTeacherInfoVOList(teacherInfoVOList);
+            recommendedCourseVOList.add(recommendedCourseVO);
+        }
+        return recommendedCourseVOList;
+    }
+
+    @Override
+    public List<ChoicenessCourseVO> getChoicenessCourseList() {
+        // 获取推荐课程列表
+        List<Course> choicenessCourseList = courseMapper.selectList(
+                new QueryWrapper<Course>()
+                        .eq("course_type", 0) // 0表示精选推荐
+                        .eq("course_delete_status", 0) // 0表示未删除
+                        .orderByDesc("entering_time") // 按照信息录入时间倒序排序
+                        .last("limit 10") // 取前10条数据
+        );
+
+        // 组装推荐课程列表
+        List<ChoicenessCourseVO> choicenessCourseVOList = new ArrayList<>();
+        for (Course course : choicenessCourseList) {
+            ChoicenessCourseVO choicenessCourseVO = new ChoicenessCourseVO();
+            choicenessCourseVO.setCourseId(course.getCourseId());
+            choicenessCourseVO.setCourseName(course.getCourseName());
+            choicenessCourseVO.setCoursePrice(course.getCoursePrice());
+            choicenessCourseVO.setCourseTextIntroduction(course.getCourseTextIntroduction());
+
+            choicenessCourseVOList.add(choicenessCourseVO);
+        }
+        return choicenessCourseVOList;
     }
 
 }

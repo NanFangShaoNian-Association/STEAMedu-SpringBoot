@@ -12,7 +12,6 @@ import com.nfsn.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 /**

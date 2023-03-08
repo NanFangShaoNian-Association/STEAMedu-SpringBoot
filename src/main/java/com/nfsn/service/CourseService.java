@@ -2,8 +2,10 @@ package com.nfsn.service;
 
 import com.nfsn.model.entity.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.nfsn.model.vo.ChoicenessCourseVO;
 import com.nfsn.model.vo.ChooseCourseInfoVO;
 import com.nfsn.model.vo.CourseVO;
+import com.nfsn.model.vo.RecommendedCourseVO;
 
 import java.util.List;
 
@@ -18,4 +20,8 @@ public interface CourseService extends IService<Course> {
     List<ChooseCourseInfoVO> listChooseCourseInfo();
 
     void deleteChooseCourseInfo(List<String> ids);
+
+    List<RecommendedCourseVO> getRecommendedCourseList();
+
+    List<ChoicenessCourseVO> getChoicenessCourseList();
 }

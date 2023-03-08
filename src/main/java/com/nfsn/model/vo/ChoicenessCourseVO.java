@@ -1,6 +1,5 @@
 package com.nfsn.model.vo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -12,11 +11,11 @@ import java.util.List;
  * @ClassName: AdvantageVO
  * @Author: atnibamaitay
  * @CreateTime: 2023-02-10 22:10
- * @Description: 推荐课程传输实体
+ * @Description: 精选课程传输实体
  */
 @Data
-@ApiModel("推荐课程传输实体")
-public class RecommendedCourseVO implements Serializable{
+@ApiModel("精选课程传输实体")
+public class ChoicenessCourseVO implements Serializable{
     private static final long serialVersionUID = 1L;
 
     /**
@@ -32,28 +31,10 @@ public class RecommendedCourseVO implements Serializable{
     private String courseName;
 
     /**
-     * 课程开始时间
+     * 课程文字简介-只有精选课程才会显示文字简介，其他课程都没有这个
      */
-    @ApiModelProperty("课程开始时间")
-    private String courseStartTime;
-
-    /**
-     * 上课地点
-     */
-    @ApiModelProperty("上课地点")
-    private String coursePosition;
-
-    /**
-     * 教师列表
-     */
-    @ApiModelProperty("教师信息列表")
-    private List<TeacherInfoVO> teacherInfoVOList;
-
-    /**
-     * 距离
-     */
-    @ApiModelProperty("距离")
-    private String distance;
+    @ApiModelProperty("课程文字简介-只有精选课程才会显示文字简介，其他课程都没有这个")
+    private String courseTextIntroduction;
 
     /**
      * 价格

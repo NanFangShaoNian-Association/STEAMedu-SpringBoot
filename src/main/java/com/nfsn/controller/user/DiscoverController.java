@@ -89,4 +89,10 @@ public class DiscoverController {
         return courseService.getRecommendedCourseList();
     }
 
+    @ApiOperation("获取发现页精选课程列表")
+    @GetMapping("/getChoicenessCourseList")
+    public List<ChoicenessCourseVO> getChoicenessCourseList() {
+        return courseService.getChoicenessCourseList();
+    }
+
 }

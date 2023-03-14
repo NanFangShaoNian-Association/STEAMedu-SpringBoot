@@ -1,26 +1,39 @@
+# Server configuration
 server:
   port: 8080
 
+# Spring configuration
 spring:
-  # 数据库相关
+  # Database configuration
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver              # mysql驱动包
+    driver-class-name: com.mysql.cj.jdbc.Driver                      # MySQL driver package
     url: jdbc:mysql://172.38.0.3:3306/steam_edu?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: "nfsn520"
-    type: com.alibaba.druid.pool.DruidDataSource             # 当前数据源操作类型
+    type: com.alibaba.druid.pool.DruidDataSource                      # Current data source operation type
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
   redis:
     cluster:
-      nodes: 172.38.0.11:6379,172.38.0.12:6379,172.38.0.13:6379 # Redis集群节点
-      max-redirects: 3  # 最大重定向数，建议设置为3
-    timeout: 3000  # Redis连接超时时间，单位毫秒
+      nodes: 172.38.0.11:6379,172.38.0.12:6379,172.38.0.13:6379       # Redis cluster nodes
+      max-redirects: 3                                                # Maximum number of redirects, recommended to set to 3
+    timeout: 3000                                                     # Redis connection timeout, in milliseconds
     jedis:
       pool:
         max-idle: 100
         max-wait: 1
+  servlet:                                                   # servlet properties
+    multipart:                                               # multipart properties
+      max-file-size: 200MB                                   # maximum file size for multipart request
+      max-request-size: 200MB                                # maximum request size for multipart request
+
+# MinIO configuration
+minio:
+  endpoint: http://192.168.87.186:9000
+  access-Key: 3KCAO08E2ZASV3X33M4G
+  secret-Key: VIqHY7Dn0ZUJaOqk50zyxvjdmtqUaglX2t0NQ5ue
+
 #alipay:
 #  appId: 2021000121637995 #需要自己的appID
 #  privateKey: xxxx #支付的私钥

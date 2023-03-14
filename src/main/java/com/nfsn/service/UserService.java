@@ -6,6 +6,7 @@ import com.nfsn.model.vo.AccountInfoVO;
 import com.nfsn.model.vo.CourseInstitutionInfoVO;
 import com.nfsn.model.vo.FriendsVO;
 import com.nfsn.model.vo.PersonalInfoVO;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -39,4 +40,7 @@ public interface UserService extends IService<User> {
 
     AccountInfoVO getAccountInfo();
 
+    String uploadAvatar(MultipartFile file);
+
+    String uploadPhoto(MultipartFile file);
 }

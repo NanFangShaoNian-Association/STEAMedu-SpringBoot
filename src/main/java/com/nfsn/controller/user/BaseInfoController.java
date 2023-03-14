@@ -1,6 +1,7 @@
 package com.nfsn.controller.user;
 
 import cn.hutool.core.convert.Convert;
+import com.nfsn.anno.NoNeedLogin;
 import com.nfsn.model.vo.AccountInfoVO;
 import com.nfsn.model.dto.StudentInfoRequest;
 import com.nfsn.model.vo.*;
@@ -10,6 +11,7 @@ import com.nfsn.service.StudentMessageService;
 import com.nfsn.service.UserService;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -56,6 +58,26 @@ public class BaseInfoController {
     @PostMapping("/updateStudentInfo")
     public void updateStudentInfo(@RequestBody StudentInfoRequest studentInfoRequest) {
         studentMessageService.updateStudentInfo(studentInfoRequest);
+    }
+
+    @ApiOperation(value = "上传图片", notes = "上传用户头像")
+    @PostMapping("/uploadAvatar")
+    @NoNeedLogin
+    public String uploadAvatar(@RequestParam("avatar") MultipartFile file) {
+        if (file.isEmpty()) {
+            return "文件不能为空";
+        }
+        return userService.uploadAvatar(file);
+    }
+
+    @ApiOperation(value = "上传用户真实照片", notes = "上传用户真实照片")
+    @PostMapping("/uploadPhoto")
+    @NoNeedLogin
+    public String uploadPhoto(@RequestParam("Photo") MultipartFile file) {
+        if (file.isEmpty()) {
+            return "文件不能为空";
+        }
+        return userService.uploadPhoto(file);
     }
 
     @ApiOperation("获取选课单课程列表")

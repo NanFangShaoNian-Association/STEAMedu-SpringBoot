@@ -3,7 +3,7 @@ package com.nfsn.constants;
 //状态码枚举
 public enum ResultCode {
     /*成功状态码*/
-    SUCCESS(1,"成功"),
+    SUCCESS(200,"成功"),
     /*参数错误：1001-1999*/
     PARAM_IS_INVALID(1001,"参数无效"),
     PARAM_IS_BLANK(1002,"参数为空"),
@@ -17,7 +17,10 @@ public enum ResultCode {
     USER_HAS_EXISTED(2005,"用户已存在"),
     USER_TOKEN_IS_INVALID(2006,"用户token无效"),
     USER_TOKEN_IS_BLANK(2007,"用户token为空"),
-    USER_VERIFY_ERROR(2008,"验证码校验失败，请重新获取");
+    USER_VERIFY_ERROR(2008,"验证码校验失败，请重新获取"),
+
+    /*服务器内部错误*/
+    INTERNAL_ERROR(5001,"服务器内部错误，请联系开发人员");
 
 
 

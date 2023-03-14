@@ -35,6 +35,16 @@ public class CacheClient {
         stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(value), time, unit);
     }
 
+    /**
+     * 判断 key 是否存在
+     *
+     * @param key 键
+     * @return 如果存在 key 则返回 true，否则返回 false
+     */
+    public Boolean hasKey(String key) {
+        return stringRedisTemplate.hasKey(key);
+    }
+
     //将任意Java对象序列化为json并存储在string类型的key中，并且可以设置TTL过期时间
     public void setWithLogicalExpire(String key, Object value, Long time, TimeUnit unit) {
         // 设置逻辑过期

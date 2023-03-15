@@ -60,7 +60,7 @@ public class BaseInfoController {
         studentMessageService.updateStudentInfo(studentInfoRequest);
     }
 
-    @ApiOperation(value = "上传图片", notes = "上传用户头像")
+    @ApiOperation(value = "上传头像", notes = "上传用户头像")
     @PostMapping("/uploadAvatar")
     @NoNeedLogin
     public String uploadAvatar(@RequestParam("avatar") MultipartFile file) {

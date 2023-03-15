@@ -14,6 +14,7 @@ import com.nfsn.utils.PhoneRegexUtils;
 import com.nfsn.utils.RandomUtils;
 import com.nfsn.utils.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -38,6 +39,9 @@ public class LoginServiceImpl {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
 //    @Resource(name = "aliyunCode")
 //    private SMSUtils aliyunCode;
@@ -94,12 +98,14 @@ public class LoginServiceImpl {
         //生成登录token
         Map<String, Object> map = MapUtil.of("role", "user");
         String token = TokenUtil.createJwtToken(String.valueOf(user.getUserId()), user.getUserName(), map);
-//        String token = "token";
 
         //存入redis
         //存储36000s=10小时
-        cacheClient.setWithLogicalExpire(LOGIN_USER_KEY+loginRequest.getCertificate(),token,LOGIN_USER_TTL, TimeUnit.SECONDS);
+        cacheClient.setWithLogicalExpire(LOGIN_USER_KEY + loginRequest.getCertificate(),token,LOGIN_USER_TTL, TimeUnit.SECONDS);
         log.info("目标手机号：{}，token：{}存储成功",loginRequest.getCertificate(),token);
+
+        //删除缓存中的验证码
+        stringRedisTemplate.delete(LOGIN_CODE_KEY + loginRequest.getCertificate());
 
         //封装token返回
         LoginVO loginVO = BeanUtil.copyProperties(user, LoginVO.class);

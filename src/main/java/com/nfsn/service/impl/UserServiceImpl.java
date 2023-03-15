@@ -2,19 +2,24 @@ package com.nfsn.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nfsn.mapper.StudentMessageMapper;
 import com.nfsn.model.entity.Friends;
+import com.nfsn.model.entity.StudentMessage;
 import com.nfsn.model.entity.User;
 import com.nfsn.model.vo.AccountInfoVO;
 import com.nfsn.model.vo.CourseInstitutionInfoVO;
 import com.nfsn.model.vo.FriendsVO;
 import com.nfsn.model.vo.PersonalInfoVO;
 import com.nfsn.service.FriendsService;
+import com.nfsn.service.StudentMessageService;
 import com.nfsn.service.UserService;
 import com.nfsn.mapper.UserMapper;
 import com.nfsn.utils.AccountHolder;
 import com.nfsn.utils.MinIOUtil;
 import com.nfsn.utils.RandomUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +37,7 @@ import static com.nfsn.constants.MinIOConstants.*;
 * @description 针对表【user】的数据库操作Service实现
 * @createDate 2023-02-09 16:30:53
 */
+@Slf4j
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService{
@@ -41,6 +47,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Resource
     private MinIOUtil minIOUtil;
+
+    @Resource
+    private StudentMessageService studentMessageService;
 
     /**
      * 根据用户手机号查询用户
@@ -157,7 +166,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public AccountInfoVO getAccountInfo() {
         Integer userId = AccountHolder.getUser().getUserId();
-
         User user = userMapper.selectOne(new LambdaQueryWrapper<User>()
                 .eq(User::getUserId, userId)
                 .eq(User::getUserStatus, 0));//获取账号状态正常的数据
@@ -200,32 +208,68 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     /**
-     * 用户头像上传
+     * 用户头像上传。
+     *
      * @param file 头像文件
-     * @return
+     * @return 返回图片的url
      */
     @Override
     public String uploadAvatar(MultipartFile file) {
         try {
-            return minIOUtil.uploadFile(file,BUCKET_NAME,AVATAR_SAVE_PATH,AVATAR_SAVE_DURATION, TimeUnit.DAYS);
+            // 创建一个User对象
+            User user = new User();
+
+            // 从线程上下文中获取当前用户ID并记录日志
+            log.info(String.valueOf(AccountHolder.getUser().getUserId()));
+            user.setUserId(AccountHolder.getUser().getUserId());
+
+            // 使用MinIO工具上传头像文件到指定的存储桶、路径，设置过期时间和单位（天）
+            String avatarPath = minIOUtil.uploadFile(file, BUCKET_NAME, AVATAR_SAVE_PATH, AVATAR_SAVE_DURATION, TimeUnit.DAYS);
+
+            // 设置上传后的头像URL
+            user.setUserAvatar(avatarPath);
+
+            // 使用userMapper根据用户ID更新头像URL
+            userMapper.updateById(user);
+
+            // 返回上传的头像URL
+            return avatarPath;
         } catch (Exception e) {
+            // 如果发生异常，打印堆栈跟踪
             e.printStackTrace();
         }
+
+        // 如果发生异常，返回null
         return null;
     }
-
+    
     /**
-     * 上传用户真实照片
+     * 上传用户真实照片。
+     *
      * @param file 照片文件
-     * @return
+     * @return 返回图片的url
      */
     @Override
     public String uploadPhoto(MultipartFile file) {
         try {
-            return minIOUtil.uploadFile(file,BUCKET_NAME,PHOTO_SAVE_PATH,PHOTO_SAVE_DURATION, TimeUnit.DAYS);
+            // 使用MinIO工具上传文件到指定的存储桶、路径，设置过期时间和单位（天）
+            String photoUrl = minIOUtil.uploadFile(file, BUCKET_NAME, PHOTO_SAVE_PATH, PHOTO_SAVE_DURATION, TimeUnit.DAYS);
+
+            // 从线程上下文中获取当前用户ID
+            Integer currentUserId = AccountHolder.getUser().getUserId();
+
+            // 使用当前用户ID更新学生照片URL
+            studentMessageService.updateStudentPhotoByUserId(currentUserId, photoUrl);
+
+            // 返回上传的照片URL
+            return photoUrl;
+
         } catch (Exception e) {
+            // 如果发生异常，打印堆栈跟踪
             e.printStackTrace();
         }
+
+        // 如果发生异常，返回null
         return null;
     }
 }

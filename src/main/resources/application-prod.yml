@@ -11,9 +11,13 @@ spring:
     username: root
     password: "nfsn520"
     type: com.alibaba.druid.pool.DruidDataSource                      # Current data source operation type
+
+  # Swagger related
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+  # Redis related
   redis:
     cluster:
       nodes: 172.38.0.11:6379,172.38.0.12:6379,172.38.0.13:6379       # Redis cluster nodes

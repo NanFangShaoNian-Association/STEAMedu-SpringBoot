@@ -2,6 +2,7 @@ package com.nfsn.mapper;
 
 import com.nfsn.model.entity.StudentMessage;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.data.repository.query.Param;
 
 /**
 * @author Tuanzi
@@ -10,9 +11,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.nfsn.model.entity.StudentMessage
 */
 public interface StudentMessageMapper extends BaseMapper<StudentMessage> {
-
+//    int updatePhotoUrlById(@Param("id") Integer id, @Param("photoUrl") String photoUrl);
 }
-
 
 
 

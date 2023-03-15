@@ -1,6 +1,7 @@
 package com.nfsn.controller.user;
 
 import com.nfsn.anno.NoNeedLogin;
+import com.nfsn.config.AppUpdateConfig;
 import com.nfsn.model.vo.AccountInfoVO;
 import com.nfsn.model.dto.StudentInfoRequest;
 import com.nfsn.model.vo.*;
@@ -40,6 +41,9 @@ public class BaseInfoController {
 
     @Resource
     private CourseService courseService;
+
+    @Resource
+    private AppUpdateConfig appUpdateConfig;
 
     @ApiOperation("获取个人信息")
     @GetMapping("/getPersonalInfo")
@@ -97,10 +101,24 @@ public class BaseInfoController {
         return userService.getAccountInfo();
     }
 
+    /**
+     * 检查更新
+     *
+     * @param currentVersion 当前的版本号
+     * @return
+     */
     @ApiOperation("检查更新")
     @GetMapping("/checkForUpdates")
-    public void checkForUpdates() {
-        //todo:点击会检查版本是否是最新版的，如果是，则会出现提示“已经是最新版本
+    public AppUpdateInfoVO checkForUpdates(@RequestParam("currentVersion") String currentVersion) {
+        // 创建一个新的 AppUpdateInfoVO 实例
+        AppUpdateInfoVO appUpdateInfoVO = new AppUpdateInfoVO();
+        // 从配置文件中获取最新版本号，并将其设置到 appUpdateInfoVO 实例的 latestVersion 属性中
+        String latestVersion = appUpdateConfig.getLatestVersion();
+        appUpdateInfoVO.setLatestVersion(latestVersion);
+        // 从配置文件中获取下载链接，并将其设置到 appUpdateInfoVO 实例的 downloadUrl 属性中
+        appUpdateInfoVO.setDownloadUrl(appUpdateConfig.getDownloadUrl());
+        // 返回填充了最新版本号和下载链接的 appUpdateInfoVO 实例
+        return appUpdateInfoVO;
     }
 
     @ApiOperation("获取消息通知")

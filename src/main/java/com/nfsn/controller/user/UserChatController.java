@@ -83,5 +83,10 @@ public class UserChatController {
         friendsService.contactFriend(requestUserId);
     }
 
+    @GetMapping("/list/allSession")
+    @ApiOperation("会话列表")
+    public List<Message> listSession(){
+        return null;
+    }
 
 }

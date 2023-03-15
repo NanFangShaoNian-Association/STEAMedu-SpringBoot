@@ -81,7 +81,7 @@ public class ChooseCourseInfoVO {
     @ApiModelProperty("上课地点")
     private String coursePosition;
 
-    //todo:距离
+    //todo:距离，vo里加固定值
 
     /**
      * 价格

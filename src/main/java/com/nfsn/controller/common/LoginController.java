@@ -37,7 +37,7 @@ public class LoginController {
             @ApiImplicitParam(paramType = "path", name = "phone", value = "用户手机号", dataType = "String", required = true)
     })
     @GetMapping("/getVerifyCode/{phone}")
-    @NoNeedLogin//不需要登陆验证的方法加上该注解
+    @NoNeedLogin
     public void getVerifyCode(@PathVariable("phone") String phone) {
         //校验非空
         if (!StringUtils.hasLength(phone)) {

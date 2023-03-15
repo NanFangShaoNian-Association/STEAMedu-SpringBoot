@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * [无需登录]
+ * 不需要登陆验证的方法加上该注解@NoNeedLogin
  */
 
 @Retention(RetentionPolicy.RUNTIME)

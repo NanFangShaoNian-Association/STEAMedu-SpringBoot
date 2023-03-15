@@ -17,4 +17,5 @@ public class UserLoginException extends RuntimeException{
     public UserLoginException(ResultCode resultCode) {
         this.resultCode = resultCode;
     }
+
 }

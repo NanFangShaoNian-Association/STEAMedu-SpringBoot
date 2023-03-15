@@ -13,14 +13,19 @@ import com.nfsn.service.FriendsService;
 import com.nfsn.service.UserService;
 import com.nfsn.mapper.UserMapper;
 import com.nfsn.utils.AccountHolder;
+import com.nfsn.utils.MinIOUtil;
 import com.nfsn.utils.RandomUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static com.nfsn.constants.MinIOConstants.*;
 
 /**
 * @author Tuanzi
@@ -34,8 +39,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Resource
     private UserMapper userMapper;
 
-
-
+    @Resource
+    private MinIOUtil minIOUtil;
 
     /**
      * 根据用户手机号查询用户
@@ -193,8 +198,34 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
         return age;
     }
+
+    /**
+     * 用户头像上传
+     * @param file 头像文件
+     * @return
+     */
+    @Override
+    public String uploadAvatar(MultipartFile file) {
+        try {
+            return minIOUtil.uploadFile(file,BUCKET_NAME,AVATAR_SAVE_PATH,AVATAR_SAVE_DURATION, TimeUnit.DAYS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 上传用户真实照片
+     * @param file 照片文件
+     * @return
+     */
+    @Override
+    public String uploadPhoto(MultipartFile file) {
+        try {
+            return minIOUtil.uploadFile(file,BUCKET_NAME,PHOTO_SAVE_PATH,PHOTO_SAVE_DURATION, TimeUnit.DAYS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
-
-
-
-

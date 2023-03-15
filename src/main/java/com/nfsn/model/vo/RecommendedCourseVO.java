@@ -61,4 +61,3 @@ public class RecommendedCourseVO implements Serializable{
     @ApiModelProperty("价格")
     private Integer coursePrice;
 }
-

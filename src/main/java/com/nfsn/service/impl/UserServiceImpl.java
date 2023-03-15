@@ -51,6 +51,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Resource
     private StudentMessageService studentMessageService;
 
+    @Resource
+    private StudentMessageMapper studentMessageMapper;
+
     /**
      * 根据用户手机号查询用户
      * @param phone 手机号
@@ -63,11 +66,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         User user = this.getOne(queryWrapper);
 
         if (user == null) {
-//            生成用户相关信息，相当于自动注册
-            this.save(generateUser(phone,ip));
+            //生成用户相关信息，相当于自动注册
+            User newUser = generateUser(phone, ip);
+            this.save(newUser);
             user = this.getOne(queryWrapper);
-        }
 
+            // 在student_message表中生成一条user_id为刚才生成的user_id的一条数据
+            StudentMessage studentMessage = new StudentMessage();
+            studentMessage.setUserId(user.getUserId());
+            studentMessage.setStudentMessageStatus(0);
+
+            studentMessageMapper.insert(studentMessage);
+        }
         return user;
     }
 
@@ -208,7 +218,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     /**
-     * 用户头像上传。
+     * 用户头像上传
      *
      * @param file 头像文件
      * @return 返回图片的url
@@ -242,9 +252,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         // 如果发生异常，返回null
         return null;
     }
-    
+
     /**
-     * 上传用户真实照片。
+     * 上传用户真实照片
      *
      * @param file 照片文件
      * @return 返回图片的url

@@ -54,7 +54,7 @@ public class LoginController {
     @NoNeedLogin
     public LoginVO userLogin(@RequestBody LoginRequest loginRequest) {
         LoginVO loginVO = new LoginVO();
-        switch (loginRequest.getRoleId()){
+        switch (loginRequest.getRoleId()) {
             case 0:
                 loginVO = userLoginByPhone(loginRequest);
                 break;
@@ -70,8 +70,8 @@ public class LoginController {
 
     public LoginVO userLoginByPhone(@RequestBody LoginRequest loginRequest) {
         //校验必要参数非空
-        if (!StringUtils.hasText(loginRequest.getCertificate())&&
-                !StringUtils.hasText(loginRequest.getVerifyCode())&&
+        if (!StringUtils.hasText(loginRequest.getCertificate()) &&
+                !StringUtils.hasText(loginRequest.getVerifyCode()) &&
                 !(loginRequest.getRoleId() == 0)) {
             throw new UserLoginException(ResultCode.PARAM_IS_BLANK);
         }

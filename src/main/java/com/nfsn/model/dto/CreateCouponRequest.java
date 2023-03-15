@@ -1,5 +1,6 @@
 package com.nfsn.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,13 +22,18 @@ public class CreateCouponRequest implements Serializable {
     @ApiModelProperty("指定优惠课程Id")
     private Integer designatedCourseId;
 
+    @ApiModelProperty("指定优惠课程Id")
+    private Integer courseIdName;
+
     @ApiModelProperty("优惠金额")
     private Integer value;
 
     @ApiModelProperty("开始日期")
+    @JsonFormat(pattern="yyyy年MM月dd日")
     private Date startDate;
 
     @ApiModelProperty("失效日期")
+    @JsonFormat(pattern="yyyy年MM月dd日")
     private Date endDate;
 
     @ApiModelProperty(value = "最低订单金额（满xx）")

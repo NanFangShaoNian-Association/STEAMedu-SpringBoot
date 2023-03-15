@@ -54,12 +54,23 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon>
         coupon.setIssuerUserId(AccountHolder.getUser().getUserId());
         coupon.setCouponCode(Convert.toStr(RandomUtils.getRandomOfLetterAndNumber(8)));
         coupon.setStatus(1);
-
         this.save(coupon);
         return coupon;
+    }
 
+    @Override
+    public List<Coupon> searchGetAllCoupon(String courseName) {
 
-
+        if (courseName != null){
+            List<Course> courses = courseService.list(new LambdaQueryWrapper<Course>()
+                    .like(Course::getCourseName, courseName));
+            //提取ids
+            List<Integer> ids = courses.stream().map(Course::getCourseId).collect(Collectors.toList());
+            List<Coupon> couponList = this.list(new LambdaQueryWrapper<Coupon>().in(Coupon::getDesignatedCourseId, ids));
+            return couponList;
+        }
+        List<Coupon> couponList = this.list();
+        return couponList;
     }
 
     @Override

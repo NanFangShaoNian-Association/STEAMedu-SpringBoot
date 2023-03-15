@@ -28,6 +28,7 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, Chat>
         Integer userId = AccountHolder.getUser().getUserId();
 
         List<Chat> chats = this.list(new LambdaQueryWrapper<Chat>()
+                // TODO: 2023/3/13 添加时间排序 
                 .eq(Chat::getSenderUserId, userId)
                 .eq(Chat::getReceiverUserId, friendId)
                 .or()
@@ -48,6 +49,7 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, Chat>
 
         return messages;
     }
+
 }
 
 

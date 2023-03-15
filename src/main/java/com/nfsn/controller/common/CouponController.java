@@ -11,10 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -43,6 +40,15 @@ public class CouponController {
         //创建优惠卷并返回优惠卷信息
         Coupon coupon = couponService.createCoupon(createCouponRequest);
         return coupon;
+    }
+
+    @ApiOperation("所有或根据课程名称显示优惠卷")
+    @PostMapping("/getAllCoupon")
+    @RawResource //返回原始数据
+    public List<Coupon> getAllCoupon( String courseName) {
+        //根据查询条件返回优惠券消息
+        List<Coupon> couponList = couponService.searchGetAllCoupon(courseName);
+        return couponList;
     }
 
 //    查看用户id优惠卷

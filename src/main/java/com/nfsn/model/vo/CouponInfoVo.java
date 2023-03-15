@@ -1,85 +1,83 @@
-package com.nfsn.model.entity;
+package com.nfsn.model.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-
 /**
- * 
- * @TableName coupon
+ * @author snail
+ * @create 2023-03-13  19:29
  */
-@TableName(value ="coupon")
 @Data
-public class Coupon implements Serializable {
+@ApiModel("优惠券传输实体")
+public class CouponInfoVo implements Serializable {
+
     /**
      * 优惠券ID-主键
      */
-    @TableId(value = "coupon_id")
+    @ApiModelProperty("优惠券ID")
     private Integer couponId;
-
 
     /**
      * 优惠券名
      */
-    @TableField(value = "coupon_name")
+    @ApiModelProperty("优惠券名")
     private String couponName;
 
     /**
      * 优惠券兑换码
      */
-    @TableField(value = "coupon_code")
+    @ApiModelProperty("优惠券兑换码")
     private String couponCode;
 
     /**
      * 优惠金额
      */
-    @TableField(value = "value")
+    @ApiModelProperty("优惠金额")
     private Integer value;
 
     /**
      * 开始日期
      */
-    @TableField(value = "start_date")
-    @JsonFormat(pattern="yyyy年MM月dd日")
+    @ApiModelProperty("开始日期")
     private Date startDate;
 
     /**
      * 失效日期
      */
-    @TableField(value = "end_date")
-    @JsonFormat(pattern="yyyy年MM月dd日")
+    @ApiModelProperty("失效日期")
     private Date endDate;
 
     /**
      * 最低订单金额
      */
-    @TableField(value = "min_order_amount")
+    @ApiModelProperty("最低订单金额")
     private Integer minOrderAmount;
 
     /**
      * 指定优惠课程ID
      */
-    @TableField(value = "designated_course_id")
+    @ApiModelProperty("优惠课程ID")
     private Integer designatedCourseId;
 
     /**
      * 发卷人-外键
      */
-    @TableField(value = "issuer_user_id")
+    @ApiModelProperty("发卷人")
     private Integer issuerUserId;
 
     /**
      * 优惠券状态-0为不存在，1为存在，2为已使用
      */
-    @TableField(value = "status")
+    @ApiModelProperty("优惠券状态")
     private Integer status;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
 }

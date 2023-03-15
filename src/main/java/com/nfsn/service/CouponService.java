@@ -21,6 +21,13 @@ public interface CouponService extends IService<Coupon> {
     Coupon createCoupon(CreateCouponRequest createCouponRequest);
 
     /**
+     * 根据条件查询优惠券
+     * @param courseName 课程名称
+     * @return
+     */
+    List<Coupon> searchGetAllCoupon(String courseName);
+
+    /**
      * 根据用户id查看课程优惠卷
      * @return
      */

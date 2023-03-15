@@ -15,4 +15,6 @@ public interface StudentMessageService extends IService<StudentMessage> {
     StudentInfoVO getStudentInfo();
 
     void updateStudentInfo(StudentInfoRequest studentInfoRequest);
+
+    void updateStudentPhotoByUserId(Integer userId, String photoUrl);
 }

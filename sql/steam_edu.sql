@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : AtnibamAitay
+ Source Server         : AILab-Server-Six
  Source Server Type    : MySQL
  Source Server Version : 80023
- Source Host           : localhost:3306
+ Source Host           : 192.168.87.186:3306
  Source Schema         : steam_edu
 
  Target Server Type    : MySQL
  Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 14/02/2023 16:03:24
+ Date: 15/03/2023 17:05:59
 */
 
 SET NAMES utf8mb4;
@@ -26,7 +26,7 @@ CREATE TABLE `add_friends`  (
   `requested_user_id` int(0) NOT NULL COMMENT '被请求的用户ID-主键;用户外键',
   `addfriends_reason` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '申请理由',
   `remark_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名称备注',
-  `addfriends_status` tinyint(0) NOT NULL DEFAULT 0 COMMENT '添加状态码-0:未处理;1:已增添为好友;(默认为0)',
+  `addfriends_status` tinyint(0) NOT NULL DEFAULT 0 COMMENT '添加状态码-0:未处理;1:已增添为好友;2：已拒绝好友(默认为0)',
   PRIMARY KEY (`request_user_id`, `requested_user_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -34,8 +34,10 @@ CREATE TABLE `add_friends`  (
 -- Records of add_friends
 -- ----------------------------
 INSERT INTO `add_friends` VALUES (1, 2, '因为你的专业很棒，想和你交个朋友', '程序员', 0);
+INSERT INTO `add_friends` VALUES (2, 1, '123', '程序员', 1);
 INSERT INTO `add_friends` VALUES (2, 3, '我喜欢你的音乐，想和你交朋友', '音乐家', 0);
 INSERT INTO `add_friends` VALUES (3, 1, '我们在同一个城市，想结交一下朋友', '同城人', 0);
+INSERT INTO `add_friends` VALUES (4, 1, '144', '程序员', 0);
 INSERT INTO `add_friends` VALUES (4, 5, '你的旅游照片很漂亮，想和你交个朋友', '旅行爱好者', 0);
 INSERT INTO `add_friends` VALUES (5, 4, '你的生活很有趣，想和你交个朋友', '生活达人', 0);
 
@@ -74,7 +76,7 @@ CREATE TABLE `cart`  (
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
-INSERT INTO `cart` VALUES (1, 1001, 5001);
+INSERT INTO `cart` VALUES (1, 1, 1);
 INSERT INTO `cart` VALUES (2, 1001, 5002);
 INSERT INTO `cart` VALUES (3, 1002, 5001);
 INSERT INTO `cart` VALUES (4, 1002, 5003);
@@ -136,6 +138,7 @@ INSERT INTO `choose` VALUES (4, 1004, 4, 104, '2022-12-04 13:00:00', '2022-12-04
 DROP TABLE IF EXISTS `coupon`;
 CREATE TABLE `coupon`  (
   `coupon_id` int(0) NOT NULL COMMENT '优惠券ID-主键',
+  `coupon_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '优惠券名',
   `coupon_code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '优惠券兑换码',
   `value` int(0) NOT NULL COMMENT '优惠金额',
   `start_date` datetime(0) NULL DEFAULT NULL COMMENT '开始日期',
@@ -143,18 +146,24 @@ CREATE TABLE `coupon`  (
   `min_order_amount` int(0) NOT NULL COMMENT '最低订单金额',
   `designated_course_id` int(0) NOT NULL COMMENT '指定优惠课程ID',
   `issuer_user_id` int(0) NOT NULL COMMENT '发卷人-外键',
-  `status` tinyint(0) NOT NULL DEFAULT 0 COMMENT '优惠券状态-0为存在，1为不存在',
+  `status` tinyint(0) NOT NULL DEFAULT 0 COMMENT '优惠券状态-0为不存在，1为存在，2为已使用',
   PRIMARY KEY (`coupon_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of coupon
 -- ----------------------------
-INSERT INTO `coupon` VALUES (1, 'COUPON1', 50, '2022-12-01 00:00:00', '2023-01-01 00:00:00', 100, 1, 1, 0);
-INSERT INTO `coupon` VALUES (2, 'COUPON2', 30, '2022-11-01 00:00:00', '2023-01-15 00:00:00', 200, 2, 2, 0);
-INSERT INTO `coupon` VALUES (3, 'COUPON3', 20, '2022-10-01 00:00:00', '2023-01-31 00:00:00', 150, 3, 3, 0);
-INSERT INTO `coupon` VALUES (4, 'COUPON4', 40, '2022-12-15 00:00:00', '2023-01-30 00:00:00', 180, 4, 4, 0);
-INSERT INTO `coupon` VALUES (5, 'COUPON5', 10, '2022-12-01 00:00:00', '2023-01-15 00:00:00', 200, 5, 5, 0);
+INSERT INTO `coupon` VALUES (1, '优惠券1', 'COUPON1', 50, '2022-12-01 00:00:00', '2023-01-01 00:00:00', 100, 1, 1, 0);
+INSERT INTO `coupon` VALUES (2, '优惠券2', 'COUPON2', 30, '2022-11-01 00:00:00', '2023-01-15 00:00:00', 200, 2, 2, 0);
+INSERT INTO `coupon` VALUES (3, '优惠券3', 'COUPON3', 20, '2022-10-01 00:00:00', '2023-01-31 00:00:00', 150, 3, 3, 0);
+INSERT INTO `coupon` VALUES (4, '优惠券4', 'COUPON4', 40, '2022-12-15 00:00:00', '2023-01-30 00:00:00', 180, 4, 4, 0);
+INSERT INTO `coupon` VALUES (5, '优惠券11', 'COUPON5', 10, '2022-12-01 00:00:00', '2023-01-15 00:00:00', 200, 5, 5, 0);
+INSERT INTO `coupon` VALUES (1555, '优惠券12', 'JGFvJDxe', 30, '2023-03-06 16:06:38', '2023-03-03 16:06:38', 400, 0, 1, 1);
+INSERT INTO `coupon` VALUES (11391, '优惠券13', 'jrHopqji', 50, '2023-03-09 16:45:59', '2023-03-03 16:45:59', 600, 2, 1, 1);
+INSERT INTO `coupon` VALUES (22092, '优惠券113', 'kqqFJEls', 55, '2022-11-30 08:00:00', '2022-09-30 08:00:00', 200, 4, 1, 1);
+INSERT INTO `coupon` VALUES (34243, '优惠券111', 'Grybprcy', 50, '2023-03-13 20:20:12', '2023-03-16 20:20:12', 500, 1, 3, 1);
+INSERT INTO `coupon` VALUES (39805, '优惠券1111', 'kEeGggvH', 0, '2023-03-14 13:14:32', '2023-03-14 13:14:32', 0, 0, 1, 1);
+INSERT INTO `coupon` VALUES (50582, '优惠券1112', 'ebFBrlqr', 30, '2023-03-06 16:06:38', '2023-03-03 16:06:38', 400, 1, 1, 1);
 
 -- ----------------------------
 -- Table structure for course
@@ -365,9 +374,14 @@ CREATE TABLE `friends`  (
 -- ----------------------------
 -- Records of friends
 -- ----------------------------
-INSERT INTO `friends` VALUES (1, 2, '小明');
+INSERT INTO `friends` VALUES (1, 2, '用户1');
+INSERT INTO `friends` VALUES (1, 7777, '测试一号');
+INSERT INTO `friends` VALUES (2, 1, '用户2');
+INSERT INTO `friends` VALUES (2, 7777, '测试二号');
+INSERT INTO `friends` VALUES (3, 1, '小二号');
 INSERT INTO `friends` VALUES (3, 2, '小红');
-INSERT INTO `friends` VALUES (4, 2, '小刚');
+INSERT INTO `friends` VALUES (4, 1, '小刚');
+INSERT INTO `friends` VALUES (5, 1, '小七号');
 
 -- ----------------------------
 -- Table structure for leave
@@ -507,8 +521,8 @@ CREATE TABLE `student_message`  (
   `school` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '学校',
   `birthday` datetime(0) NOT NULL COMMENT '生日',
   `phone_number` char(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '联系方式',
-  `student_photo` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '学生照片-真人图片',
-  `grade` int(0) NOT NULL COMMENT '年级',
+  `student_photo` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '学生照片-真人图片',
+  `grade` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '年级',
   `student_message_status` tinyint(0) NOT NULL COMMENT '学生信息状态码',
   PRIMARY KEY (`student_message_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -516,8 +530,8 @@ CREATE TABLE `student_message`  (
 -- ----------------------------
 -- Records of student_message
 -- ----------------------------
-INSERT INTO `student_message` VALUES (1, 1, 'Tom', 'Male', 'Beijing No.1 HS', '2000-01-01 00:00:00', '12345678910', 'Tom_1.jpg', 3, 0);
-INSERT INTO `student_message` VALUES (2, 2, 'Jerry', 'Male', 'Shanghai No.2 HS', '2001-02-01 00:00:00', '23456789101', 'Jerry_1.jpg', 4, 0);
+INSERT INTO `student_message` VALUES (1, 1, '汤姆2', '男', '广商', '2026-09-16 08:00:00', 'string', 'string', '高三', 0);
+INSERT INTO `student_message` VALUES (2, 2, 'Jerry', 'Male', 'Shanghai No.2 HS', '2001-02-01 00:00:00', '23456789101', 'Jerry_1.jpg', '4', 0);
 
 -- ----------------------------
 -- Table structure for subject
@@ -616,7 +630,7 @@ CREATE TABLE `user`  (
   `user_id` int(0) NOT NULL COMMENT '用户ID-主键',
   `user_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '用户名-默认值(应该是随机生成)',
   `user_role` tinyint(0) NOT NULL DEFAULT 0 COMMENT '用户角色-0:平台管理员;1:机构管理员;2:老师;3:学生;(默认为0)',
-  `user_avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '头像-默认（固定默认头像）',
+  `user_avatar` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '头像-默认（固定默认头像）',
   `email` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '邮箱',
   `phone_number` char(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '手机号-唯一',
   `user_introduction` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户简介',
@@ -641,12 +655,16 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, '用户1', 3, 'user_avatar_1.jpg', 'user1@example.com', '13325315242', '这是一个学生', '北京市', '海淀区', '中关村', 116.397128, 39.916527, 'wx_openID_1', 'qq_openID_1', '2022-05-10 10:00:00', '2022-05-11 10:00:00', '192.168.0.1', 'wx_unionid_1', 'QQ_unionid_1', '2022-05-10 10:00:00', 0);
-INSERT INTO `user` VALUES (2, '用户2', 2, 'user_avatar_2.jpg', 'user2@example.com', '13325315243', '这是一个老师', '北京市', '朝阳区', '望京', 116.481488, 39.990464, 'wx_openID_2', 'qq_openID_2', '2022-05-11 10:00:00', '2022-05-12 10:00:00', '192.168.0.2', 'wx_unionid_2', 'QQ_unionid_2', '2022-05-11 10:00:00', 0);
-INSERT INTO `user` VALUES (3, '用户3', 1, 'user_avatar_3.jpg', 'user3@example.com', '13325315244', '这是一个机构管理员', '上海市', '浦东新区', '世纪公园', 121.501606, 31.230416, 'wx_openID_3', 'qq_openID_3', '2022-05-12 10:00:00', '2022-05-13 10:00:00', '192.168.0.3', 'wx_unionid_3', 'QQ_unionid_3', '2022-05-12 10:00:00', 0);
-INSERT INTO `user` VALUES (4, '用户1', 3, 'user_avatar_1.jpg', 'user1@example.com', '12345678901', '这是一个学生', '北京市', '海淀区', '中关村', 116.397128, 39.916527, 'wx_openID_1', 'qq_openID_1', '2022-05-10 10:00:00', '2022-05-11 10:00:00', '192.168.0.1', 'wx_unionid_1', 'QQ_unionid_1', '2022-05-10 10:00:00', 0);
-INSERT INTO `user` VALUES (5, '用户2', 2, 'user_avatar_2.jpg', 'user2@example.com', '12345678902', '这是一个老师', '北京市', '朝阳区', '望京', 116.481488, 39.990464, 'wx_openID_2', 'qq_openID_2', '2022-05-11 10:00:00', '2022-05-12 10:00:00', '192.168.0.2', 'wx_unionid_2', 'QQ_unionid_2', '2022-05-11 10:00:00', 0);
-INSERT INTO `user` VALUES (6, '用户3', 1, 'user_avatar_3.jpg', 'user3@example.com', '12345678903', '这是一个机构管理员', '上海市', '浦东新区', '世纪公园', 121.501606, 31.230416, 'wx_openID_3', 'qq_openID_3', '2022-05-12 10:00:00', '2022-05-13 10:00:00', '192.168.0.3', 'wx_unionid_3', 'QQ_unionid_3', '2022-05-12 10:00:00', 0);
+INSERT INTO `user` VALUES (1, 'rww', 1, 'bbs.mihoyo.com/upload/2021/04/26/275717452/3101bce2626a6c808e975e7d4514958e_4697878850710672732.jpg', 'ss', '18312759498', '测试人员专用', '广州市', '黄埔区', '九龙街道', 123.501561, NULL, NULL, NULL, '2023-03-13 12:36:19', '2023-03-13 12:36:21', '127.0.0.1', NULL, NULL, '2023-03-13 12:36:37', 0);
+INSERT INTO `user` VALUES (2, '用户2', 2, 'https://upload-bbs.mihoyo.com/upload/2021/04/26/275717452/3101bce2626a6c808e975e7d4514958e_4697878850710672732.jpg', 'user2@example.com', '13325315243', '这是一个老师2', '北京市', '朝阳区', '望京', 116.481488, 39.990464, 'wx_openID_2', 'qq_openID_2', '2022-05-11 10:00:00', '2022-05-12 10:00:00', '192.168.0.2', 'wx_unionid_2', 'QQ_unionid_2', '2022-05-11 10:00:00', 0);
+INSERT INTO `user` VALUES (3, '用户3', 1, 'https://upload-bbs.mihoyo.com/upload/2021/04/26/275717452/3101bce2626a6c808e975e7d4514958e_4697878850710672732.jpg', 'user3@example.com', '13325315244', '这是一个机构管理员', '上海市', '浦东新区', '世纪公园', 121.501606, 31.230416, 'wx_openID_3', 'qq_openID_3', '2022-05-12 10:00:00', '2022-05-13 10:00:00', '192.168.0.3', 'wx_unionid_3', 'QQ_unionid_3', '2022-05-12 10:00:00', 0);
+INSERT INTO `user` VALUES (4, '用户4', 3, 'https://upload-bbs.mihoyo.com/upload/2021/04/26/275717452/3101bce2626a6c808e975e7d4514958e_4697878850710672732.jpg', 'user1@example.com', '12345678901', '这是一个学生', '北京市', '海淀区', '中关村', 116.397128, 39.916527, 'wx_openID_1', 'qq_openID_1', '2022-05-10 10:00:00', '2022-05-11 10:00:00', '192.168.0.1', 'wx_unionid_1', 'QQ_unionid_1', '2022-05-10 10:00:00', 0);
+INSERT INTO `user` VALUES (5, '用户5', 2, 'https://upload-bbs.mihoyo.com/upload/2021/04/26/275717452/3101bce2626a6c808e975e7d4514958e_4697878850710672732.jpg', 'user2@example.com', '12345678902', '这是一个老师5', '北京市5', '朝阳区', '望京', 116.481488, 39.990464, 'wx_openID_2', 'qq_openID_2', '2022-05-11 10:00:00', '2022-05-12 10:00:00', '192.168.0.2', 'wx_unionid_2', 'QQ_unionid_2', '2022-05-11 10:00:00', 0);
+INSERT INTO `user` VALUES (6, '用户3', 1, 'https://upload-bbs.mihoyo.com/upload/2021/04/26/275717452/3101bce2626a6c808e975e7d4514958e_4697878850710672732.jpg', 'user3@example.com', '12345678903', '这是一个机构管理员', '上海市', '浦东新区', '世纪公园', 121.501606, 31.230416, 'wx_openID_3', 'qq_openID_3', '2022-05-12 10:00:00', '2022-05-13 10:00:00', '192.168.0.3', 'wx_unionid_3', 'QQ_unionid_3', '2022-05-12 10:00:00', 0);
+INSERT INTO `user` VALUES (11, '用户1', 3, 'https://upload-bbs.mihoyo.com/upload/2021/04/26/275717452/3101bce2626a6c808e975e7d4514958e_4697878850710672732.jpg', 'user1@example.com', '13325315242', '这是一个学生', '北京市', '海淀区', '中关村', 116.397128, 39.916527, 'wx_openID_1', 'qq_openID_1', '2022-05-10 10:00:00', '2022-05-11 10:00:00', '192.168.0.1', 'wx_unionid_1', 'QQ_unionid_1', '2022-05-10 10:00:00', 0);
+INSERT INTO `user` VALUES (7777, 'ns_ihdwppllampuf', 0, 'https://upload-bbs.mihoyo.com/upload/2021/04/26/275717452/3101bce2626a6c808e975e7d4514958e_4697878850710672732.jpg', '', '13434926392', '您还没有简介，请添加简介！', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-02-20 21:22:14', NULL, '127.0.0.1', NULL, NULL, '2023-02-20 21:22:14', 0);
+INSERT INTO `user` VALUES (131694594, 'ns_lsyvrvhbvouih', 0, 'https://upload-bbs.mihoyo.com/upload/2021/04/26/275717452/3101bce2626a6c808e975e7d4514958e_4697878850710672732.jpg', '', '13352469523', '您还没有简介，请添加简介！', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-03-14 18:05:25', NULL, '127.0.0.1', NULL, NULL, '2023-03-14 18:05:25', 0);
+INSERT INTO `user` VALUES (622329857, '超级测试1', 0, 'https://upload-bbs.mihoyo.com/upload/2021/04/26/275717452/3101bce2626a6c808e975e7d4514958e_4697878850710672732.jpg', '', '13450209670', '您还没有简介，请添加简介！', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-03-15 14:05:43', NULL, '127.0.0.1', NULL, NULL, '2023-03-15 14:05:43', 0);
 
 -- ----------------------------
 -- Table structure for user_coupon
@@ -663,7 +681,11 @@ CREATE TABLE `user_coupon`  (
 -- ----------------------------
 INSERT INTO `user_coupon` VALUES (1, 1001);
 INSERT INTO `user_coupon` VALUES (2, 1001);
+INSERT INTO `user_coupon` VALUES (3, 1);
 INSERT INTO `user_coupon` VALUES (3, 1002);
 INSERT INTO `user_coupon` VALUES (4, 1003);
+INSERT INTO `user_coupon` VALUES (1555, 1);
+INSERT INTO `user_coupon` VALUES (11391, 1);
+INSERT INTO `user_coupon` VALUES (39805, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;

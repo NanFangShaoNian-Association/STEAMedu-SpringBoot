@@ -3,6 +3,7 @@ package com.nfsn.service;
 import com.nfsn.model.dto.StudentInfoRequest;
 import com.nfsn.model.entity.StudentMessage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.nfsn.model.vo.PendingPaymentStudentInfoVO;
 import com.nfsn.model.vo.StudentInfoVO;
 
 /**
@@ -17,4 +18,6 @@ public interface StudentMessageService extends IService<StudentMessage> {
     void updateStudentInfo(StudentInfoRequest studentInfoRequest);
 
     void updateStudentPhotoByUserId(Integer userId, String photoUrl);
+
+    PendingPaymentStudentInfoVO getStudentInfoById(Integer userId);
 }

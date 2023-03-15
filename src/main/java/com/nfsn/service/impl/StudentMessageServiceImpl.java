@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nfsn.model.dto.StudentInfoRequest;
 import com.nfsn.model.entity.StudentMessage;
+import com.nfsn.model.vo.PendingPaymentStudentInfoVO;
 import com.nfsn.model.vo.StudentInfoVO;
 import com.nfsn.service.StudentMessageService;
 import com.nfsn.mapper.StudentMessageMapper;
@@ -86,6 +87,22 @@ public class StudentMessageServiceImpl extends ServiceImpl<StudentMessageMapper,
             // 使用studentMessageMapper更新数据库中的学生信息记录
             studentMessageMapper.updateById(studentMessage);
         }
+    }
+
+    @Override
+    public PendingPaymentStudentInfoVO getStudentInfoById(Integer userId) {
+        // 查询学生信息
+        StudentMessage studentMessage = this.getOne(new LambdaQueryWrapper<StudentMessage>()
+                .eq(StudentMessage::getUserId, userId));
+
+        // 创建待支付学生信息对象并设置属性值
+        PendingPaymentStudentInfoVO pendingPaymentStudentInfoVO = new PendingPaymentStudentInfoVO();
+        pendingPaymentStudentInfoVO.setStudentName(studentMessage.getStudentMessageName());
+        pendingPaymentStudentInfoVO.setGrade(studentMessage.getGrade());
+        pendingPaymentStudentInfoVO.setPhoneNumber(studentMessage.getPhoneNumber());
+
+        // 返回待支付学生信息对象
+        return pendingPaymentStudentInfoVO;
     }
 
 }

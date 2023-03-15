@@ -1,9 +1,10 @@
 package com.nfsn.model.vo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -14,6 +15,8 @@ import java.io.Serializable;
  * @Description: 教师传输实体
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @ApiModel("教师传输实体")
 public class TeacherInfoVO implements Serializable {
     private static final long serialVersionUID = 1L;

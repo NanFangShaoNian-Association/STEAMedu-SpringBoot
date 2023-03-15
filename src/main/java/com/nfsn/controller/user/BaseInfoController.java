@@ -1,6 +1,5 @@
 package com.nfsn.controller.user;
 
-import cn.hutool.core.convert.Convert;
 import com.nfsn.anno.NoNeedLogin;
 import com.nfsn.model.vo.AccountInfoVO;
 import com.nfsn.model.dto.StudentInfoRequest;
@@ -60,7 +59,7 @@ public class BaseInfoController {
         studentMessageService.updateStudentInfo(studentInfoRequest);
     }
 
-    @ApiOperation(value = "上传头像", notes = "上传用户头像")
+    @ApiOperation(value = "上传头像", notes = "上传用户头像。本接口需要使用POSTMAN测试，swagger无法测试。")
     @PostMapping("/uploadAvatar")
     @NoNeedLogin
     public String uploadAvatar(@RequestParam("avatar") MultipartFile file) {
@@ -70,10 +69,10 @@ public class BaseInfoController {
         return userService.uploadAvatar(file);
     }
 
-    @ApiOperation(value = "上传用户真实照片", notes = "上传用户真实照片")
+    @ApiOperation(value = "上传用户真实照片", notes = "上传用户真实照片。本接口需要使用POSTMAN测试，swagger无法测试。")
     @PostMapping("/uploadPhoto")
     @NoNeedLogin
-    public String uploadPhoto(@RequestParam("Photo") MultipartFile file) {
+    public String uploadPhoto(@RequestParam("photo") MultipartFile file) {
         if (file.isEmpty()) {
             return "文件不能为空";
         }
@@ -102,14 +101,12 @@ public class BaseInfoController {
     @GetMapping("/checkForUpdates")
     public void checkForUpdates() {
         //todo:点击会检查版本是否是最新版的，如果是，则会出现提示“已经是最新版本
-        return;
     }
 
     @ApiOperation("获取消息通知")
     @GetMapping("/getNotifications")
     public List<NotificationInfoVO> getNotifications() {
         return friendsService.getNotifications();
-//        return null;
     }
 
     @ApiOperation("帮助与反馈")

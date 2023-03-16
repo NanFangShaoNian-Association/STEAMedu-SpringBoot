@@ -9,10 +9,8 @@ import com.nfsn.model.entity.Choose;
 import com.nfsn.model.vo.PendingPaymentCourseVO;
 import com.nfsn.model.vo.PendingPaymentOrderInfoVO;
 import com.nfsn.model.vo.PendingPaymentStudentInfoVO;
-import com.nfsn.service.ChooseService;
-import com.nfsn.service.CourseService;
-import com.nfsn.service.IPayService;
-import com.nfsn.service.StudentMessageService;
+import com.nfsn.model.vo.UsedCouponAmountVO;
+import com.nfsn.service.*;
 import com.nfsn.utils.AccountHolder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -41,6 +39,9 @@ public class OrderController {
 
     @Resource
     private CourseService courseService;
+
+    @Resource
+    private CouponService couponService;
 
     @Resource
     private StudentMessageService studentMessageService;
@@ -86,6 +87,17 @@ public class OrderController {
 
         // 返回完整的PendingPaymentOrderInfoVO对象
         return pendingPaymentOrderInfoVO;
+    }
+
+    /**
+     * 通过优惠券ID查询优惠金额
+     * @param couponId 优惠券ID
+     * @return UsedCouponAmountVO 包含优惠金额的VO对象，如果没有找到对应的优惠券，则返回null
+     */
+    @ApiOperation("通过优惠券ID查询优惠金额")
+    @GetMapping("/value/{couponId}")
+    public UsedCouponAmountVO getValueByCouponId(@PathVariable Integer couponId) {
+        return couponService.getValueByCouponId(couponId);
     }
 
 }

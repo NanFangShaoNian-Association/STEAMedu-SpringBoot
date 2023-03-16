@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nfsn.model.dto.CreateCouponRequest;
 import com.nfsn.model.entity.*;
+import com.nfsn.model.vo.UsedCouponAmountVO;
 import com.nfsn.service.CouponService;
 import com.nfsn.mapper.CouponMapper;
 import com.nfsn.service.CourseService;
@@ -34,6 +35,9 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon>
 
     @Resource
     private UserCouponService userCouponService;
+
+    @Resource
+    private CouponMapper couponMapper;
 
     @Override
     public Coupon createCoupon(CreateCouponRequest createCouponRequest) {
@@ -114,6 +118,22 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon>
         }
         return false;
 
+    }
+
+    /**
+     * 通过优惠券ID查询优惠金额
+     * @param couponId 优惠券ID
+     * @return UsedCouponAmountVO 包含优惠金额的VO对象，如果没有找到对应的优惠券，则返回null
+     */
+    @Override
+    public UsedCouponAmountVO getValueByCouponId(Integer couponId) {
+        Coupon coupon = couponMapper.selectById(couponId);
+        if (coupon != null) {
+            UsedCouponAmountVO usedCouponAmountVO = new UsedCouponAmountVO();
+            usedCouponAmountVO.setValue(coupon.getValue());
+            return usedCouponAmountVO;
+        }
+        return null;
     }
 }
 

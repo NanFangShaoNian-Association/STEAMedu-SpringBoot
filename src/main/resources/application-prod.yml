@@ -38,6 +38,11 @@ minio:
   access-Key: 3KCAO08E2ZASV3X33M4G
   secret-Key: VIqHY7Dn0ZUJaOqk50zyxvjdmtqUaglX2t0NQ5ue
 
+app:
+  update:
+    latestVersion: 2.0.0
+    downloadUrl: https://example.com/app/download/app_v2.0.0.apk
+
 #alipay:
 #  appId: 2021000121637995 #需要自己的appID
 #  privateKey: xxxx #支付的私钥

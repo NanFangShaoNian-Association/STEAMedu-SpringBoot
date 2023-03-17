@@ -1,5 +1,6 @@
 package com.nfsn.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.nfsn.common.Message;
 import com.nfsn.model.entity.Chat;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -13,6 +14,6 @@ import java.util.List;
 */
 public interface ChatService extends IService<Chat> {
 
-    List<Message> listAllMessage(Integer friendId);
+    List<Message> listAllMessage(Integer friendId) throws JsonProcessingException;
 
 }

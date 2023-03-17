@@ -73,7 +73,9 @@ public class FriendsServiceImpl extends ServiceImpl<FriendsMapper, Friends>
         if (checkApplyIsRepeated(userId,applyFriendRequest.getRequestedUserId())){
             return;
         }
+
         AddFriends addFriends = BeanUtil.copyProperties(applyFriendRequest, AddFriends.class);
+        addFriends.setRequestUserId(userId);
         addFriends.setAddfriendsStatus(0);//未处理
 
         addFriendsService.save(addFriends);

@@ -20,13 +20,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
-* @author Tuanzi
-* @description 针对表【course】的数据库操作Service实现
-* @createDate 2023-02-09 16:30:52
-*/
+ * @author Tuanzi
+ * @description 针对表【course】的数据库操作Service实现
+ * @createDate 2023-02-09 16:30:52
+ */
 @Service
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
-    implements CourseService{
+        implements CourseService {
 
     @Resource
     private CourseMapper courseMapper;
@@ -60,7 +60,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         List<Integer> courseIds = carts.stream().map(Cart::getCourseId).collect(Collectors.toList());
 
         //若没有将课程加入购物车，返回null
-        if (carts.size() == 0){
+        if (carts.size() == 0) {
             return null;
         }
 
@@ -85,7 +85,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
 
     @Override
     public void deleteChooseCourseInfo(List<String> ids) {
-        if (ids.size() == 0){
+        if (ids.size() == 0) {
             return;
         }
         List<Integer> idList = ids.stream().distinct().map(s -> Convert.toInt(s, -1)).collect(Collectors.toList());
@@ -146,6 +146,22 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
             choicenessCourseVOList.add(choicenessCourseVO);
         }
         return choicenessCourseVOList;
+    }
+
+    /**
+     * 根据课程id查找待支付课程详情
+     *
+     * @param courseId 课程ID
+     * @return
+     */
+    @Override
+    public PendingPaymentCourseVO getCourseDetailById(Integer courseId) {
+        // 查询课程信息
+        PendingPaymentCourseVO pendingPaymentCourseVO = this.baseMapper.selectCourseDetailByCourseId(courseId);
+        // 查询并设置教师信息列表
+        pendingPaymentCourseVO.setTeachers(courseTeacherRelService.selectTeacherInfoByCourseId(courseId));
+        // 返回包含所有相关老师信息的待支付课程详情
+        return pendingPaymentCourseVO;
     }
 
 }

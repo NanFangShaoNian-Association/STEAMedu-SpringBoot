@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 15/03/2023 17:05:59
+ Date: 15/03/2023 19:43:19
 */
 
 SET NAMES utf8mb4;
@@ -516,13 +516,13 @@ DROP TABLE IF EXISTS `student_message`;
 CREATE TABLE `student_message`  (
   `student_message_id` int(0) NOT NULL COMMENT '学生信息ID-主键',
   `user_id` int(0) NOT NULL COMMENT '用户ID-用户外键',
-  `student_message_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '学生名',
-  `student_sex` varchar(5) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '性别',
-  `school` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '学校',
-  `birthday` datetime(0) NOT NULL COMMENT '生日',
-  `phone_number` char(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '联系方式',
-  `student_photo` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '学生照片-真人图片',
-  `grade` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '年级',
+  `student_message_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '学生名',
+  `student_sex` varchar(5) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '性别',
+  `school` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '学校',
+  `birthday` datetime(0) NULL DEFAULT NULL COMMENT '生日',
+  `phone_number` char(12) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系方式',
+  `student_photo` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '学生照片-真人图片',
+  `grade` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '年级',
   `student_message_status` tinyint(0) NOT NULL COMMENT '学生信息状态码',
   PRIMARY KEY (`student_message_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;

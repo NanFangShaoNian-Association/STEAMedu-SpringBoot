@@ -48,6 +48,7 @@ public class LoginServiceImpl {
 
     /**
      * 根据手机号获取验证码
+     *
      * @param phone 手机号
      */
     public void getVerifyCode(String phone) {
@@ -58,17 +59,18 @@ public class LoginServiceImpl {
         }
 
         //生成随机验证码
-        String verifyCode = RandomUtils.getRandom(RandomUtils.ALL_NUMBER, 6);
+        //String verifyCode = RandomUtils.getRandom(RandomUtils.ALL_NUMBER, 6);
+
         //固定验证码
-//        String verifyCode = "A1b2c3";
+        String verifyCode = "123456";
         //存储5分钟
-        cacheClient.setWithLogicalExpire(LOGIN_CODE_KEY+phone,verifyCode,LOGIN_CODE_TTL, TimeUnit.MINUTES);
-        log.info("目标手机号：{}，验证码：{}存储成功",phone,verifyCode);
+        cacheClient.setWithLogicalExpire(LOGIN_CODE_KEY + phone, verifyCode, LOGIN_CODE_TTL, TimeUnit.MINUTES);
+        log.info("目标手机号：{}，验证码：{}存储成功", phone, verifyCode);
 
         try {
             //发送逻辑
 //            aliyunCode.sendCode(phone,verifyCode);
-            log.info("目标手机号：{}，验证码：{}发送成功",phone,verifyCode);
+            log.info("目标手机号：{}，验证码：{}发送成功", phone, verifyCode);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,6 +79,7 @@ public class LoginServiceImpl {
 
     /**
      * 用户手机号登录(不需要密码登录)
+     *
      * @param loginRequest
      * @return
      */
@@ -86,14 +89,14 @@ public class LoginServiceImpl {
                 s -> null, LOGIN_CODE_TTL, TimeUnit.MINUTES).getData();
 
         //校验验证码是否相等
-        if (!StringUtils.hasText(loginRequest.getVerifyCode())||
-                !StringUtils.hasText(verifyCode)||
-                !verifyCode.equalsIgnoreCase(loginRequest.getVerifyCode())){
+        if (!StringUtils.hasText(loginRequest.getVerifyCode()) ||
+                !StringUtils.hasText(verifyCode) ||
+                !verifyCode.equalsIgnoreCase(loginRequest.getVerifyCode())) {
             throw new UserLoginException(ResultCode.USER_VERIFY_ERROR);
         }
 
         //todo:校验用户手机号是否存在，获取ip
-        User user = userService.getUserByPhone(loginRequest.getCertificate(),"127.0.0.1");
+        User user = userService.getUserByPhone(loginRequest.getCertificate(), "127.0.0.1");
 
         //生成登录token
         Map<String, Object> map = MapUtil.of("role", "user");
@@ -101,8 +104,8 @@ public class LoginServiceImpl {
 
         //存入redis
         //存储36000s=10小时
-        cacheClient.setWithLogicalExpire(LOGIN_USER_KEY + loginRequest.getCertificate(),token,LOGIN_USER_TTL, TimeUnit.SECONDS);
-        log.info("目标手机号：{}，token：{}存储成功",loginRequest.getCertificate(),token);
+        cacheClient.setWithLogicalExpire(LOGIN_USER_KEY + loginRequest.getCertificate(), token, LOGIN_USER_TTL, TimeUnit.SECONDS);
+        log.info("目标手机号：{}，token：{}存储成功", loginRequest.getCertificate(), token);
 
         //删除缓存中的验证码
         stringRedisTemplate.delete(LOGIN_CODE_KEY + loginRequest.getCertificate());

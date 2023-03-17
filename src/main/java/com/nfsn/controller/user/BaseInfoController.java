@@ -1,6 +1,10 @@
 package com.nfsn.controller.user;
 
 import com.nfsn.anno.NoNeedLogin;
+
+import com.nfsn.common.Result;
+import com.nfsn.constants.ResultCode;
+import com.nfsn.model.entity.User;
 import com.nfsn.config.AppUpdateConfig;
 import com.nfsn.model.vo.AccountInfoVO;
 import com.nfsn.model.dto.StudentInfoRequest;
@@ -47,8 +51,13 @@ public class BaseInfoController {
 
     @ApiOperation("获取个人信息")
     @GetMapping("/getPersonalInfo")
-    public PersonalInfoVO getPersonalInfo() {
-        return userService.getUserInfo();
+    public Result getPersonalInfo() {
+        PersonalInfoVO userInfo = userService.getUserInfo();
+        User userFull = userService.getUserFull();
+        if (userFull == null){
+            return new  Result(ResultCode.USER_NOT_FULL,userInfo);
+        }
+        return new Result(ResultCode.SUCCESS,userInfo);
     }
 
     @ApiOperation("获取学生信息")
@@ -65,7 +74,6 @@ public class BaseInfoController {
 
     @ApiOperation(value = "上传头像", notes = "上传用户头像。本接口需要使用POSTMAN测试，swagger无法测试。")
     @PostMapping("/uploadAvatar")
-    @NoNeedLogin
     public String uploadAvatar(@RequestParam("avatar") MultipartFile file) {
         if (file.isEmpty()) {
             return "文件不能为空";
@@ -75,8 +83,8 @@ public class BaseInfoController {
 
     @ApiOperation(value = "上传用户真实照片", notes = "上传用户真实照片。本接口需要使用POSTMAN测试，swagger无法测试。")
     @PostMapping("/uploadPhoto")
-    @NoNeedLogin
-    public String uploadPhoto(@RequestParam("photo") MultipartFile file) {
+    public String uploadPhoto(@RequestParam("Photo") MultipartFile file) {
+
         if (file.isEmpty()) {
             return "文件不能为空";
         }

@@ -28,6 +28,12 @@ public interface UserService extends IService<User> {
     PersonalInfoVO getUserInfo();
 
     /**
+     * 获取用户是否完整
+     * @return
+     */
+    User getUserFull();
+
+    /**
      * 获取已知对象id的用户信息
      * @param requestUserId
      * @return

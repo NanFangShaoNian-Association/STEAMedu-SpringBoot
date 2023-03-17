@@ -29,6 +29,11 @@ public class RedisConstants {
 
     public static final String FRIEND_MESSAGE_KEY = "friend:msg:";
 
+    /**
+     * 会话列表的key
+     */
+    public static final String Session_List_KEY = "session_user_";
+
 
 
 }

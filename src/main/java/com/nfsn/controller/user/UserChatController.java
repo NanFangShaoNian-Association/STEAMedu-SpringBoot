@@ -1,6 +1,7 @@
 package com.nfsn.controller.user;
 
 import cn.hutool.core.convert.Convert;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.nfsn.common.Message;
 import com.nfsn.model.dto.ApplyFriendRequest;
 import com.nfsn.model.vo.FriendsVO;
@@ -46,7 +47,7 @@ public class UserChatController {
 
     @GetMapping("/list/{friendId}/allMessage")
     @ApiOperation("获取所有信息")
-    public List<Message> listAllMessage(@PathVariable("friendId") String friendId){
+    public List<Message> listAllMessage(@PathVariable("friendId") String friendId) throws JsonProcessingException {
         Integer targetFriendId = Convert.toInt(friendId, null);
         return chatService.listAllMessage(targetFriendId);
     }
@@ -81,12 +82,6 @@ public class UserChatController {
     @ApiOperation("拒绝好友")
     public void contactFriend(@PathVariable("requestUserId") Integer requestUserId){
         friendsService.contactFriend(requestUserId);
-    }
-
-    @GetMapping("/list/allSession")
-    @ApiOperation("会话列表")
-    public List<Message> listSession(){
-        return null;
     }
 
 }

@@ -19,6 +19,14 @@ public enum ResultCode {
     USER_TOKEN_IS_BLANK(2007,"用户token为空"),
     USER_VERIFY_ERROR(2008,"验证码校验失败，请重新获取"),
 
+    USER_NOT_FULL(2101,"用户信息不完整"),
+    USER_NOT_FRIEND(2102,"非好友关系"),
+
+    /*会话错误：3001-3999*/
+    SESSION_HAS_EXISTED(3001,"会话已存在,请直接进行聊天"),
+    SESSION_NOT_DELETE(3002,"删除失败，请重试或刷新"),
+
+
     /*服务器内部错误*/
     INTERNAL_ERROR(5001,"服务器内部错误，请联系开发人员");
 

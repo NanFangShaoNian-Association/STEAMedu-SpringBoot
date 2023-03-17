@@ -13,8 +13,6 @@ import java.util.Date;
 @Data
 public class SessionInfoVo {
 
-    private int id;
-
     /**
      * 自己的id
      */

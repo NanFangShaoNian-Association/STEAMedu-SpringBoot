@@ -2,7 +2,10 @@ package com.nfsn.controller.common;
 
 import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.nfsn.common.Message;
+import com.nfsn.common.Result;
+import com.nfsn.constants.ResultCode;
 import com.nfsn.convertor.MessageDecoder;
 import com.nfsn.convertor.MessageEncoder;
 import com.nfsn.model.entity.Chat;
@@ -16,6 +19,7 @@ import com.nfsn.utils.CacheClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -55,6 +59,8 @@ public class ChatController {
     private static FriendsService friendsService;
 
     private static ChatService chatService;
+
+
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -120,19 +126,40 @@ public class ChatController {
     public void onMessage(Message message, Session session) {
         //检测好友关系
         if (!checkFriendship(message)){
-            //todo:抛出非好友异常
+            throw new NullPointerException("非好友关系");
         }
         onService(message, session);
     }
 
     //处理信息
+
     private void onService(Message message, Session session){
+
         //保存信息
         saveMessage(message);
+
+        MessageController messageController = new MessageController();
+        Integer toId = Integer.valueOf(message.getToId());
+        try {
+            messageController.createSession(Integer.valueOf(message.getFromId()),toId);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         //如果用户在线，则发送消息
         if (webSocketSet.get(Convert.toInt(message.getToId())) != null){
             //发送信息
             sendMessage(message);
+            try {
+                messageController.updateSession(Integer.valueOf(message.getFromId()),toId,message.getContent());
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }else {
+            try {
+                messageController.updateSession(Integer.valueOf(message.getFromId()),toId,message.getContent());
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
         }
     }
 

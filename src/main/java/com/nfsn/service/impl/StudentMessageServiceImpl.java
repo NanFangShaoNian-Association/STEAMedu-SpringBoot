@@ -42,11 +42,7 @@ public class StudentMessageServiceImpl extends ServiceImpl<StudentMessageMapper,
 
     @Override
     public void updateStudentInfo(StudentInfoRequest studentInfoRequest) {
-        if (!checkStudentInfo(studentInfoRequest)){
-            //todo:抛出学生信息不合法异常
 
-            return;
-        }
         Integer userId = AccountHolder.getUser().getUserId();
 
         StudentMessage studentMessage = BeanUtil.copyProperties(studentInfoRequest, StudentMessage.class);

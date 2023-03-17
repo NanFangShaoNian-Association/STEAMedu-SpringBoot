@@ -4,6 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nfsn.common.Result;
+import com.nfsn.constants.ResultCode;
 import com.nfsn.mapper.StudentMessageMapper;
 import com.nfsn.model.entity.Friends;
 import com.nfsn.model.entity.StudentMessage;
@@ -128,6 +130,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         PersonalInfoVO personalInfoVO = BeanUtil.copyProperties(user, PersonalInfoVO.class);
         return personalInfoVO;
     }
+
+    @Override
+    public User getUserFull() {
+        Integer userId = AccountHolder.getUser().getUserId();
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<User>().eq(User::getUserId, userId)
+                .isNotNull(User::getUserIntroduction)
+                .isNotNull(User::getUserLocationProvince)
+                .isNotNull(User::getUserLocationCity)
+                .isNotNull(User::getUserLocationRegion)
+                .isNotNull(User::getLongitude)
+                .isNotNull(User::getLatitude);
+
+        return userMapper.selectOne(queryWrapper);
+    }
+
 
     @Override
     public PersonalInfoVO getRequestUserInfo(Integer requestUserId) {

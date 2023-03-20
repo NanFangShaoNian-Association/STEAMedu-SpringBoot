@@ -2,6 +2,9 @@ package com.nfsn.service;
 
 import com.nfsn.model.entity.Cart;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.nfsn.model.vo.CartVO;
+
+import java.util.List;
 
 /**
 * @author Tuanzi
@@ -10,4 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface CartService extends IService<Cart> {
 
+    List<CartVO> getCartList();
+
+    void deleteCartList(List<String> ids);
 }

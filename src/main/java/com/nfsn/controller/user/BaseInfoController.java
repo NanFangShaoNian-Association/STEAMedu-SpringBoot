@@ -5,10 +5,7 @@ import com.nfsn.config.AppUpdateConfig;
 import com.nfsn.model.vo.AccountInfoVO;
 import com.nfsn.model.dto.StudentInfoRequest;
 import com.nfsn.model.vo.*;
-import com.nfsn.service.CourseService;
-import com.nfsn.service.FriendsService;
-import com.nfsn.service.StudentMessageService;
-import com.nfsn.service.UserService;
+import com.nfsn.service.*;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +29,9 @@ public class BaseInfoController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private CartService cartService;
 
     @Resource
     private FriendsService friendsService;
@@ -84,15 +84,15 @@ public class BaseInfoController {
     }
 
     @ApiOperation("获取选课单课程列表")
-    @GetMapping("/listCourseInfo")
-    public List<ChooseCourseInfoVO> listCourseInfo() {
-        return courseService.listChooseCourseInfo();
+    @GetMapping("/getCartList")
+    public List<CartVO> listCourseInfo() {
+        return cartService.getCartList();
     }
 
     @ApiOperation("删除选课单课程，需要删除的id列表")
-    @DeleteMapping("/deleteCourseInfo")
+    @DeleteMapping("/deleteCartList")
     public void deleteCourseInfo(List<String> ids) {
-        courseService.deleteChooseCourseInfo(ids);
+        cartService.deleteCartList(ids);
     }
 
     @ApiOperation("账号与安全-手机、微信、QQ和邮箱")

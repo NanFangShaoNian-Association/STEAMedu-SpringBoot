@@ -32,64 +32,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
     private CourseMapper courseMapper;
 
     @Resource
-    private CartService cartService;
-
-    @Resource
-    private UserService userService;
-
-    @Resource
     private CourseTeacherRelService courseTeacherRelService;
-
-    @Resource
-    private CourseTeacherRelMapper courseTeacherRelMapper;
-
-    @Resource
-    private UserMapper userMapper;
 
     @Override
     public CourseVO getCourseInfoById(Integer courseId) {
         return courseMapper.getCourseInfoById(courseId);
-    }
-
-    @Override
-    public List<ChooseCourseInfoVO> listChooseCourseInfo() {
-        Integer userId = AccountHolder.getUser().getUserId();
-
-        //获取选课单中该用户加入选课单的课程id
-        List<Cart> carts = cartService.list(new LambdaQueryWrapper<Cart>().eq(Cart::getUserId, userId));
-        List<Integer> courseIds = carts.stream().map(Cart::getCourseId).collect(Collectors.toList());
-
-        //若没有将课程加入购物车，返回null
-        if (carts.size() == 0) {
-            return null;
-        }
-
-        //获取课程
-        List<Course> courses = this.listByIds(courseIds);
-        List<ChooseCourseInfoVO> chooseCourseInfoVOS = BeanUtil.copyToList(courses, ChooseCourseInfoVO.class);
-
-        //获取教师id及其他教师信息
-        List<ChooseCourseInfoVO> chooseCourseInfoVOList = chooseCourseInfoVOS.stream().map(chooseCourseInfoVO -> {
-            //获取教师id，角色，姓名和头像
-            TeacherInfoVO teacherInfoVO = courseTeacherRelService.getTeacherByCourseId(chooseCourseInfoVO.getCourseId());
-
-            chooseCourseInfoVO.setTeacherRole(teacherInfoVO.getTeacherRole());
-            chooseCourseInfoVO.setTeacherUserId(chooseCourseInfoVO.getCartId());
-            chooseCourseInfoVO.setUserAvatar(teacherInfoVO.getUserAvatar());
-            chooseCourseInfoVO.setUserName(teacherInfoVO.getUserName());
-            return chooseCourseInfoVO;
-        }).collect(Collectors.toList());
-
-        return chooseCourseInfoVOList;
-    }
-
-    @Override
-    public void deleteChooseCourseInfo(List<String> ids) {
-        if (ids.size() == 0) {
-            return;
-        }
-        List<Integer> idList = ids.stream().distinct().map(s -> Convert.toInt(s, -1)).collect(Collectors.toList());
-        cartService.removeByIds(idList);
     }
 
     @Override

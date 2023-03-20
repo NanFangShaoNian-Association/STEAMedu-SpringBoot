@@ -1,25 +1,20 @@
 package com.nfsn.model.vo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @ClassName: CourseInfoVO
- * @Author: 团子tz
- * @CreateTime: 2023/02/15 13:03
+ * @Author: atnibamaitay
+ * @CreateTime: 2023/03/19 21:05
  * @Description: 选课单信息响应实体
  */
 @Data
 @ApiModel("选课单信息响应实体")
-public class ChooseCourseInfoVO {
-    /**
-     * 购物车id-主键
-     */
-    @ApiModelProperty("购物车id")
-    private Integer cartId;
+public class CartVO {
 
     /**
      * 课程ID
@@ -52,28 +47,10 @@ public class ChooseCourseInfoVO {
     private Integer courseSectionNumber;
 
     /**
-     * 老师ID-主键
+     * 老师信息
      */
-    @ApiModelProperty("老师ID")
-    private Integer teacherUserId;
-
-    /**
-     * 头像-默认（固定默认头像）
-     */
-    @ApiModelProperty("头像")
-    private String userAvatar;
-
-    /**
-     * 老师在这门课中的角色-0表示授课老师，1表示助教
-     */
-    @ApiModelProperty("老师在这门课中的角色-0表示授课老师，1表示助教")
-    private Integer teacherRole;
-
-    /**
-     * 用户名-默认值(应该是随机生成)
-     */
-    @ApiModelProperty("用户名")
-    private String userName;
+    @ApiModelProperty(value = "老师信息")
+    private List<TeacherInfoVO> teachers;
 
     /**
      * 上课地点
@@ -81,7 +58,11 @@ public class ChooseCourseInfoVO {
     @ApiModelProperty("上课地点")
     private String coursePosition;
 
-    //todo:距离，vo里加固定值
+    /**
+     * 距离
+     */
+    @ApiModelProperty("距离")
+    private String distance = "2km";
 
     /**
      * 价格

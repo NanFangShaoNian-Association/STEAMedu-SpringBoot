@@ -14,9 +14,7 @@ import java.util.List;
 public interface CourseService extends IService<Course> {
     CourseVO getCourseInfoById(Integer courseId);
 
-    List<ChooseCourseInfoVO> listChooseCourseInfo();
-
-    void deleteChooseCourseInfo(List<String> ids);
+//    void deleteChooseCourseInfo(List<String> ids);
 
     List<RecommendedCourseVO> getRecommendedCourseList();
 

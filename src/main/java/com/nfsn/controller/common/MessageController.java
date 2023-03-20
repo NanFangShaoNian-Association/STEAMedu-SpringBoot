@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/message")
 @RestController
 @ApiImplicitParams({
-        @ApiImplicitParam(name = "token", value = "Access Token", required = true, paramType = "header")
+        @ApiImplicitParam(name = "token", value = "Access Token", required = true, paramType = "header", dataTypeClass = String.class)
 })
 public class MessageController {
     /**
@@ -54,7 +54,7 @@ public class MessageController {
 
 
     @ApiOperation("根据用户id进行查询已经建立的全部会话")
-    @PutMapping("/SessionList")
+    @GetMapping("/SessionList")
     public List<SessionInfoVo> SessionList() throws IOException {
         Integer userId = AccountHolder.getUser().getUserId();
 
@@ -78,7 +78,7 @@ public class MessageController {
 
 
     @ApiOperation("根据对方id进行创建会话")
-    @PutMapping("/createSession")
+    @PostMapping("/createSession")
     public Result createSession(@RequestParam Integer userId, @RequestParam Integer friendId) throws JsonProcessingException {
         //建立key和hashKey
         String fridId = "" + friendId;

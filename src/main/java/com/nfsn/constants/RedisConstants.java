@@ -35,5 +35,4 @@ public class RedisConstants {
     public static final String Session_List_KEY = "session_user_";
 
 
-
 }

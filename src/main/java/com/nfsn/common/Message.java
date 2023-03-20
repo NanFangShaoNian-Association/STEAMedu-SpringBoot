@@ -17,10 +17,13 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Message {
-    private String id;//消息id
+    //私有化四个属性，分别为消息id、发送者id、接收者id和内容
+    private String id;
     private String fromId;
     private String toId;
-    private String content;//内容
+    private String content;
+
+    //使用@JsonFormat注解，指定日期格式为"yyyy-MM-dd HH:mm:ss"，时区为"GMT+8"
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date time;//发送时间
+    private Date time; //消息发送时间
 }

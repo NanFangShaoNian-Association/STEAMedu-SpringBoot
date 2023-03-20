@@ -30,8 +30,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
-                .title("Swagger3接口文档")
-                .description("适用于前后端分离统一的接口文档")
+                .title("STEAMEdu")
+                .description("STEANEdu 项目的接口文档")
                 .version("1.0")
                 .build();
     }

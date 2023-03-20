@@ -10,9 +10,9 @@ import lombok.Getter;
  */
 @Getter
 public enum AccountRole {
-    USER(0,"user","用户"),
-    MERCHANT(1,"merchant","商家"),
-    PLATFORM_ADMINISTRATOR(2,"platformAdministrator","平台管理员");
+    USER(0, "user", "用户"),
+    MERCHANT(1, "merchant", "商家"),
+    PLATFORM_ADMINISTRATOR(2, "platformAdministrator", "平台管理员");
 
     /**
      * 编号

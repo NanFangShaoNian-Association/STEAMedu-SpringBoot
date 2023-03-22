@@ -2,6 +2,7 @@ package com.nfsn.advice;
 
 import com.nfsn.common.Result;
 import com.nfsn.constants.ResultCode;
+import com.nfsn.exception.BaseInfoException;
 import com.nfsn.exception.UserException;
 import com.nfsn.exception.UserLoginException;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +49,13 @@ public class GlobalExceptionHandler {
     public Result paramExceptionHandler(HttpServletRequest req, HttpMessageNotReadableException e) {
         log.error("出现HttpMessageNotReadableException异常：",e);
         return new Result(-1,e.getCause().toString(), null);
+    }
+
+    //参数异常拦截，-1为系统异常
+    @ExceptionHandler(BaseInfoException.class)
+    public Result BaseInfoExceptionHandler(HttpServletRequest req, BaseInfoException e) {
+        log.error("出现BaseInfoException异常：",e);
+        return Result.failure(e.getResultCode(), null);
     }
 
 

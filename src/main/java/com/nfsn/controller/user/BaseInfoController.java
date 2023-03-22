@@ -49,6 +49,9 @@ public class BaseInfoController {
     @Resource
     private AppUpdateConfig appUpdateConfig;
 
+    @Resource
+    private CollectService collectService;
+
     @ApiOperation("获取个人信息")
     @GetMapping("/getPersonalInfo")
     public Result getPersonalInfo() {
@@ -95,6 +98,24 @@ public class BaseInfoController {
     @GetMapping("/getCartList")
     public List<CartVO> listCourseInfo() {
         return cartService.getCartList();
+    }
+
+    @ApiOperation("查看课程收藏列表")
+    @GetMapping("/getCollectList")
+    public List<CollectToCourseInfoVo> getCollectList(){
+        return collectService.getCollectList();
+    }
+
+    @ApiOperation("添加课程收藏")
+    @PostMapping("/addCourseToCollect/{courseId}")
+    public void addCourseToCollect(@PathVariable Integer courseId){
+        collectService.addCourseToCollect(courseId);
+    }
+
+    @ApiOperation("删除/取消课程收藏")
+    @DeleteMapping("/delCourseToCollect/{courseId}")
+    public void delCourseToCollect(@PathVariable Integer courseId){
+        collectService.delCourseToCollect(courseId);
     }
 
     @ApiOperation("删除选课单课程，需要删除的id列表")

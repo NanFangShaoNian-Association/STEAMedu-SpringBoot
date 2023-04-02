@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/users/chats")
-@Api("用户聊天操作类")
+@Api(value = "用户聊天操作类",tags = "用户聊天操作类")
 @ApiImplicitParams({
         @ApiImplicitParam(name = "token", value = "Access Token", required = true, paramType = "header", dataTypeClass = String.class)
 })

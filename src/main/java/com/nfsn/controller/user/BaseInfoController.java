@@ -23,7 +23,7 @@ import java.util.List;
  * @CreateTime: 2023/02/12 17:17
  * @Description: 账号基本信息Controller
  */
-@Api("账号基本信息模块")
+@Api(value = "账号基本信息模块",tags = "账号基本信息模块")
 @RestController
 @RequestMapping("/users")
 @ApiImplicitParams({
@@ -95,9 +95,16 @@ public class BaseInfoController {
     }
 
     @ApiOperation("获取选课单课程列表")
-    @GetMapping("/getCartList")
+//    @GetMapping("/getCartList")
+    //暂时隐藏这个接口
     public List<CartVO> listCourseInfo() {
         return cartService.getCartList();
+    }
+
+    @ApiOperation("获得我的所有课程")
+    @GetMapping("/getMyCourses")
+    public List<CourseMyListVO> listMyCourses(){
+        return courseService.listMyCourses();
     }
 
     @ApiOperation("查看课程收藏列表")

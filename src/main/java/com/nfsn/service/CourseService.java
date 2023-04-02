@@ -21,4 +21,10 @@ public interface CourseService extends IService<Course> {
     List<ChoicenessCourseVO> getChoicenessCourseList();
 
     PendingPaymentCourseVO getCourseDetailById(Integer courseId);
+
+    /**
+     * 获得我的所有课程的信息
+     * @return
+     */
+    List<CourseMyListVO> listMyCourses();
 }

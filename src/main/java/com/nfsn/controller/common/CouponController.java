@@ -22,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/coupon")
-@Api("优惠卷操作类")
+@Api(value = "聊天相关接口",tags = "聊天相关接口")
 @ApiImplicitParams({
         @ApiImplicitParam(name = "token", value = "Access Token", required = true, paramType = "header", dataTypeClass = String.class)
 })

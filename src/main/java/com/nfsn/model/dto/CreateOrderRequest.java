@@ -42,6 +42,13 @@ public class CreateOrderRequest implements Serializable {
     private Integer totalFee;
 
     /**
+     * 支付方式-0:微信支付;1:支付宝支付;2银行卡支付;...(默认为0)
+     */
+    @ApiModelProperty("支付方式")
+    private Integer payWay;
+
+
+    /**
      * 订单备注
      */
     @ApiModelProperty("订单备注")

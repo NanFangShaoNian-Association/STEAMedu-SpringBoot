@@ -3,6 +3,7 @@ package com.nfsn.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nfsn.common.Result;
 import com.nfsn.constants.ResultCode;
 import com.nfsn.exception.BaseInfoException;
 import com.nfsn.mapper.CollectMapper;
@@ -43,13 +44,16 @@ public class CollectServiceImpl extends ServiceImpl<CollectMapper, Collect> impl
         List<Collect> collectList = this.list(new LambdaQueryWrapper<Collect>()
                 .eq(Collect::getUserId, userId));
 
+        if (collectList.size() ==0){
+            throw new BaseInfoException(ResultCode.PARAM_IS_BLANK);
+        }
+
         List<Integer> ids = collectList.stream().map(Collect::getCourseId)
                 .collect(Collectors.toList());
         List<Course> courseList = courseService.list(new LambdaQueryWrapper<Course>()
                 .in(Course::getCourseId, ids));
 
         return courseList.stream().map(courseOne ->{
-
             Course course1 = courseService.getById(courseOne.getCourseId());
             List<TeacherInfoVO> teacherInfoVOS = courseTeacherRelService.selectTeacherInfoByCourseId(course1.getCourseId());
             CollectToCourseInfoVo courseInfoVo = BeanUtil.copyProperties(course1,CollectToCourseInfoVo.class);
@@ -57,10 +61,6 @@ public class CollectServiceImpl extends ServiceImpl<CollectMapper, Collect> impl
             return courseInfoVo;
         }).collect(Collectors.toList());
 
-
-
-
-//        return courseList;
     }
 
     @Override
@@ -75,6 +75,7 @@ public class CollectServiceImpl extends ServiceImpl<CollectMapper, Collect> impl
             Collect collect = new Collect();
             collect.setUserId(userId);
             collect.setCourseId(courseId);
+            this.save(collect);
         }else {
             throw new BaseInfoException(ResultCode.PARAM_HAS_EXISTED);
         }

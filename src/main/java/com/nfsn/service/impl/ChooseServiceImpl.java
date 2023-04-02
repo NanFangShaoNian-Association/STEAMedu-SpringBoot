@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
 * @author Tuanzi
@@ -56,7 +57,7 @@ public class ChooseServiceImpl extends ServiceImpl<ChooseMapper, Choose>
         choose.setPayTime(new Date());
         choose.setChooseCommitTime(new Date());
         choose.setPayMoney(createOrderRequest.getTotalFee());//待支付
-        choose.setPayWay(1);//支付宝支付
+        choose.setPayWay(createOrderRequest.getPayWay());//支付方式 支付宝支付
         choose.setChooseHandleStatus(0);//机构未处理
         choose.setPayStatus(0);//未付款
         //创建订单信息

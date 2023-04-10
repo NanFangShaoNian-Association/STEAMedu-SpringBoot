@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.NotificationMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.Notification">
+            <id property="notificationId" column="notification_id" jdbcType="INTEGER"/>
+            <result property="notificationName" column="notification_name" jdbcType="VARCHAR"/>
+            <result property="notificationContent" column="notification_content" jdbcType="VARCHAR"/>
+            <result property="courseId" column="course_id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="publishTime" column="publish_time" jdbcType="TIMESTAMP"/>
+            <result property="expiryTime" column="expiry_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        notification_id,notification_name,notification_content,
+        course_id,user_id,publish_time,
+        expiry_time
+    </sql>
+</mapper>

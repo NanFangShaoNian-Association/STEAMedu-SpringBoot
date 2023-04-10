@@ -1,9 +1,12 @@
 package com.nfsn.model.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * @ClassName: CourseVO
@@ -37,7 +40,8 @@ public class CourseVO {
      * 课程开始时间
      */
     @ApiModelProperty(value = "课程开始时间")
-    private String courseStartTime;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date courseStartTime;
 
     /**
      * 报名人数

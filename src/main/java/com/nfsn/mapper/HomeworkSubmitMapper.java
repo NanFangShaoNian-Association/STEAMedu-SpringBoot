@@ -1,0 +1,18 @@
+package com.nfsn.mapper;
+
+import com.nfsn.model.entity.HomeworkSubmit;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+/**
+* @author 温格
+* @description 针对表【homework_submit(作业提交表)】的数据库操作Mapper
+* @createDate 2023-04-10 09:33:52
+* @Entity com.nfsn.model.entity.HomeworkSubmit
+*/
+public interface HomeworkSubmitMapper extends BaseMapper<HomeworkSubmit> {
+
+}
+
+
+
+

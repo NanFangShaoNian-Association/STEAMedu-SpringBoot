@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.ExamMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.Exam">
+            <id property="examId" column="exam_id" jdbcType="INTEGER"/>
+            <result property="examName" column="exam_name" jdbcType="VARCHAR"/>
+            <result property="examStartTime" column="exam_start_time" jdbcType="TIMESTAMP"/>
+            <result property="examEndTime" column="exam_end_time" jdbcType="TIMESTAMP"/>
+            <result property="examDuration" column="exam_duration" jdbcType="INTEGER"/>
+            <result property="examCreateTime" column="exam_create_time" jdbcType="TIMESTAMP"/>
+            <result property="teacherId" column="teacher_id" jdbcType="INTEGER"/>
+            <result property="courseId" column="course_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        exam_id,exam_name,exam_start_time,
+        exam_end_time,exam_duration,exam_create_time,
+        teacher_id,course_id
+    </sql>
+</mapper>

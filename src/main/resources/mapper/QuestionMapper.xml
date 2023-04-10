@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.QuestionMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.Question">
+            <id property="questionId" column="question_id" jdbcType="INTEGER"/>
+            <result property="questionText" column="question_text" jdbcType="VARCHAR"/>
+            <result property="questionType" column="question_type" jdbcType="INTEGER"/>
+            <result property="questionCategory" column="question_category" jdbcType="VARCHAR"/>
+            <result property="questionImageUrl" column="question_image_url" jdbcType="VARCHAR"/>
+            <result property="questionAnalysis" column="question_analysis" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        question_id,question_text,question_type,
+        question_category,question_image_url,question_analysis
+    </sql>
+</mapper>

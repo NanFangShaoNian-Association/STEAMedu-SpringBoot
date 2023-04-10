@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.HomeworkSubmitMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.HomeworkSubmit">
+            <id property="homeworkSubmitId" column="homework_submit_id" jdbcType="INTEGER"/>
+            <result property="homeworkId" column="homework_id" jdbcType="INTEGER"/>
+            <result property="studentId" column="student_id" jdbcType="INTEGER"/>
+            <result property="homeworkSubmitAnswer" column="homework_submit_answer" jdbcType="OTHER"/>
+            <result property="homeworkSubmitScore" column="homework_submit_score" jdbcType="DECIMAL"/>
+            <result property="homeworkSubmitStatus" column="homework_submit_status" jdbcType="TINYINT"/>
+            <result property="submitTime" column="submit_time" jdbcType="TIMESTAMP"/>
+            <result property="reviewTime" column="review_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        homework_submit_id,homework_id,student_id,
+        homework_submit_answer,homework_submit_score,homework_submit_status,
+        submit_time,review_time
+    </sql>
+</mapper>

@@ -4,6 +4,7 @@ import com.nfsn.anno.NoNeedLogin;
 
 import com.nfsn.common.Result;
 import com.nfsn.constants.ResultCode;
+import com.nfsn.model.entity.StudentMessage;
 import com.nfsn.model.entity.User;
 import com.nfsn.config.AppUpdateConfig;
 import com.nfsn.model.vo.AccountInfoVO;
@@ -65,8 +66,13 @@ public class BaseInfoController {
 
     @ApiOperation("获取学生信息")
     @GetMapping("/getStudentInfo")
-    public StudentInfoVO getStudentInfo() {
-        return studentMessageService.getStudentInfo();
+    public Result getStudentInfo() {
+        StudentInfoVO studentInfo = studentMessageService.getStudentInfo();
+        StudentMessage studentFull = studentMessageService.getStudentFull();
+        if (studentFull == null){
+            return new  Result(ResultCode.STUDENT_NOT_FULL,studentInfo);
+        }
+        return new Result(ResultCode.SUCCESS,studentInfo);
     }
 
     @ApiOperation("新增、更新学生信息")

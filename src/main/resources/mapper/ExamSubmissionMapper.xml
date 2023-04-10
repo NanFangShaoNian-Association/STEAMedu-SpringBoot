@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.ExamSubmissionMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.ExamSubmission">
+            <id property="submissionId" column="submission_id" jdbcType="INTEGER"/>
+            <result property="examId" column="exam_id" jdbcType="INTEGER"/>
+            <result property="studentMessageId" column="student_message_id" jdbcType="INTEGER"/>
+            <result property="studentAnswer" column="student_answer" jdbcType="OTHER"/>
+            <result property="studentScore" column="student_score" jdbcType="DECIMAL"/>
+            <result property="submissionTime" column="submission_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        submission_id,exam_id,student_message_id,
+        student_answer,student_score,submission_time
+    </sql>
+</mapper>

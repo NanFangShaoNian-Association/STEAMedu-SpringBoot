@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -73,6 +75,7 @@ public class Course implements Serializable {
      * 课程开始时间
      */
     @TableField(value = "course_start_time")
+    @JsonFormat(pattern = "yyyy-MM-dd ",timezone = "GMT+8")
     private String courseStartTime;
 
     /**

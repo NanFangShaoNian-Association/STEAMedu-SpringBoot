@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.HomeworkMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.Homework">
+            <id property="homeworkId" column="homework_id" jdbcType="INTEGER"/>
+            <result property="courseId" column="course_id" jdbcType="INTEGER"/>
+            <result property="homeworkTitle" column="homework_title" jdbcType="VARCHAR"/>
+            <result property="deadline" column="deadline" jdbcType="TIMESTAMP"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="creatorId" column="creator_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        homework_id,course_id,homework_title,
+        deadline,create_time,status,
+        creator_id
+    </sql>
+</mapper>

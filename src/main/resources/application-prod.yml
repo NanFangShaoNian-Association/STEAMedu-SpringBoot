@@ -7,7 +7,7 @@ spring:
   # Database configuration
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver                      # MySQL driver package
-    url: jdbc:mysql://172.38.0.3:3306/steam_edu?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://192.168.87.186:3306/steam_edu?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: "nfsn520"
     type: com.alibaba.druid.pool.DruidDataSource                      # Current data source operation type
@@ -19,14 +19,23 @@ spring:
 
   # Redis related
   redis:
-    cluster:
-      nodes: 172.38.0.11:6379,172.38.0.12:6379,172.38.0.13:6379       # Redis cluster nodes
-      max-redirects: 3                                                # Maximum number of redirects, recommended to set to 3
-    timeout: 3000                                                     # Redis connection timeout, in milliseconds
-    jedis:
+    host: 192.168.87.186
+    port: 6371
+    password: nfsn-redis-6371
+    lettuce:
       pool:
-        max-idle: 100
-        max-wait: 1
+        max-active: 8  #最大连接
+        max-idle: 100   #最大空闲连接
+        min-idle: 0   #最小空闲连接
+        max-wait: 100ms #连接等待时间
+  #    cluster:
+#      nodes: 172.38.0.11:6379,172.38.0.12:6379,172.38.0.13:6379       # Redis cluster nodes
+#      max-redirects: 3                                                # Maximum number of redirects, recommended to set to 3
+#    timeout: 3000                                                     # Redis connection timeout, in milliseconds
+#    jedis:
+#      pool:
+#        max-idle: 100
+#        max-wait: 1
   servlet:                                                   # servlet properties
     multipart:                                               # multipart properties
       max-file-size: 200MB                                   # maximum file size for multipart request

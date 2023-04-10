@@ -35,6 +35,7 @@ public class CourseTeacherRelServiceImpl extends ServiceImpl<CourseTeacherRelMap
      * @param courseId 课程ID
      * @return 老师信息列表
      */
+    @Override
     public List<TeacherInfoVO> selectTeacherInfoByCourseId(Integer courseId) {
         return courseTeacherRelMapper.selectTeacherInfoByCourseId(courseId);
     }

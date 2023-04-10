@@ -29,7 +29,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/orders")
-@Api("订单操作类")
+@Api(value = "订单操作类",tags = "订单操作类")
 @ApiImplicitParams({
         @ApiImplicitParam(name = "token", value = "Access Token", required = true, paramType = "header", dataTypeClass = String.class)
 })

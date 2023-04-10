@@ -1,8 +1,11 @@
 package com.nfsn.controller.user;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.nfsn.model.dto.CourseInfoRequest;
+import com.nfsn.model.entity.Collect;
 import com.nfsn.model.vo.*;
 import com.nfsn.service.*;
+import com.nfsn.utils.AccountHolder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -23,7 +26,7 @@ import java.util.List;
  * @Version: 1.0
  **/
 
-@Api("发现模块接口")
+@Api(value = "发现模块接口",tags = "发现模块接口")
 @RestController
 @RequestMapping("/api")
 @ApiImplicitParams({
@@ -47,6 +50,9 @@ public class DiscoverController {
 
     @Resource
     private CourseDetailService courseDetailService;
+
+    @Resource
+    private CollectService collectService;
 
     @ApiOperation("根据课程ID查询课程详细信息")
     @GetMapping("/getCourseInfoById")
@@ -79,6 +85,17 @@ public class DiscoverController {
         courseInfoRequest.setCourseDetail(courseDetailVOList);
         // 设置课程对应的老师信息
         courseInfoRequest.setTeacher(teacher);
+
+        //判断是否收藏
+
+
+        Collect one = collectService.getOne(new LambdaQueryWrapper<Collect>()
+                .eq(Collect::getCourseId, courseId).eq(Collect::getUserId,AccountHolder.getUser().getUserId()));
+        if (one != null){
+            courseInfoRequest.setIsCollect(1);
+        }else {
+            courseInfoRequest.setIsCollect(0);
+        }
 
         return courseInfoRequest;
     }

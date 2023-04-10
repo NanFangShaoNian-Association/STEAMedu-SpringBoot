@@ -21,7 +21,7 @@ import javax.annotation.Resource;
  * @CreateTime: 2022/10/31 08:48
  * @Description: 三端角色登录注册接口
  */
-@Api("三端角色登录注册接口")
+@Api(value = "三端角色登录注册接口",tags = "三端角色登录注册接口")
 @RestController
 @RequestMapping("/api")
 public class LoginController {

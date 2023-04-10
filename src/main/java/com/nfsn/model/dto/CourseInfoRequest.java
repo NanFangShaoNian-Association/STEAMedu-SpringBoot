@@ -92,4 +92,10 @@ public class CourseInfoRequest implements Serializable {
     @ApiModelProperty("课程评价")
     private List<CourseRatingVO> courseRating;
 
+    /**
+     * 是否收藏课程。0-没收藏。1-收藏
+     */
+    @ApiModelProperty("是否收藏")
+    private Integer IsCollect;
+
 }

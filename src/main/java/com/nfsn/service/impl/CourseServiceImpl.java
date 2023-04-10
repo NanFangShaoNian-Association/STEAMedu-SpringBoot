@@ -34,6 +34,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
     @Resource
     private CourseTeacherRelService courseTeacherRelService;
 
+    @Resource
+    private StudentMessageService studentMessageService;
+
+    @Resource
+    private CourseStudentService courseStudentService;
+
     @Override
     public CourseVO getCourseInfoById(Integer courseId) {
         return courseMapper.getCourseInfoById(courseId);
@@ -109,6 +115,33 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         pendingPaymentCourseVO.setTeachers(courseTeacherRelService.selectTeacherInfoByCourseId(courseId));
         // 返回包含所有相关老师信息的待支付课程详情
         return pendingPaymentCourseVO;
+    }
+
+    @Override
+    public List<CourseMyListVO> listMyCourses() {
+        // 获取当前用户ID
+        Integer userId = AccountHolder.getUser().getUserId();
+
+        Integer studentMessageId = studentMessageService.getOne(new LambdaQueryWrapper<StudentMessage>()
+                .eq(StudentMessage::getUserId, userId)).getStudentMessageId();
+
+        List<CourseStudent> courseStudentList = courseStudentService.list(new LambdaQueryWrapper<CourseStudent>()
+                .eq(CourseStudent::getStudentMessageId, studentMessageId));
+
+        return courseStudentList.stream().map(courseOne ->{
+            //根据课程id获取课程信息
+            Course course = this.getById(courseOne.getCourseId());
+            //根据课程id获取教师信息列表
+            List<TeacherInfoVO> teacherInfoVOList = courseTeacherRelService.selectTeacherInfoByCourseId(course.getCourseId());
+            //将课程信息转化为对象
+            CourseMyListVO courseMyListVO = BeanUtil.copyProperties(course,CourseMyListVO.class);
+            //设置对象的教师列表
+            courseMyListVO.setTeachers(teacherInfoVOList);
+            //返回课程对象
+            return courseMyListVO;
+
+        }).collect(Collectors.toList());
+
     }
 
 }

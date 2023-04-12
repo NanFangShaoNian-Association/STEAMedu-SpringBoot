@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfsn.mapper.SignInMapper">
+
+    <resultMap id="BaseResultMap" type="com.nfsn.model.entity.SignIn">
+            <id property="signInId" column="sign_in_id" jdbcType="INTEGER"/>
+            <result property="courseId" column="course_id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="deadline" column="deadline" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        sign_in_id,course_id,user_id,
+        deadline
+    </sql>
+</mapper>

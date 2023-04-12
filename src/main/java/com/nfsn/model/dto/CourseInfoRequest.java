@@ -1,12 +1,14 @@
 package com.nfsn.model.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nfsn.model.vo.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,7 +26,7 @@ public class CourseInfoRequest implements Serializable {
      * 课程封面-存图片路径
      */
     @ApiModelProperty("课程封面-存图片路径")
-    private String courseCover;
+    private List<String> courseCover;
 
     /**
      * 价格
@@ -42,7 +44,8 @@ public class CourseInfoRequest implements Serializable {
      * 课程开始时间
      */
     @ApiModelProperty("课程开始时间")
-    private String courseStartTime;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date courseStartTime;
 
     /**
      * 报名人数
@@ -97,5 +100,11 @@ public class CourseInfoRequest implements Serializable {
      */
     @ApiModelProperty("是否收藏")
     private Integer IsCollect;
+
+    /**
+     * 距离
+     */
+    @ApiModelProperty("距离")
+    private String distance = "10km";
 
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,6 +76,9 @@ public class DiscoverController {
 
         // 将课程详情信息复制到课程详情请求对象中
         BeanUtils.copyProperties(courseByCourseId,courseInfoRequest);
+        List<String> courseCoverList = new ArrayList<>();
+        courseCoverList.add(courseByCourseId.getCourseCover());
+        courseInfoRequest.setCourseCover(courseCoverList);
         // 设置课程所属机构信息
         courseInfoRequest.setInstitution(courseInstitutionInfoVO);
         // 设置课程优势

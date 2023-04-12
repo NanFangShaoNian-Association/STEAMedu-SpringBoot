@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nfsn.model.dto.StudentInfoRequest;
 import com.nfsn.model.entity.StudentMessage;
+import com.nfsn.model.entity.User;
 import com.nfsn.model.vo.PendingPaymentStudentInfoVO;
 import com.nfsn.model.vo.StudentInfoVO;
 import com.nfsn.service.StudentMessageService;
@@ -30,6 +31,13 @@ public class StudentMessageServiceImpl extends ServiceImpl<StudentMessageMapper,
     private StudentMessageMapper studentMessageMapper;
 
     @Override
+    public Integer getStudentMessageId(Integer userId) {
+        StudentMessage studentMessage = this.getOne(new LambdaQueryWrapper<StudentMessage>()
+                .eq(StudentMessage::getUserId, userId));
+        return studentMessage.getStudentMessageId();
+    }
+
+    @Override
     public StudentInfoVO getStudentInfo() {
         Integer userId = AccountHolder.getUser().getUserId();
 
@@ -38,6 +46,24 @@ public class StudentMessageServiceImpl extends ServiceImpl<StudentMessageMapper,
 
         StudentInfoVO studentInfoVO = BeanUtil.copyProperties(studentMessage, StudentInfoVO.class);
         return studentInfoVO;
+    }
+
+    @Override
+    public StudentMessage getStudentFull() {
+
+        Integer userId = AccountHolder.getUser().getUserId();
+        LambdaQueryWrapper<StudentMessage> queryWrapper = new LambdaQueryWrapper<StudentMessage>()
+                .eq(StudentMessage::getUserId, userId)
+                .isNotNull(StudentMessage::getStudentMessageName)
+                .isNotNull(StudentMessage::getStudentSex)
+                .isNotNull(StudentMessage::getSchool)
+                .isNotNull(StudentMessage::getBirthday)
+                .isNotNull(StudentMessage::getPhoneNumber)
+                .isNotNull(StudentMessage::getStudentPhoto)
+                .isNotNull(StudentMessage::getGrade);
+
+        return this.getOne(queryWrapper);
+
     }
 
     @Override

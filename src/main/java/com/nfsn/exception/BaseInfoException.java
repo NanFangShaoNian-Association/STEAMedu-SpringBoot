@@ -15,4 +15,5 @@ public class BaseInfoException extends RuntimeException{
     public BaseInfoException(ResultCode resultCode) {
         this.resultCode = resultCode;
     }
+
 }

@@ -36,11 +36,6 @@ public class NotificationRequest implements Serializable {
     @ApiModelProperty("课程id")
     private Integer courseId;
 
-    /**
-     * 通知发布时间
-     */
-    @ApiModelProperty("通知发布时间")
-    private Date publishTime;
 
     /**
      * 通知失效时间

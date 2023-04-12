@@ -28,9 +28,13 @@ public enum ResultCode {
     SESSION_HAS_EXISTED(3001,"会话已存在,请直接进行聊天"),
     SESSION_NOT_DELETE(3002,"删除失败，请重试或刷新"),
 
+    /*事件错误：3101-3199 */
+    NOTIFICATION_SIGN_DEL_SIGN(3101,"签到已经删除"),
+    NOTIFICATION_SIGN_HAS_SIGNED(3102,"已签到"),
+
 
     /*服务器内部错误*/
-    INTERNAL_ERROR(5001,"服务器内部错误，请联系开发人员");
+    INTERNAL_ERROR(5001,"服务器内部错误，请联系开发人员！或者重新刷新试试！");
 
     /**
      * 状态码

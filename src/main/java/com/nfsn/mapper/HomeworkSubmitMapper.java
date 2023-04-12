@@ -2,6 +2,8 @@ package com.nfsn.mapper;
 
 import com.nfsn.model.entity.HomeworkSubmit;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Select;
 
 /**
 * @author 温格
@@ -10,6 +12,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.nfsn.model.entity.HomeworkSubmit
 */
 public interface HomeworkSubmitMapper extends BaseMapper<HomeworkSubmit> {
+
+    @ResultMap("mybatis-plus_HomeworkSubmit")
+    @Select("select * FROM homework_submit where homework_submit_id = #{homeworkSubmitId}")
+    HomeworkSubmit selectByHomeworkId(Integer homeworkSubmitId);
 
 }
 

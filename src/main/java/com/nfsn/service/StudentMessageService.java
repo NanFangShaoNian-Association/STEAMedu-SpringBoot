@@ -13,6 +13,13 @@ import com.nfsn.model.vo.StudentInfoVO;
 */
 public interface StudentMessageService extends IService<StudentMessage> {
 
+    /**
+     * 通过用户id获取学生id
+     * @param userId
+     * @return
+     */
+    Integer getStudentMessageId(Integer userId);
+
     StudentInfoVO getStudentInfo();
 
     /**

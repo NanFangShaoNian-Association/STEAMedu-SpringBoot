@@ -31,6 +31,13 @@ public class StudentMessageServiceImpl extends ServiceImpl<StudentMessageMapper,
     private StudentMessageMapper studentMessageMapper;
 
     @Override
+    public Integer getStudentMessageId(Integer userId) {
+        StudentMessage studentMessage = this.getOne(new LambdaQueryWrapper<StudentMessage>()
+                .eq(StudentMessage::getUserId, userId));
+        return studentMessage.getStudentMessageId();
+    }
+
+    @Override
     public StudentInfoVO getStudentInfo() {
         Integer userId = AccountHolder.getUser().getUserId();
 

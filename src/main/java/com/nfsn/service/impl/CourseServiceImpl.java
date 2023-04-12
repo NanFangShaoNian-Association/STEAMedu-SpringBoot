@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * @createDate 2023-02-09 16:30:52
  */
 @Service
-public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
+ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         implements CourseService {
 
     @Resource
@@ -142,6 +142,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
 
         }).collect(Collectors.toList());
 
+    }
+
+    @Override
+    public List<Integer> getStudentMessageIds(Integer courseId) {
+        List<CourseStudent> courseStudentList = courseStudentService.list(new LambdaQueryWrapper<CourseStudent>()
+                .eq(CourseStudent::getCourseId, courseId));
+        List<Integer> studentMessageIds = courseStudentList.stream().map(CourseStudent::getStudentMessageId).collect(Collectors.toList());
+        return studentMessageIds;
     }
 
 }

@@ -2,6 +2,7 @@ package com.nfsn.model.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -19,13 +20,13 @@ public class SignInRequest implements Serializable {
     /**
      * 签到所属的课程的唯一标识符
      */
-    @TableField(value = "course_id")
+    @ApiModelProperty("签到所属的课程的唯一标识符")
     private Integer courseId;
 
     /**
      * 签到的截止时间
      */
-    @TableField(value = "deadline")
+    @ApiModelProperty("签到的截止时间")
     private Date deadline;
 
 

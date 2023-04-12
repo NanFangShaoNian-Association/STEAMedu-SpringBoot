@@ -1,21 +1,28 @@
 package com.nfsn.model.entity;
 
+import cn.hutool.json.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * 作业提交表
+ * @author 温格
  * @TableName homework_submit
  */
-@TableName(value ="homework_submit")
+@Accessors(chain = true)
+@TableName(value ="homework_submit",autoResultMap = true)
 @Data
-public class HomeworkSubmit implements Serializable {
+public class HomeworkSubmit  {
     /**
      * 自增主键
      */
@@ -37,14 +44,14 @@ public class HomeworkSubmit implements Serializable {
     /**
      * 作业答案，json存储
      */
-    @TableField(value = "homework_submit_answer")
-    private Object homeworkSubmitAnswer;
+    @TableField(value = "homework_submit_answer",typeHandler = JacksonTypeHandler.class)
+    private JSONArray homeworkSubmitAnswer;
 
     /**
      * 学生得分，默认为 NULL，表示未评分
      */
     @TableField(value = "homework_submit_score")
-    private BigDecimal homeworkSubmitScore;
+    private Double homeworkSubmitScore;
 
     /**
      * 作业状态：0 - 未完成，1 - 已完成，2 - 保存
@@ -64,6 +71,6 @@ public class HomeworkSubmit implements Serializable {
     @TableField(value = "review_time")
     private Date reviewTime;
 
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
+//    @TableField(exist = false)
+//    private static final long serialVersionUID = 1L;
 }

@@ -8,8 +8,8 @@
             <id property="homeworkSubmitId" column="homework_submit_id" jdbcType="INTEGER"/>
             <result property="homeworkId" column="homework_id" jdbcType="INTEGER"/>
             <result property="studentId" column="student_id" jdbcType="INTEGER"/>
-            <result property="homeworkSubmitAnswer" column="homework_submit_answer" jdbcType="OTHER"/>
-            <result property="homeworkSubmitScore" column="homework_submit_score" jdbcType="DECIMAL"/>
+            <result property="homeworkSubmitAnswer" column="homework_submit_answer" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+            <result property="homeworkSubmitScore" column="homework_submit_score" jdbcType="DOUBLE"/>
             <result property="homeworkSubmitStatus" column="homework_submit_status" jdbcType="TINYINT"/>
             <result property="submitTime" column="submit_time" jdbcType="TIMESTAMP"/>
             <result property="reviewTime" column="review_time" jdbcType="TIMESTAMP"/>

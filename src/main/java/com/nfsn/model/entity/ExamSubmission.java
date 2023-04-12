@@ -1,11 +1,14 @@
 package com.nfsn.model.entity;
 
+import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Data;
 
 /**
@@ -13,7 +16,7 @@ import lombok.Data;
  * @author 温格
  * @TableName exam_submission
  */
-@TableName(value ="exam_submission")
+@TableName(value ="exam_submission",autoResultMap = true)
 @Data
 public class ExamSubmission implements Serializable {
     /**
@@ -37,14 +40,14 @@ public class ExamSubmission implements Serializable {
     /**
      * 学生的考试答案(json数据)
      */
-    @TableField(value = "student_answer")
-    private Object studentAnswer;
+    @TableField(value = "student_answer",typeHandler = JacksonTypeHandler.class)
+    private JSONArray studentAnswer;
 
     /**
      * 学生的得分
      */
     @TableField(value = "student_score")
-    private Integer studentScore;
+    private Double studentScore;
 
     /**
      * 学生提交答案的时间

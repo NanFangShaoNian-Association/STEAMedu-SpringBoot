@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Data
 @ApiModel("作业选项响应实体")
-public class HomeworkQuestionVo implements Serializable {
+public class QuestionVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**

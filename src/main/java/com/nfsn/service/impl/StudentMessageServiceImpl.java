@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nfsn.constants.ResultCode;
+import com.nfsn.exception.BaseInfoException;
 import com.nfsn.model.dto.StudentInfoRequest;
 import com.nfsn.model.entity.StudentMessage;
 import com.nfsn.model.entity.User;
@@ -70,6 +72,10 @@ public class StudentMessageServiceImpl extends ServiceImpl<StudentMessageMapper,
     public void updateStudentInfo(StudentInfoRequest studentInfoRequest) {
 
         Integer userId = AccountHolder.getUser().getUserId();
+        //限制输入超过5的汉字
+        if (studentInfoRequest.getStudentMessageName() == null || studentInfoRequest.getStudentMessageName().length()>5 ){
+            throw new BaseInfoException(ResultCode.USER_NAME_EXCEED);
+        }
 
         StudentMessage studentMessage = BeanUtil.copyProperties(studentInfoRequest, StudentMessage.class);
         studentMessage.setUserId(userId);

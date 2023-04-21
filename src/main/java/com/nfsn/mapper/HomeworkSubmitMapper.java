@@ -13,9 +13,6 @@ import org.apache.ibatis.annotations.Select;
 */
 public interface HomeworkSubmitMapper extends BaseMapper<HomeworkSubmit> {
 
-    @ResultMap("mybatis-plus_HomeworkSubmit")
-    @Select("select * FROM homework_submit where homework_submit_id = #{homeworkSubmitId}")
-    HomeworkSubmit selectByHomeworkId(Integer homeworkSubmitId);
 
 }
 

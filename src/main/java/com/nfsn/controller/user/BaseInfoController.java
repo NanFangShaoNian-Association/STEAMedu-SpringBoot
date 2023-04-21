@@ -2,6 +2,7 @@ package com.nfsn.controller.user;
 
 import com.nfsn.anno.NoNeedLogin;
 
+import com.nfsn.anno.RawResource;
 import com.nfsn.common.Result;
 import com.nfsn.constants.ResultCode;
 import com.nfsn.model.entity.StudentMessage;
@@ -55,23 +56,28 @@ public class BaseInfoController {
 
     @ApiOperation("获取个人信息")
     @GetMapping("/getPersonalInfo")
-    public Result getPersonalInfo() {
-        PersonalInfoVO userInfo = userService.getUserInfo();
-        User userFull = userService.getUserFull();
-        if (userFull == null){
-            return new  Result(ResultCode.USER_NOT_FULL,userInfo);
-        }
-        return new Result(ResultCode.SUCCESS,userInfo);
+    public PersonalInfoVO getPersonalInfo() {
+//        PersonalInfoVO userInfo = userService.getUserInfo();
+        return userService.getUserInfo();
+//        User userFull = userService.getUserFull();
+//        if (userFull == null){
+//            return new  Result(ResultCode.USER_NOT_FULL,userInfo);
+//        }
+//        return new Result(ResultCode.SUCCESS,userInfo);
     }
 
     @ApiOperation("获取学生信息")
     @GetMapping("/getStudentInfo")
+    @RawResource
     public Result getStudentInfo() {
         StudentInfoVO studentInfo = studentMessageService.getStudentInfo();
         StudentMessage studentFull = studentMessageService.getStudentFull();
         if (studentFull == null){
+            studentInfo.setIsComplete("学生消息不完整");
+//            return studentInfo;
             return new  Result(ResultCode.STUDENT_NOT_FULL,studentInfo);
         }
+//        return studentInfo;
         return new Result(ResultCode.SUCCESS,studentInfo);
     }
 
@@ -100,9 +106,9 @@ public class BaseInfoController {
         return userService.uploadPhoto(file);
     }
 
-    @ApiOperation("获取选课单课程列表")
+//    @ApiOperation("获取选课单课程列表")
 //    @GetMapping("/getCartList")
-    //暂时隐藏这个接口
+    //隐藏这个接口
     public List<CartVO> listCourseInfo() {
         return cartService.getCartList();
     }

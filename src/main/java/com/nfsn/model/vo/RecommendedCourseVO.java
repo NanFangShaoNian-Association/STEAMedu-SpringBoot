@@ -1,9 +1,11 @@
 package com.nfsn.model.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.Value;
 
 import java.io.Serializable;
 import java.util.List;
@@ -35,6 +37,7 @@ public class RecommendedCourseVO implements Serializable{
      * 课程开始时间
      */
     @ApiModelProperty("课程开始时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm" ,timezone = "GMT+8")
     private String courseStartTime;
 
     /**

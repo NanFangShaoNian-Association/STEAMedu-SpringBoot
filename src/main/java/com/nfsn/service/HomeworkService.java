@@ -5,6 +5,7 @@ import com.nfsn.model.dto.HomeworkRequest;
 import com.nfsn.model.dto.HomeworkSubmitRequest;
 import com.nfsn.model.entity.Homework;
 import com.nfsn.model.entity.HomeworkSubmit;
+import com.nfsn.model.vo.HomeworkToEvenVO;
 import com.nfsn.model.vo.HomeworkVO;
 import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.ResultMap;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Date;
+import java.util.List;
 
 /**
 * @author 温格
@@ -50,7 +52,23 @@ public interface HomeworkService extends IService<Homework> {
     HomeworkVO getHomeworkToMy(@PathVariable Integer homeworkId);
 
 
-    HomeworkSubmit updateHomeworkSubmit(HomeworkSubmitRequest homeworkSubmitRequest);
+    /**
+     * 提交作业，并返回分数
+     * @param homeworkSubmitRequest
+     * @return
+     */
+    Double updateHomeworkSubmit(HomeworkSubmitRequest homeworkSubmitRequest);
 
+    /**
+     * 获取所有作业
+     * @return
+     */
+    List<HomeworkToEvenVO> getAllHomework();
 
+    /**
+     * 修改分数
+     * @param answerJsonString
+     * @return
+     */
+    Double correct(String answerJsonString);
 }

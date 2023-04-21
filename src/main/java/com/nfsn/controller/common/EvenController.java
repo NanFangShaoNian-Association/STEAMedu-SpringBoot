@@ -1,11 +1,7 @@
 package com.nfsn.controller.common;
 
-import com.nfsn.anno.RawResource;
-import com.nfsn.model.dto.HomeworkRequest;
-import com.nfsn.model.dto.HomeworkSubmitRequest;
-import com.nfsn.model.dto.NotificationRequest;
-import com.nfsn.model.dto.SignInRequest;
-import com.nfsn.model.entity.HomeworkSubmit;
+import com.nfsn.model.dto.*;
+import com.nfsn.model.entity.Exam;
 import com.nfsn.model.entity.Question;
 import com.nfsn.model.entity.SignIn;
 import com.nfsn.model.vo.*;
@@ -43,10 +39,26 @@ import java.util.List;
     @Resource
     private HomeworkService homeworkService;
 
+    @Resource
+    private ExamService examService;
+
 
     //查看所有事件（可选择单个类型或者所有事件）
 
-
+    @ApiOperation("查看所有事件（可选择单个类型或者所有事件）")
+    @GetMapping("/getAllEven")
+    public EvenVo  getAllEven(){
+        List<SignInToEvenVo> allSignIn = signInService.getAllEvenSignIn();
+        List<NotificationToEvenVO> notificationToEvenVOList = notificationService.getAllNotification();
+        List<HomeworkToEvenVO> homeworkToEvenVOList = homeworkService.getAllHomework();
+        List<ExamToEvenVo> examToEvenVoList = examService.getAllExam();
+        EvenVo evenVo = new EvenVo();
+        evenVo.setSignInVoList(allSignIn);
+        evenVo.setNotificationToEvenVOList(notificationToEvenVOList);
+        evenVo.setHomeworkToEvenVOList(homeworkToEvenVOList);
+        evenVo.setExamToEvenVoList(examToEvenVoList);
+        return evenVo;
+    }
     //签到模块
 
     @ApiOperation("创建签到")
@@ -56,7 +68,7 @@ import java.util.List;
     }
 
     @ApiOperation("删除签到")
-    @PostMapping("/delSignIn/{signInId}")
+    @DeleteMapping("/delSignIn/{signInId}")
     public void addSignIn(@PathVariable Integer signInId){
         signInService.delSignIn(signInId);
     }
@@ -104,12 +116,6 @@ import java.util.List;
         return notificationService.getNotification(notificationId);
     }
 
-//    @ApiOperation("查看所有通知")
-//    @PostMapping("/getNotification")
-//    public void getAllNotification(){
-//
-//    }
-
     //题目模块
 
     @ApiOperation("根据需求获取题目(null为所有题目，可以按类别搜索)")
@@ -150,14 +156,37 @@ import java.util.List;
         return homeworkService.getHomeworkToMy(homeworkId);
     }
 
-//    @ApiOperation("提交作业")
-//    @PutMapping("/updateHomeworkSubmit")
-//    public void updateHomeworkSubmit(@RequestBody HomeworkSubmitRequest homeworkSubmitRequest){
-//        homeworkService.updateHomeworkSubmit(homeworkSubmitRequest);
-//    }
+    @ApiOperation("提交作业")
+    @PutMapping("/updateHomeworkSubmit")
+    public Double updateHomeworkSubmit(@RequestBody HomeworkSubmitRequest homeworkSubmitRequest){
+        return homeworkService.updateHomeworkSubmit(homeworkSubmitRequest);
+    }
 
     //考试模块
 
+    @ApiOperation("新增考试")
+    @PostMapping("/addExam")
+    public void addExam(@RequestBody ExamRequest examRequest){
+        examService.addExam(examRequest);
+    }
+
+    @ApiOperation("发布考试")
+    @PutMapping("/putExam/{examId}")
+    public void putExam(@PathVariable Integer examId){
+        examService.putExam(examId);
+    }
+
+    @ApiOperation("获取指定考试数据")
+    @GetMapping("/getExamToMy/{examId}")
+    public ExamVo getExamToMy(@PathVariable Integer examId){
+        return examService.getExamToMy(examId);
+    }
+
+    @ApiOperation("提交考试")
+    @PutMapping("/updateExamSubmit")
+    public Double updateExamSubmit(@RequestBody ExamSubmissionRequest examSubmissionRequest){
+        return examService.updateExamSubmit(examSubmissionRequest);
+    }
 
 
 }

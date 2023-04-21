@@ -20,9 +20,9 @@ import lombok.experimental.Accessors;
  * @TableName homework_submit
  */
 @Accessors(chain = true)
-@TableName(value ="homework_submit",autoResultMap = true)
+@TableName(value ="homework_submit")
 @Data
-public class HomeworkSubmit  {
+public class HomeworkSubmit  implements Serializable{
     /**
      * 自增主键
      */
@@ -44,8 +44,8 @@ public class HomeworkSubmit  {
     /**
      * 作业答案，json存储
      */
-    @TableField(value = "homework_submit_answer",typeHandler = JacksonTypeHandler.class)
-    private JSONArray homeworkSubmitAnswer;
+    @TableField(value = "homework_submit_answer")
+    private String homeworkSubmitAnswer;
 
     /**
      * 学生得分，默认为 NULL，表示未评分
@@ -71,6 +71,6 @@ public class HomeworkSubmit  {
     @TableField(value = "review_time")
     private Date reviewTime;
 
-//    @TableField(exist = false)
-//    private static final long serialVersionUID = 1L;
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 }

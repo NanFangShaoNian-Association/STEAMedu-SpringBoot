@@ -18,6 +18,7 @@ import com.nfsn.utils.AccountHolder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -45,7 +46,9 @@ public class CollectServiceImpl extends ServiceImpl<CollectMapper, Collect> impl
                 .eq(Collect::getUserId, userId));
 
         if (collectList.size() ==0){
-            throw new BaseInfoException(ResultCode.PARAM_IS_BLANK);
+            List<CollectToCourseInfoVo> CollectToCourseInfoVo = new ArrayList<>();
+            return CollectToCourseInfoVo;
+//            throw new BaseInfoException(ResultCode.PARAM_IS_BLANK);
         }
 
         List<Integer> ids = collectList.stream().map(Collect::getCourseId)

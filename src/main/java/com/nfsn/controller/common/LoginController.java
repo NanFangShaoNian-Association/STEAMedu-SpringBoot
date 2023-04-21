@@ -75,6 +75,15 @@ public class LoginController {
         return loginVO;
     }
 
+    @ApiOperation("用户退出")
+    @DeleteMapping("/user/logout")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "Access Token", required = true, paramType = "header", dataTypeClass = String.class)
+    })
+    public void logout(){
+        loginService.logout();
+    }
+
     public LoginVO userLoginByPhone(@RequestBody LoginRequest loginRequest) {
         //校验必要参数非空
         if (!StringUtils.hasText(loginRequest.getCertificate()) &&

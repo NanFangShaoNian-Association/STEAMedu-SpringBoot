@@ -16,11 +16,11 @@ import lombok.Data;
  * @author 温格
  * @TableName exam_submission
  */
-@TableName(value ="exam_submission",autoResultMap = true)
+@TableName(value ="exam_submission")
 @Data
 public class ExamSubmission implements Serializable {
     /**
-     * 
+     * 考试提交id
      */
     @TableId(value = "submission_id", type = IdType.AUTO)
     private Integer submissionId;
@@ -40,8 +40,8 @@ public class ExamSubmission implements Serializable {
     /**
      * 学生的考试答案(json数据)
      */
-    @TableField(value = "student_answer",typeHandler = JacksonTypeHandler.class)
-    private JSONArray studentAnswer;
+    @TableField(value = "student_answer")
+    private String studentAnswer;
 
     /**
      * 学生的得分

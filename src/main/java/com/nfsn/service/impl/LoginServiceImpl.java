@@ -2,6 +2,7 @@ package com.nfsn.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.map.MapUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.nfsn.common.RedisData;
 import com.nfsn.constants.ResultCode;
 import com.nfsn.exception.UserLoginException;
@@ -9,10 +10,7 @@ import com.nfsn.model.dto.LoginRequest;
 import com.nfsn.model.entity.User;
 import com.nfsn.model.vo.LoginVO;
 import com.nfsn.service.UserService;
-import com.nfsn.utils.CacheClient;
-import com.nfsn.utils.PhoneRegexUtils;
-import com.nfsn.utils.RandomUtils;
-import com.nfsn.utils.TokenUtil;
+import com.nfsn.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -51,6 +49,7 @@ public class LoginServiceImpl {
      *
      * @param phone 手机号
      */
+
     public void getVerifyCode(String phone) {
         //校验手机号的合理性
         if (!PhoneRegexUtils.isPhoneLegal(phone)) {
@@ -58,8 +57,8 @@ public class LoginServiceImpl {
             throw new UserLoginException(ResultCode.PARAM_IS_INVALID);
         }
 
-        //生成随机验证码
-        //String verifyCode = RandomUtils.getRandom(RandomUtils.ALL_NUMBER, 6);
+//        生成随机验证码
+//        String verifyCode = RandomUtils.getRandom(RandomUtils.ALL_NUMBER, 6);
 
         //固定验证码
         String verifyCode = "123456";
@@ -119,6 +118,17 @@ public class LoginServiceImpl {
         loginVO.setPhone(user.getPhoneNumber());
         loginVO.setIntroduction(user.getPhoneNumber());
         return loginVO;
+    }
+
+    /**
+     * 用户退出
+     */
+    public void logout(){
+        Integer userId = AccountHolder.getUser().getUserId();
+        //获取对应用户的手机号
+        String phoneNumber = userService.getOne(new LambdaQueryWrapper<User>().eq(User::getUserId, userId)).getPhoneNumber();
+        //删除token
+        stringRedisTemplate.delete(LOGIN_USER_KEY + phoneNumber);
     }
 
 }

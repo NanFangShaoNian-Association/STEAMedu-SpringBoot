@@ -6,14 +6,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nfsn.constants.ResultCode;
 import com.nfsn.exception.BaseInfoException;
 import com.nfsn.model.dto.NotificationRequest;
-import com.nfsn.model.entity.CourseStudent;
-import com.nfsn.model.entity.Notification;
-import com.nfsn.model.entity.NotificationStatus;
-import com.nfsn.model.entity.SignInStatus;
+import com.nfsn.model.entity.*;
+import com.nfsn.model.vo.NotificationToEvenVO;
 import com.nfsn.model.vo.NotificationVo;
 import com.nfsn.service.*;
 import com.nfsn.mapper.NotificationMapper;
 import com.nfsn.utils.AccountHolder;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +29,7 @@ import java.util.stream.Collectors;
 */
 @Service
 public class NotificationServiceImpl extends ServiceImpl<NotificationMapper, Notification>
-    implements NotificationService{
+    implements NotificationService {
 
     @Resource
     private CourseStudentService courseStudentService;
@@ -52,20 +51,20 @@ public class NotificationServiceImpl extends ServiceImpl<NotificationMapper, Not
 
         Integer userId = AccountHolder.getUser().getUserId();
         Notification notification = new Notification();
-        BeanUtils.copyProperties(notificationRequest,notification);
+        BeanUtils.copyProperties(notificationRequest, notification);
         notification.setPublishTime(new Date());
         notification.setUserId(userId);
         boolean save = this.save(notification);
         Integer notificationId = notification.getNotificationId();
 
-        if (save){
+        if (save) {
             //将通知发放给课程同学
             List<CourseStudent> courseStudents = courseStudentService.list(new LambdaQueryWrapper<CourseStudent>()
                     .eq(CourseStudent::getCourseId, notification.getCourseId()));
             //查询所有对应学生的id
             List<Integer> studentMessageIds = courseStudents.stream().map(CourseStudent::getStudentMessageId).collect(Collectors.toList());
             List<NotificationStatus> notificationStatusList = new ArrayList<>();
-            for(Integer studentMessageId : studentMessageIds){
+            for (Integer studentMessageId : studentMessageIds) {
                 NotificationStatus notificationStatus = new NotificationStatus();
                 notificationStatus.setNotificationId(notificationId);
                 notificationStatus.setStudentMessageId(studentMessageId);
@@ -82,12 +81,12 @@ public class NotificationServiceImpl extends ServiceImpl<NotificationMapper, Not
 
         boolean delNotificationRemove = this.remove(new LambdaQueryWrapper<Notification>()
                 .eq(Notification::getNotificationId, notificationId));
-        if (!delNotificationRemove){
+        if (!delNotificationRemove) {
             throw new BaseInfoException(ResultCode.PARAM_IS_INVALID);
         }
 
-        if (delNotificationRemove){
-            notificationStatusService.remove(new LambdaQueryWrapper<NotificationStatus>().eq(NotificationStatus::getNotificationId,notificationId));
+        if (delNotificationRemove) {
+            notificationStatusService.remove(new LambdaQueryWrapper<NotificationStatus>().eq(NotificationStatus::getNotificationId, notificationId));
         }
     }
 
@@ -98,11 +97,16 @@ public class NotificationServiceImpl extends ServiceImpl<NotificationMapper, Not
         NotificationStatus notificationStatusOne = notificationStatusService.getOne(new LambdaQueryWrapper<NotificationStatus>()
                 .eq(NotificationStatus::getNotificationId, notificationId)
                 .eq(NotificationStatus::getStudentMessageId, studentMessageId));
-        if (notificationStatusOne.getStatus() == 0){
+
+        if (notificationStatusOne == null){
+            throw new BaseInfoException(ResultCode.PARAM_NOT_EXISTED);
+        }
+
+        if (notificationStatusOne.getStatus() == 0) {
             notificationStatusService.update(new LambdaUpdateWrapper<NotificationStatus>()
-                    .eq(NotificationStatus::getNotificationId,notificationId)
-                    .eq(NotificationStatus::getStudentMessageId,studentMessageId)
-                    .set(NotificationStatus::getStatus,1));
+                    .eq(NotificationStatus::getNotificationId, notificationId)
+                    .eq(NotificationStatus::getStudentMessageId, studentMessageId)
+                    .set(NotificationStatus::getStatus, 1));
         }
         //查询通知信息
         Notification notificationOne = this.getOne(new LambdaQueryWrapper<Notification>().eq(Notification::getNotificationId, notificationId));
@@ -114,17 +118,47 @@ public class NotificationServiceImpl extends ServiceImpl<NotificationMapper, Not
 
         //复制通知信息
         NotificationVo notificationVo = new NotificationVo();
-        BeanUtils.copyProperties(notificationOne,notificationVo);
+        BeanUtils.copyProperties(notificationOne, notificationVo);
         //补充消息体信息
         notificationVo.setCourseName(courseName);
         notificationVo.setUserName(userName);
 
         return notificationVo;
+    }
 
+    @Override
+    public List<NotificationToEvenVO> getAllNotification() {
+        Integer userId = AccountHolder.getUser().getUserId();
+        Integer studentMessageId = studentMessageService.getStudentMessageId(userId);
 
+        List<NotificationToEvenVO> notificationToEvenVOList = new ArrayList<>();
+
+        List<NotificationStatus> notificationStatusList = notificationStatusService.list(new LambdaQueryWrapper<NotificationStatus>()
+                .eq(NotificationStatus::getStudentMessageId, studentMessageId));
+        if (notificationStatusList.size()==0){
+            return notificationToEvenVOList;
+        }
+        List<Integer> notificationIds = notificationStatusList.stream().map(NotificationStatus::getNotificationId).collect(Collectors.toList());
+        List<Notification> notificationList = this.list(new LambdaQueryWrapper<Notification>()
+                .in(Notification::getNotificationId, notificationIds));
+        List<Integer> courseIds = notificationList.stream().map(Notification::getCourseId).collect(Collectors.toList());
+        List<Course> courseList = courseService.list(new LambdaQueryWrapper<Course>().in(Course::getCourseId, courseIds));
+
+        for (int i = 0; i < notificationStatusList.size(); i++) {
+            NotificationToEvenVO notificationToEvenVO = new NotificationToEvenVO();
+            notificationToEvenVO.setNotificationId(notificationList.get(i).getNotificationId());
+            notificationToEvenVO.setNotificationName(notificationList.get(i).getNotificationName());
+            for (Course course : courseList) {
+                if (course.getCourseId().equals(notificationList.get(i).getCourseId())) {
+                    notificationToEvenVO.setCourseName(course.getCourseName());
+                }
+            }
+            notificationToEvenVO.setExpiryTime(notificationList.get(i).getExpiryTime());
+            notificationToEvenVOList.add(notificationToEvenVO);
+        }
+        return notificationToEvenVOList;
     }
 }
-
 
 
 

@@ -1,5 +1,6 @@
 package com.nfsn.model.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -21,7 +22,7 @@ public class Collect implements Serializable {
     /**
      * 收藏实体类-主键
      */
-    @TableId(value = "collect_id")
+    @TableId(value = "collect_id", type = IdType.AUTO)
     private Integer collectId;
 
     /**

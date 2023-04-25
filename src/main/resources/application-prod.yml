@@ -7,7 +7,7 @@ spring:
   # Database configuration
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver                      # MySQL driver package
-    url: jdbc:mysql://192.168.87.186:3306/steam_edu?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://47.120.32.32:3306/steam_edu?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: "nfsn520"
     type: com.alibaba.druid.pool.DruidDataSource                      # Current data source operation type
@@ -19,7 +19,7 @@ spring:
 
   # Redis related
   redis:
-    host: 192.168.87.186
+    host: 47.120.32.32
     port: 6371
     password: nfsn-redis-6371
     lettuce:
@@ -43,9 +43,9 @@ spring:
 
 # MinIO configuration
 minio:
-  endpoint: http://192.168.87.186:9000
-  access-Key: 3KCAO08E2ZASV3X33M4G
-  secret-Key: VIqHY7Dn0ZUJaOqk50zyxvjdmtqUaglX2t0NQ5ue
+  endpoint: http://47.120.32.32:9000
+  access-Key: IWgSXNvJz86GuK3A
+  secret-Key: ACwg1tjrAMoIQGSoqdeoyqhmzUVvckhp
 
 app:
   update:
@@ -63,8 +63,8 @@ app:
 #  gatewayUrl: https://openapi.alipaydev.com/gateway.do #此处使用的是沙箱环境的支付宝网关
 #  logPath: "E:\\alipay.log"
 #
-#mybatis-plus:
-#  global-config:
-#    db-config:
-#      id-type: auto
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
 #file-save-path: A:/uploadFile/          #文件路径

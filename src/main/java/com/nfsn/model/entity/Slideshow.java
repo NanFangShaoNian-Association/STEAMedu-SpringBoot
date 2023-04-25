@@ -17,7 +17,7 @@ public class Slideshow implements Serializable {
     /**
      * 轮播图id-主键
      */
-    @TableId(value = "slideshow_id")
+    @TableId(value = "slideshow_id", type = IdType.AUTO)
     private Integer slideshowId;
 
     /**

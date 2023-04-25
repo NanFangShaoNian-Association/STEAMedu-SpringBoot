@@ -18,7 +18,7 @@ public class Choose implements Serializable {
     /**
      * 订单ID-主键
      */
-    @TableId(value = "choose_id")
+    @TableId(value = "choose_id", type = IdType.AUTO)
     private Integer chooseId;
 
     /**

@@ -17,7 +17,7 @@ public class Leave implements Serializable {
     /**
      * 学生信息ID-主键;用户外键
      */
-    @TableId(value = "student_id")
+    @TableId(value = "student_id", type = IdType.AUTO)
     private Integer studentId;
 
     /**

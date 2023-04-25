@@ -45,7 +45,7 @@ import java.util.List;
 
     //查看所有事件（可选择单个类型或者所有事件）
 
-    @ApiOperation("查看所有事件（可选择单个类型或者所有事件）")
+    @ApiOperation("查看所有事件")
     @GetMapping("/getAllEven")
     public EvenVo  getAllEven(){
         List<SignInToEvenVo> allSignIn = signInService.getAllEvenSignIn();

@@ -18,7 +18,7 @@ public class CourseRating implements Serializable {
     /**
      * 评价id-主键
      */
-    @TableId(value = "course_rating_id")
+    @TableId(value = "course_rating_id", type = IdType.AUTO)
     private Integer courseRatingId;
 
     /**

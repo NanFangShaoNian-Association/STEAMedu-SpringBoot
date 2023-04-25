@@ -5,6 +5,9 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.nfsn.common.RedisData;
+import com.nfsn.constants.ResultCode;
+import com.nfsn.exception.RedisException;
+import com.nfsn.exception.UserLoginException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -89,7 +92,7 @@ public class CacheClient {
     public <R,ID> R queryWithPassThrough(
             String keyPrefix, ID id, Class<R> type, Function<ID, R> dbFallback, Long time, TimeUnit unit){
         String key = keyPrefix + id;
-        // 1.从redis查询商铺缓存
+        // 1.从redis查询缓存
         String json = stringRedisTemplate.opsForValue().get(key);
         // 2.判断是否存在
         if (StrUtil.isNotBlank(json)) {
@@ -99,7 +102,7 @@ public class CacheClient {
         // 判断命中的是否是空值
         if (json != null) {
             // 返回一个错误信息
-            return null;
+            throw new RedisException(ResultCode.USER_TOKEN_IS_INVALID);
         }
 
         // 4.不存在，根据id查询数据库

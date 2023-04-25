@@ -17,7 +17,7 @@ public class Friends implements Serializable {
     /**
      * 朋友ID-主键;用户外键
      */
-    @TableId(value = "friend_user_id")
+    @TableId(value = "friend_user_id", type = IdType.AUTO)
     private Integer friendUserId;
 
     /**

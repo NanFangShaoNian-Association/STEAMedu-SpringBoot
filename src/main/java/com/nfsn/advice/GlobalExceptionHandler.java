@@ -3,6 +3,7 @@ package com.nfsn.advice;
 import com.nfsn.common.Result;
 import com.nfsn.constants.ResultCode;
 import com.nfsn.exception.BaseInfoException;
+import com.nfsn.exception.RedisException;
 import com.nfsn.exception.UserException;
 import com.nfsn.exception.UserLoginException;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +59,12 @@ public class GlobalExceptionHandler {
         return Result.failure(e.getResultCode(), null);
     }
 
+    //redis异常拦截
+    @ExceptionHandler(RedisException.class)
+    public Result RedisExceptionHandler(HttpServletRequest req, RedisException e) {
+        log.error("出现RedisException异常：",e);
+        return Result.failure(e.getResultCode(), null);
+    }
 
     //其他异常拦截
     @ExceptionHandler(Exception.class)

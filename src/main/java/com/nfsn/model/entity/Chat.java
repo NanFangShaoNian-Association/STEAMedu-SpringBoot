@@ -18,7 +18,7 @@ public class Chat implements Serializable {
     /**
      * 聊天记录ID-主键
      */
-    @TableId(value = "chat_id")
+    @TableId(value = "chat_id", type = IdType.AUTO)
     private Integer chatId;
 
     /**

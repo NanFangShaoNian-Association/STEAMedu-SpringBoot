@@ -18,7 +18,7 @@ public class ExamQuestion implements Serializable {
     /**
      * 关联的试卷ID
      */
-    @TableField(value = "exam_id")
+    @TableId(value = "exam_id", type = IdType.AUTO)
     private Integer examId;
 
     /**

@@ -18,7 +18,7 @@ public class StudentMessage implements Serializable {
     /**
      * 学生信息ID-主键
      */
-    @TableId(value = "student_message_id")
+    @TableId(value = "student_message_id", type = IdType.AUTO)
     private Integer studentMessageId;
 
     /**

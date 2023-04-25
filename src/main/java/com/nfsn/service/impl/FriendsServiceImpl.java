@@ -43,17 +43,20 @@ public class FriendsServiceImpl extends ServiceImpl<FriendsMapper, Friends>
     public List<FriendsVO> listFriend() {
         Integer userId = AccountHolder.getUser().getUserId();
 
+        List<FriendsVO> friendsVOS = new ArrayList<>();
+
         //获取friends中的好友
         List<Friends> friends = this.list(new LambdaQueryWrapper<Friends>().eq(Friends::getSelfUserId, userId));
+
         //获取其中的id
         List<Integer> friendIds = friends.stream().map(Friends::getFriendUserId).collect(Collectors.toList());
         if (friendIds.size() == 0){
-            return null;
+            return friendsVOS;
         }
         //获取对应的用户信息
         List<User> users = userService.listByIds(friendIds);
         //实体转换
-        List<FriendsVO> friendsVOS = BeanUtil.copyToList(users, FriendsVO.class);
+         friendsVOS = BeanUtil.copyToList(users, FriendsVO.class);
         return friendsVOS;
     }
 

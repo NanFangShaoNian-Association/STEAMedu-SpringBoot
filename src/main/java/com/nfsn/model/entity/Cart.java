@@ -17,7 +17,7 @@ public class Cart implements Serializable {
     /**
      * 购物车id-主键
      */
-    @TableId(value = "cart_id")
+    @TableId(value = "cart_id", type = IdType.AUTO)
     private Integer cartId;
 
     /**

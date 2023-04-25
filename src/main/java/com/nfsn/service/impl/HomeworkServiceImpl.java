@@ -1,13 +1,18 @@
 package com.nfsn.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nfsn.constants.ResultCode;
+import com.nfsn.exception.BaseInfoException;
 import com.nfsn.mapper.HomeworkSubmitMapper;
 import com.nfsn.model.dto.HomeworkRequest;
 import com.nfsn.model.dto.HomeworkSubmitRequest;
+import com.nfsn.model.dto.OptionRequest;
 import com.nfsn.model.entity.*;
-import com.nfsn.model.vo.HomeworkQuestionVo;
+import com.nfsn.model.vo.QuestionVo;
+import com.nfsn.model.vo.HomeworkToEvenVO;
 import com.nfsn.model.vo.HomeworkVO;
 import com.nfsn.model.vo.OptionVo;
 import com.nfsn.service.*;
@@ -17,7 +22,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -114,6 +119,10 @@ public class HomeworkServiceImpl extends ServiceImpl<HomeworkMapper, Homework>
         Homework homeworkOne = this.getOne(new LambdaUpdateWrapper<Homework>()
                 .eq(Homework::getHomeworkId, homeworkId));
 
+        if (homeworkOne ==null){
+            throw new BaseInfoException(ResultCode.PARAM_NOT_EXISTED);
+        }
+
         //构建作业响应类
         HomeworkVO homeworkVO = new HomeworkVO();
         //将作业信息复制进去
@@ -122,10 +131,10 @@ public class HomeworkServiceImpl extends ServiceImpl<HomeworkMapper, Homework>
         List<HomeworkQuestion> list = homeworkQuestionService.list(new LambdaUpdateWrapper<HomeworkQuestion>()
                 .eq(HomeworkQuestion::getHomeworkId, homeworkId));
         List<Integer> questionIds = list.stream().map(HomeworkQuestion::getQuestionId).collect(Collectors.toList());
-        List<HomeworkQuestionVo>  homeworkQuestionVoList = new ArrayList<>();
+        List<QuestionVo> QuestionVoList = new ArrayList<>();
 
         for (Integer questionId : questionIds){
-            HomeworkQuestionVo homeworkQuestionVo = new HomeworkQuestionVo();
+            QuestionVo homeworkQuestionVo = new QuestionVo();
             Question question = questionService.getOne(new LambdaUpdateWrapper<Question>().eq(Question::getQuestionId, questionId));
             BeanUtils.copyProperties(question,homeworkQuestionVo);
             //这里的questionOptionList就已经包含所有的选项了，那为什么还需要插入呢？
@@ -139,41 +148,94 @@ public class HomeworkServiceImpl extends ServiceImpl<HomeworkMapper, Homework>
                 optionVoList.add(optionVo);
             }
             homeworkQuestionVo.setOptionVoList(optionVoList);
-            homeworkQuestionVoList.add(homeworkQuestionVo);
+            QuestionVoList.add(homeworkQuestionVo);
         }
         //将题目列表插入作业
-        homeworkVO.setHomeworkQuestionVoList(homeworkQuestionVoList);
+        homeworkVO.setHomeworkQuestionVoList(QuestionVoList);
         return homeworkVO;
     }
 
     @Override
-    public HomeworkSubmit updateHomeworkSubmit(HomeworkSubmitRequest homeworkSubmitRequest) {
+    public Double updateHomeworkSubmit(HomeworkSubmitRequest homeworkSubmitRequest) {
+        //创建返回实体
+        Double score = 0.0;
 
-        HomeworkSubmit homeworkSubmit1 = homeworkSubmitMapper.selectByHomeworkId(homeworkSubmitRequest.getHomeworkSubmitId());
-        System.out.println("homeworkSubmit1::" + homeworkSubmit1);
+        //将答案转化为json字符串
+        String toJSONStringHomeworkSubmitAnswer = JSON.toJSONString(homeworkSubmitRequest.getOptionRequestList());
+        homeworkSubmitService.update(new LambdaUpdateWrapper<HomeworkSubmit>()
+                .eq(HomeworkSubmit::getHomeworkSubmitId,homeworkSubmitRequest.getHomeworkSubmitId())
+                .set(HomeworkSubmit::getSubmitTime,new Date())
+                .set(HomeworkSubmit::getHomeworkSubmitStatus,homeworkSubmitRequest.getHomeworkSubmitStatus())
+                .set(HomeworkSubmit::getHomeworkSubmitAnswer,toJSONStringHomeworkSubmitAnswer));
 
-//
-//        HomeworkSubmit homeworkSubmitServiceOne = homeworkSubmitService.getOne(new LambdaQueryWrapper<HomeworkSubmit>()
-//                .eq(HomeworkSubmit::getHomeworkSubmitId, homeworkSubmitRequest.getHomeworkSubmitId()));
-//
-//        HomeworkSubmit homeworkSubmit = new HomeworkSubmit();
-//        BeanUtils.copyProperties(homeworkSubmitRequest,homeworkSubmitServiceOne);
-//        homeworkSubmitServiceOne.setSubmitTime(new Date());
-//        homeworkSubmitService.updateById(homeworkSubmitServiceOne);
+        if (homeworkSubmitRequest.getHomeworkSubmitStatus() == 1){
+             score = correct(toJSONStringHomeworkSubmitAnswer);
+            homeworkSubmitService.update(new LambdaUpdateWrapper<HomeworkSubmit>().eq(HomeworkSubmit::getHomeworkSubmitId,homeworkSubmitRequest.getHomeworkSubmitId())
+                    .set(HomeworkSubmit::getHomeworkSubmitScore,score));
+            return score;
+        }
+        return score;
+    }
 
-        return null;
+    @Override
+    public List<HomeworkToEvenVO> getAllHomework() {
+        Integer userId = AccountHolder.getUser().getUserId();
+        Integer studentMessageId = studentMessageService.getStudentMessageId(userId);
 
-//        homeworkSubmitService.update(new LambdaUpdateWrapper<HomeworkSubmit>()
-//                .eq(HomeworkSubmit::getHomeworkSubmitId,homeworkSubmitRequest.getHomeworkSubmitId())
-//                .set(HomeworkSubmit::getHomeworkSubmitAnswer,homeworkSubmitRequest.getHomeworkSubmitAnswer())
-//                .set(HomeworkSubmit::getHomeworkSubmitStatus,homeworkSubmitRequest.getHomeworkSubmitStatus())
-//                .set(HomeworkSubmit::getSubmitTime,new Date()));
+        List<HomeworkToEvenVO> homeworkToEvenVOList = new ArrayList<>();
 
-//        HomeworkSubmit homeworkSubmit = new HomeworkSubmit();
-//        BeanUtils.copyProperties(homeworkSubmitRequest,homeworkSubmit);
-//        homeworkSubmit.setStudentId(studentMessageId);
-//        homeworkSubmit.setReviewTime(new Date());
-//        homeworkSubmitService.updateById(homeworkSubmit);
+        List<HomeworkSubmit> homeworkSubmitList = homeworkSubmitService.list(new LambdaQueryWrapper<HomeworkSubmit>()
+                .eq(HomeworkSubmit::getStudentId, studentMessageId));
+        if (homeworkSubmitList.size()==0){
+            return homeworkToEvenVOList;
+        }
+        List<Integer> homeworkIds = homeworkSubmitList.stream().map(HomeworkSubmit::getHomeworkId).collect(Collectors.toList());
+        List<Homework> homeworkList = this.list(new LambdaQueryWrapper<Homework>()
+                .in(Homework::getHomeworkId, homeworkIds));
+        List<Integer> courseIds = homeworkList.stream().map(Homework::getCourseId).collect(Collectors.toList());
+        List<Course> courseList = courseService.list(new LambdaQueryWrapper<Course>().in(Course::getCourseId, courseIds));
+
+        for (int i = 0; i < homeworkSubmitList.size(); i++){
+            HomeworkToEvenVO homeworkToEvenVO = new HomeworkToEvenVO();
+            homeworkToEvenVO.setHomeworkId(homeworkList.get(i).getHomeworkId());
+            homeworkToEvenVO.setHomeworkTitle(homeworkList.get(i).getHomeworkTitle());
+            for (Course course : courseList) {
+                if (course.getCourseId().equals(homeworkList.get(i).getCourseId())) {
+                    homeworkToEvenVO.setCourseName(course.getCourseName());
+                }
+            }
+            homeworkToEvenVO.setDeadline(homeworkList.get(i).getDeadline());
+            homeworkToEvenVOList.add(homeworkToEvenVO);
+        }
+        return homeworkToEvenVOList;
+    }
+
+    //批改分数
+    @Override
+    public Double correct(String answerJsonString){
+        //json字符串转化为list集合
+        List<OptionRequest> optionRequestList = JSON.parseArray(answerJsonString, OptionRequest.class);
+        //获取总题目数量
+        double optionNumber = optionRequestList.size();
+        //对的题目数量
+        long isCorrectCount = 0;
+        //获取单个题目的对错情况
+        for (OptionRequest optionRequest : optionRequestList ){
+            Integer questionId = optionRequest.getQuestionId();
+            //获取所有选项的对错对比，如果和选项数目一致则表示该题正确
+            long count1 = questionOptionService.count(new LambdaQueryWrapper<QuestionOption>()
+                    .eq(QuestionOption::getQuestionId, questionId)
+                    .eq(QuestionOption::getIsCorrect, 1)
+                    .in(QuestionOption::getOptionIndex, optionRequest.getOptionIndexList())
+                    );
+            if (count1 == optionRequest.getOptionIndexList().size() ){
+                isCorrectCount ++;
+            }
+        }
+        //计算分数
+        DecimalFormat format2 = new DecimalFormat("0.0000");
+        String format1 = format2.format(isCorrectCount / optionNumber);
+        return Double.parseDouble(format1)*100;
     }
 }
 

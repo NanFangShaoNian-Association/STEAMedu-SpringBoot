@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author snail
@@ -26,17 +27,10 @@ public class HomeworkSubmitRequest implements Serializable {
     private Integer homeworkSubmitId;
 
     /**
-     * 作业 ID，外键关联 homework 表
+     * 选项内容集合
      */
-    @ApiModelProperty("作业 ID")
-    private Integer homeworkId;
-
-    /**
-     * 作业答案，json存储
-     */
-    @ApiModelProperty("作业答案，json存储")
-    private JSONArray homeworkSubmitAnswer;
-
+    @ApiModelProperty("选项内容集合")
+    List<OptionRequest> optionRequestList;
 
     /**
      * 作业状态：0 - 未完成，1 - 已完成，2 - 保存

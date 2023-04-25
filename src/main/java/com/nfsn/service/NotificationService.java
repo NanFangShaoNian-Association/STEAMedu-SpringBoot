@@ -3,8 +3,11 @@ package com.nfsn.service;
 import com.nfsn.model.dto.NotificationRequest;
 import com.nfsn.model.entity.Notification;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.nfsn.model.vo.NotificationToEvenVO;
 import com.nfsn.model.vo.NotificationVo;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 /**
 * @author 温格
@@ -32,6 +35,13 @@ public interface NotificationService extends IService<Notification> {
      * @return
      */
     NotificationVo getNotification(Integer notificationId);
+
+
+    /**
+     * 获取所有事件通知
+     * @return
+     */
+    List<NotificationToEvenVO> getAllNotification();
 
 
 

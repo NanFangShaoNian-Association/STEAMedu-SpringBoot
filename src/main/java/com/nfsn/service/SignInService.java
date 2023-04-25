@@ -5,7 +5,7 @@ import com.nfsn.model.entity.SignIn;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.nfsn.model.vo.SignInCourseStatusVO;
 import com.nfsn.model.vo.SignInStatusVO;
-import org.springframework.web.bind.annotation.PathVariable;
+import com.nfsn.model.vo.SignInToEvenVo;
 
 import java.util.List;
 
@@ -41,6 +41,12 @@ public interface SignInService extends IService<SignIn> {
      * @return
      */
     SignInStatusVO getSignInToStudent( Integer signInId);
+
+    /**
+     * 获取所有事件签到
+     * @return
+     */
+    List<SignInToEvenVo> getAllEvenSignIn();
 
 
     /**

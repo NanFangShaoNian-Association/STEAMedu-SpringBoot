@@ -1,8 +1,10 @@
 package com.nfsn.model.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.Value;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -46,6 +48,7 @@ public class StudentInfoVO implements Serializable {
      * 生日
      */
     @ApiModelProperty("生日")
+    @JsonFormat(pattern = "yyyy-MM-dd " ,timezone = "GMT+8")
     private Date birthday;
 
     /**
@@ -65,4 +68,10 @@ public class StudentInfoVO implements Serializable {
      */
     @ApiModelProperty("年级")
     private String grade;
+
+    /**
+     *学生消息是否完整
+     */
+    @ApiModelProperty("学生消息是否完整")
+    private String isComplete = "学生消息完整";
 }

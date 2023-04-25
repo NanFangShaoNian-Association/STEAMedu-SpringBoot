@@ -18,7 +18,7 @@ public class CourseHour implements Serializable {
     /**
      * 课时ID-主键
      */
-    @TableId(value = "course_hour_id")
+    @TableId(value = "course_hour_id", type = IdType.AUTO)
     private Integer courseHourId;
 
     /**

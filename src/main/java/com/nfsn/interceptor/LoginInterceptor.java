@@ -42,7 +42,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         //是不是映射到方法上
         boolean isHandlerMethod = handler instanceof HandlerMethod;
         if (!isHandlerMethod) {
-//            System.out.println("不是方法上");
             return true;
         }
         //不需要登录的注解
@@ -56,7 +55,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         //需要登录验证
         String token = request.getHeader("token");
 
-        if (null == token) {
+        if (null == token && "".equals(token)) {
             throw new UserLoginException(ResultCode.USER_TOKEN_IS_BLANK);
 //            System.out.println("无token");
         } else {
@@ -80,7 +79,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         try {
             claims = TokenUtil.parseJwt(token);
         } catch (Exception e) {
-            log.info("token有误");
+            log.info("token有误,当前claims为：{}", claims);
             throw new UserLoginException(ResultCode.USER_TOKEN_IS_INVALID);
         }
         //验证逻辑
@@ -99,6 +98,9 @@ public class LoginInterceptor implements HandlerInterceptor {
                     log.info("用户已放入threadLocal中");
                     AccountHolder.saveUser(user);
                     return true;
+                }else {
+                    //用户token与redis中不匹配
+                    throw new UserLoginException(ResultCode.USER_TOKEN_IS_INVALID);
                 }
             }
         }

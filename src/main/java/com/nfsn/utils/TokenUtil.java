@@ -1,6 +1,9 @@
 package com.nfsn.utils;
 
+import com.nfsn.constants.ResultCode;
+import com.nfsn.exception.RedisException;
 import io.jsonwebtoken.*;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
@@ -8,6 +11,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.Map;
 
+@Slf4j
 public class TokenUtil {
 
     //签名的密钥
@@ -107,14 +111,21 @@ public class TokenUtil {
     public static Claims parseJwt(String jwt){
 //        Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(SECRET)).parseClaimsJws(jwt).getBody();
         Claims claims = null;
+        log.info("into parseJwt, jwt args:{}",jwt);
         try {
             claims = Jwts.parser()
+//                    .setAllowedClockSkewSeconds(3085110L)
                     .setSigningKey(SECRET) // 设置标识名
                     .parseClaimsJws(jwt)  //解析token
                     .getBody();
         } catch (ExpiredJwtException e) {
-            claims = e.getClaims();
+            log.info("parseJwt error, claim:{}",claims);
+            log.info("parseJwt error2, e.getMessage:{}",e.getMessage());
+            throw new RedisException(ResultCode.USER_TOKEN_IS_INVALID);
+//            claims = e.getClaims();
+//            log.info("handle parseJwt error, claim:{}",claims);
         }
+        log.info("parseJwt claim return:{}",claims);
         return claims;
     }
 }

@@ -17,7 +17,7 @@ public class CourseDetail implements Serializable {
     /**
      * 课程详细介绍ID-主键
      */
-    @TableId(value = "course_detail_id")
+    @TableId(value = "course_detail_id", type = IdType.AUTO)
     private Integer courseDetailId;
 
     /**

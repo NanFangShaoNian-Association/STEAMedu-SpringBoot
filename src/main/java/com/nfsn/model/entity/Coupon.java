@@ -20,7 +20,7 @@ public class Coupon implements Serializable {
     /**
      * 优惠券ID-主键
      */
-    @TableId(value = "coupon_id")
+    @TableId(value = "coupon_id", type = IdType.AUTO)
     private Integer couponId;
 
 

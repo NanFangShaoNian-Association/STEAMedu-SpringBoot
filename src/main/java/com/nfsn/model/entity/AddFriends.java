@@ -17,7 +17,7 @@ public class AddFriends implements Serializable {
     /**
      * 请求增添的用户ID-主键;用户外键
      */
-    @TableId(value = "request_user_id")
+    @TableId(value = "request_user_id", type = IdType.AUTO)
     private Integer requestUserId;
 
     /**

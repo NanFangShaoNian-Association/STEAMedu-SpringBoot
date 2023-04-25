@@ -17,7 +17,7 @@ public class CourseTeacherRel implements Serializable {
     /**
      * 课程ID-主键
      */
-    @TableId(value = "course_id")
+    @TableId(value = "course_id", type = IdType.AUTO)
     private Integer courseId;
 
     /**

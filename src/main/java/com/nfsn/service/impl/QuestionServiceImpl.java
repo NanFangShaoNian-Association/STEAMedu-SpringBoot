@@ -3,6 +3,8 @@ package com.nfsn.service.impl;
 import com.alibaba.druid.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nfsn.constants.ResultCode;
+import com.nfsn.exception.BaseInfoException;
 import com.nfsn.model.entity.Question;
 import com.nfsn.model.entity.QuestionOption;
 import com.nfsn.model.vo.QuestionOptionVo;
@@ -30,7 +32,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
     @Override
     public List<Question> getQuestion(String typeName) {
         if (typeName == null){
-            return this.list(new LambdaQueryWrapper<Question>());
+            return this.list();
         }
 
         return this.list(new LambdaQueryWrapper<Question>().eq(Question::getQuestionCategory, typeName));
@@ -41,14 +43,15 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
 
         QuestionOptionVo questionOptionVo = new QuestionOptionVo();
         Question question = this.getOne(new LambdaQueryWrapper<Question>().eq(Question::getQuestionId, questionId));
+        if (question == null){
+            throw new BaseInfoException(ResultCode.PARAM_NOT_EXISTED);
+        }
 
         List<QuestionOption> questionOptionList = questionOptionService.list(new LambdaQueryWrapper<QuestionOption>().eq(QuestionOption::getQuestionId, questionId));
         //插入数据
         BeanUtils.copyProperties(question,questionOptionVo);
         questionOptionVo.setQuestionOptionList(questionOptionList);
         return questionOptionVo;
-
-
     }
 }
 
